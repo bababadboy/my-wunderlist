@@ -81,7 +81,7 @@
 .mt90{margin-top: 90px;}
 .mt100{margin-top: 100px;}
 .mt115{margin-top: 115px;}
-
+.ml0{margin-left: 0px;}
 .ml10{margin-left: 10px;}
 .ml15{margin-left: 15px;}
 .ml20{margin-left: 20px;}
@@ -95,6 +95,7 @@
 .ml80{margin-left: 80px;}
 .ml100{margin-left: 100px;}
 
+.mr0{margin-right: 0px;}
 .mr5{ margin-right: 5px;}
 .mr10{ margin-right: 10px;}
 .mr15{ margin-right: 15px;}
@@ -203,6 +204,8 @@
 .w750{width: 750px;}
 .w400{width:400px;}
 .w300{width:300px;}
+.w380{width:380px;}
+.w160{width: 160px;}
 .h88 { height: 88px; }
 .h30 { height: 30px; }
 .h25 { height: 25px; }

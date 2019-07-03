@@ -4,7 +4,7 @@
             <h1>{{title}}</h1>
         </div>
         <div class="input">
-            <input type="text" v-model='add' @keydown.enter='addItem' placeholder="输入代办事项" class="w300 h30 fs15">
+            <input type="text" v-model='add' @keydown.enter='addItem' placeholder="输入代办事项" class="w380 h30 fs15">
 <!--            <input type="button" value="+" @click="addItem" class="ml10">-->
         </div>
         <div class="w400">
@@ -61,18 +61,7 @@
 
 <style src="../assets/css/common.css" scoped></style>
 <style scoped>
-    .w160{
-        width: 160px;
-    }
-    .ml0{
-        margin-left: 0px;
-    }
-    .mr0{
-        margin-right: 0px;
-    }
-    .li{
-        display: flex;
-    }
+
     .container{
         padding: 20px;
         width: 500px;
@@ -84,5 +73,6 @@
         width: 400px;
         height: 40px;
         margin-bottom: 20px;
+        display: flex;
     }
 </style>
