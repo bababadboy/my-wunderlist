@@ -1,17 +1,21 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <wunderlist></wunderlist>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Wunderlist from './components/Wunderlist.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Wunderlist
+  },
+  data(){
+    return{
+      title:'Wunderlist'
+    }
   }
 }
 </script>
@@ -24,5 +28,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 </style>
