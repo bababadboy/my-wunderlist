@@ -1,9 +1,9 @@
 <template>
     <div class="item">
-        <div class="data">{{data}}</div>
-        <div>
-            <button @click="handleClick">x</button>
+        <div class="mr0">
+            <input type="button" value="✔️" @click="handleClick(index)">
         </div>
+        <div class="ml10">{{index+1 +'.'+data.text}}</div>
     </div>
 </template>
 
@@ -11,11 +11,12 @@
 <script>
 export default {
     props:{
-        data:String
+        index:Number,
+        data:Object,
     },
     methods:{
-        handleClick(){
-            this.$emit('')
+        handleClick(index){
+            this.$emit('click-btn',index)
         }
     }
 }
@@ -26,7 +27,7 @@ export default {
     width: 300px;
     height: 30px;
     display: flex;
-    justify-content: space-between
+    justify-content: flex-start;
 }
 .data{
     width:200px;
