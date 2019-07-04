@@ -10,7 +10,7 @@ import Wunderlist from './components/Wunderlist.vue'
 export default {
   name: 'app',
   components: {
-    Wunderlist
+    Wunderlist,
   },
   data(){
     return{

@@ -1,9 +1,12 @@
 <template>
     <div class="container">
+
+        <alert class="alert" v-if="alert_visible"></alert>
+
         <div class="w400">
             <h1>{{title}}</h1>
         </div>
-        <div class="input">
+        <div class="input-wrapper">
             <input type="text" v-model='add' @keydown.enter='addItem' placeholder="输入代办事项" class="w380 h30 fs15">
 <!--            <input type="button" value="+" @click="addItem" class="ml10">-->
         </div>
@@ -25,10 +28,13 @@
 
 <script>
     import item from './item.vue'
+    import alert from './alert.vue'
+
     export default {
         name: "Wunderlist",
         components:{
-          item
+            item,
+            alert
         },
         data(){
             return {
@@ -39,18 +45,32 @@
                     // {text:"Chian"},
                     // {text:"Xuejie"},
                     // {text:"Guohaowen"},
-                ]
+                ],
+                alert_visible:false,
+                display_time : 2000
             }
         },
         methods:{
             addItem() {
                 // console.log('你点击了加任务按钮!')
                 if(this.add === ''){
-                    alert('输入不能为空')
+                    this.alert_visible = true
+                    // alert定时可见
+                    this.display_time = 2000
+                    this.setTimer(this.display_time)
                 }else{
                     this.list.push({text:this.add})
                     this.add = ''
                 }
+            },
+            setTimer(){
+                setInterval(()=>{
+                    if (this.display_time == 0){
+                        this.alert_visible = false
+                    } else {
+                        this.display_time -= 1000
+                    }
+                },1000)
             },
             deleteItem(index){
                 this.list.splice(index,1)
@@ -61,7 +81,6 @@
 
 <style src="../assets/css/common.css" scoped></style>
 <style scoped>
-
     .container{
         padding: 20px;
         width: 500px;
@@ -69,10 +88,26 @@
         flex-wrap: wrap; 
         justify-content: flex-start;
     }
-    .input{
+    .input-wrapper{
         width: 400px;
         height: 40px;
         margin-bottom: 20px;
         display: flex;
+    }
+    input{
+        text-indent: 10px;
+        outline: medium;
+    }
+    .alert{
+        position: relative;
+        margin-left: 25%;
+    }
+
+    /*过渡动画*/
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 </style>
