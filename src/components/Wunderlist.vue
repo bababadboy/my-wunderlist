@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-
-        <alert class="alert" v-if="alert_visible"></alert>
+        <alert class="alert" v-if="alert_visible" :state="alert_state" :text="alert_text"></alert>
 
         <div class="w400">
             <h1>{{title}}</h1>
@@ -12,15 +11,6 @@
         </div>
         <div class="w400">
             <item v-for="(item,index) in list" :index="index" :data="item" :key="index" @click-btn="deleteItem(index)"></item>
-<!--            <ol>-->
-<!--                <li v-for="(item,index) in list" :key="index" class="li">-->
-<!--                    -->
-<!--                    <div class="mr0">-->
-<!--                        <input type="button" value="✔️" @click="deleteItem(index)">-->
-<!--                    </div>-->
-<!--                    <div class="ml10">{{index+1+'.'+item.text}}</div>-->
-<!--                </li>-->
-<!--            </ol>-->
         </div>
         
     </div>
@@ -47,33 +37,41 @@
                     // {text:"Guohaowen"},
                 ],
                 alert_visible:false,
-                display_time : 2000
+                display_time : 5000,
+                alert_state:'',
+                alert_text:''
             }
         },
         methods:{
+            // 添加项目
             addItem() {
                 // console.log('你点击了加任务按钮!')
                 if(this.add === ''){
-                    this.alert_visible = true
-                    // alert定时可见
-                    this.display_time = 2000
-                    this.setTimer(this.display_time)
+                    this.display_alert('error','输入不能为空：(')
                 }else{
                     this.list.push({text:this.add})
                     this.add = ''
                 }
             },
-            setTimer(){
-                setInterval(()=>{
-                    if (this.display_time == 0){
-                        this.alert_visible = false
-                    } else {
-                        this.display_time -= 1000
-                    }
-                },1000)
-            },
+            // 删除项目
             deleteItem(index){
+                this.display_alert('success','删除成功: D')
                 this.list.splice(index,1)
+            },
+            // alert从展示到消失
+            display_alert(state,payload){
+                this.alert_visible = true
+                this.alert_state = state
+                this.alert_text = payload
+                this.display_time = 3000    // 重新设置时间
+                // alert定时可见
+                this.setTimer(this.display_time)
+            },
+            setTimer(){
+                setInterval(()=>{   // 每过1000ms,display_time减一
+                    this.display_time <=0 ?
+                        this.alert_visible = false : this.display_time -= 1000
+                },1000)
             }
         }
     }

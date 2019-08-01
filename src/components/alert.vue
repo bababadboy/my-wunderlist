@@ -1,6 +1,6 @@
 <template>
-    <div class="alert alert-err">
-        <span class="fs14 err-font">{{text}}</span>
+    <div :class="['alert',computeState]">
+        <span :class="['fs14',computeFont]">{{text}}</span>
     </div>
 </template>
 
@@ -12,11 +12,36 @@
                 type:String,
                 default:'错误：输入不能为空'
             },
+            // 种类: success/warn/error
+            state:{
+                type:String,
+                default:"error"
+            },
             visible:{
                 type: Boolean,
                 default:true
             }
         },
+        computed:{
+            computeState(){
+                if (this.state === 'error'){
+                    return 'alert-err'
+                }else if (this.state === 'warn'){
+                    return 'alert-warn'
+                } else{
+                    return 'alert-success'
+                }
+            },
+            computeFont(){
+                if (this.state === 'error'){
+                    return 'err-font'
+                }else if (this.state === 'warn'){
+                    return 'warn-font'
+                } else{
+                    return 'success-font'
+                }
+            }
+        }
     }
 </script>
 
