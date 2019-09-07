@@ -1,21 +1,43 @@
 <template>
-  <div id="app">
-    <wunderlist></wunderlist>
-  </div>
-</template>
+   <div id="app">
+        <p>Wangxb现在只有<span class="no">{{offerNum}}</span>个offer</p>
+        <input type="button" value="鼓励他,给个offer" @click="offerIncr()">
+    </div>
+</template> 
 
 <script>
-import Wunderlist from './components/Wunderlist.vue'
+import {postRequest,getRequest} from "./utils/api"
 
 export default {
   name: 'app',
   components: {
-    Wunderlist,
+    
   },
   data(){
     return{
-      title:'Wunderlist'
+      offerNum:0,
+      postUrl:"/api/v1/giveoffer",
+      getUrl:"/api/v1/getoffer"
     }
+  },
+  mounted(){
+    this.getOffer();
+  },
+  methods: {
+     offerIncr(){
+        postRequest(this.postUrl).then(res=>{
+          // console.log(res)
+          this.offerNum = res.data.offer_num
+        })
+        // todo 发送请求
+        // this.offerNum = addOffer()
+     },
+     getOffer(){
+        getRequest(this.getUrl).then(res=>{
+          // console.log(res)
+          this.offerNum = res.data.offer_num
+        })
+     }
   }
 }
 </script>
@@ -31,5 +53,9 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+.no{
+  font-size: 25px
+  
 }
 </style>
