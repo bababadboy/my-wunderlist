@@ -161,6 +161,9 @@
 .ps-a{ position: absolute; }
 .ps-f{ position: fixed; }
 /* font-size */
+.fs12{font-size: 12px;}
+.fs13{font-size: 13px;}
+.fs14{font-size: 14px;}
 .fs15{font-size: 15px;}
 .fs20{font-size: 20px;}
 .fs22{font-size: 22px;}
@@ -282,7 +285,24 @@
   height: 48px;
 }
 
-
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.tc-slate {
+  color: #99a2aa;
+}
+.tc-black {
+  color: #222;
+}
 .del {
   text-decoration: line-through;
 }
+a{
+  text-decoration-line: none;
+  text-decoration-style: initial;
+  text-decoration-color: initial;
+}
+

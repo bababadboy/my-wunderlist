@@ -1,6 +1,6 @@
 import axios from 'axios'
-// let base = 'http://106.14.191.82:8004'
-let base = 'http://localhost:8004'
+let base = 'http://106.14.191.82:8008'
+// let base = 'http://localhost:8008'
 export const postRequest = (url, params) => {
   return axios({
     method: 'post',
