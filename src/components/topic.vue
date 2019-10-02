@@ -24,7 +24,7 @@
     .topic-container{
         width: 244px;
         height: 35px;
-        border-radius: 5%;
+        border-radius: 4px;
         background-color: #fff;
     }
     .title{

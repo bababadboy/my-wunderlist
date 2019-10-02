@@ -54,9 +54,10 @@
         flex-direction: column;
     }
     .card-down{
-        margin-top: -5px;
+        margin-top: -4px;
         width: 244px;
         height: 100px;
         background-color: #fff;
+        border-radius: 4px;
     }
 </style>

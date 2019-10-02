@@ -7,7 +7,8 @@
                     <card title="点击给wxb offer"></card>
                 </div>
                 <div class="center-panel">
-                    <pub></pub>
+                    <pub :value="pubContent" @input="pubContent = $event.target.value"></pub>
+                    <!--   同 ↑   <pub v-model="pubContent"></pub>-->
                 </div>
                 <!--<div class="right-panel">-->
                     <!--<card></card>-->
@@ -32,6 +33,7 @@
         },
         data() {
             return {
+                pubContent:'',
                 offerNum: 0,
                 postUrl: "/api/v1/giveoffer",
                 getUrl: "/api/v1/getoffer"
