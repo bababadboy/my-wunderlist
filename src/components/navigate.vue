@@ -22,7 +22,8 @@
                             <li class="nav-item profile-info">
                                 <a href="#" class="t">
                                     <div class="i-face">
-                                        <img alt="alt" src="https://i1.hdslb.com/bfs/face/be0e1af3c03680f203113c33ef9e9d2158d6fed8.jpg@72w_72h.webp" class="face">
+                                        <img src="https://static.easyicon.net/preview/121/1214124.gif" alt="" class="face">
+<!--                                        <img alt="alt" src="https://i1.hdslb.com/bfs/face/be0e1af3c03680f203113c33ef9e9d2158d6fed8.jpg@72w_72h.webp" class="face">-->
                                     </div>
                                 </a>
                             </li>

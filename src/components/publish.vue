@@ -18,16 +18,23 @@
         props:{
             value:{
                 type:String,
-                default:"分享一下你的故事吧。"
+                default:""
             }
+        },
+        components:{
+            textArea
         },
         data(){
           return{
               currentVal: this.value
           }
         },
-        components:{
-            textArea
+        methods:{
+        },
+        watch:{
+            currentVal:function(){
+                this.$emit('input', this.currentVal);
+            }
         }
     }
 </script>

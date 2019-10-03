@@ -7,7 +7,7 @@
                     <card title="点击给wxb offer"></card>
                 </div>
                 <div class="center-panel">
-                    <pub :value="pubContent" @input="pubContent = $event.target.value"></pub>
+                    <pub v-model="pubContent"></pub>
                     <!--   同 ↑   <pub v-model="pubContent"></pub>-->
                 </div>
                 <!--<div class="right-panel">-->
