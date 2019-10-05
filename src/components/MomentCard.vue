@@ -1,20 +1,20 @@
 <template>
-    <div class="mmtcard-container">
+    <div class="mmtcard-container dev">
         <div class="i-face"></div>
         <div class="main-content">
             <div class="name fs15">
-                我是管理员
+                {{data.nickname}}
             </div>
             <div class="tc-slate fs12">
-                2019-10-01
+                {{data.time}}
             </div>
             <div class="content fs14">
-                {{content}}
+                {{data.content}}
             </div>
             <div class="mt15">
-                <div class="single-btn">转发</div>
-                <div class="single-btn">评论</div>
-                <div class="single-btn">点赞</div>
+                <div class="single-btn">转发 {{data.forwardNum}}</div>
+                <div class="single-btn">评论 {{data.commentNum}}</div>
+                <div class="single-btn">点赞 {{data.likeNum}}</div>
             </div>
         </div>
     </div>
@@ -24,9 +24,18 @@
     export default {
         name: "MomentCard",
         props:{
-            content:{
-                type:String,
-                default:''
+            data:{
+                type:Object,
+                default:function () {
+                    return {
+                        'nickname':'无名小辈',
+                        'time':'1970-1-1',
+                        'content':'分布式系统不能抛弃 p(分区容错卫性)，所以一般会有 AP/CP两种选择。AP削弱了数据的一致性，比如发个微博啥的，数据延迟个几秒钟甚至几分钟问题不大，但为了用户体验不能不可用；而CP强调数据的一致性，宁愿用户有个短暂的无法使用，也必须保证数据是一致的，在金融相关软件更为常见。\n',
+                        'forwardNum':0,
+                        'commentNum':0,
+                        'likeNum':0
+                    }
+                }
             }
         },
         data(){

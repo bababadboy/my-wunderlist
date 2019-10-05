@@ -9,13 +9,9 @@
                 <div class="center-panel">
                     <pub @input="handleInput($event)" :text="pubContent" @btnClick="publishMoment()"></pub>
 
-                    <!-- todo div改成 momentCard组件-->
-<!--                    <div v-for="(item,index) in momentsList" :key="index" class="moment-card">-->
-<!--                        {{item}}-->
-<!--                    </div>-->
-                    <moment-card v-for="(item,index) in momentsList" :key="index" :content="item" class="moment-card">
-                    </moment-card>
+                    <moment-card v-for="(item,index) in momentsList" :key="index" :data="item" class="moment-card"></moment-card>
                 </div>
+                <!-- todo 右边的面板-->
                 <!--<div class="right-panel">-->
                     <!--<card></card>-->
                 <!--</div>-->
@@ -44,8 +40,12 @@
                 pubContent:'',
                 offerNum: 0,
                 momentsList:[], // 朋友圈列表
-                postUrl: "/api/v1/giveoffer",
-                getUrl: "/api/v1/getoffer"
+                api:{
+                    incrOffer: "/api/v1/giveoffer",
+                    getOffer: "/api/v1/getoffer",
+                    publishMoment:'api/v1/publish_moment',
+                    getMomentList:'api/v1/get_moments_list'
+                }
             }
         },
         mounted() {
@@ -54,24 +54,23 @@
         },
         methods: {
             offerIncr() {
-                postRequest(this.postUrl).then(res => {
+                postRequest(this.api.incrOffer).then(res => {
                     this.offerNum = res.data.offer_num
                 })
             },
             getOffer() {
-                getRequest(this.getUrl).then(res => {
+                getRequest(this.api.getOffer).then(res => {
                     this.offerNum = res.data.offer_num
                 })
             },
             // 发布输入的内容
             publishMoment(){
-
-                // todo 发送数据到后台接口
-
+                // todo uid 改成登录的用户的uid，当前先写死
+                postRequest(this.api.publishMoment,{'uid':'10001','content':this.pubContent})
                 // todo 弹出一个发布成功状态框
-                this.momentsList.push(this.pubContent)
                 this.pubContent = '';
-
+                // this.momentsList.push(this.pubContent)
+                this.getMomentsList();
 
             },
             handleInput($event){
@@ -79,7 +78,10 @@
             },
             // 获取动态列表
             getMomentsList(){
-
+                getRequest(this.api.getMomentList).then(res=>{
+                    this.momentsList =res;//todo to be confirmed
+                })
+                // this.momentsList.push(this.pubContent)
             }
         }
     }
