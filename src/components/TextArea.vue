@@ -6,7 +6,7 @@
 
     <div class="textarea-container">
         <label for="">
-            <textarea name="" id="" class="textarea" placeholder="说点什么吧" :value="currValue"
+            <textarea name="" id="" class="textarea" placeholder="说点什么吧" :value="text"
                       @input="handleInput($event)"
                       @mouseover="addActive($event)" @focusout="removeActive($event)">
 
@@ -18,15 +18,10 @@
 <script>
     export default {
         name: "textArea",
-        props: {
-            value: {
-                type: String,
-                default: ''
-            }
-        },
-        data() {
-            return{
-                currValue:this.value,
+        props:{
+            text:{
+                type:String,
+                default:''
             }
         },
         methods: {
@@ -37,15 +32,18 @@
                 $event.currentTarget.className = "textarea";
             },
             handleInput($event) {
-                this.currValue = $event.target.value;
-                this.$emit('input', this.currValue);
+                // this.currValue = $event.target.value;
+                let value ={
+                    textVal:$event.target.value
+                }
+                this.$emit('input', value);
             }
         }
     }
 </script>
 
 
-<style src="../assets/css/common.css" scoped></style>
+<!--<style src="../assets/css/common.css" scoped></style>-->
 <style scoped>
     .textarea-container {
 
@@ -64,6 +62,7 @@
         min-height: 76px;
         max-height: 200px;
         letter-spacing: 1px;
+        font-size: 14px;
         /*去除右下角的三角图标*/
         resize: none;
     }

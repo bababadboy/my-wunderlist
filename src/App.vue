@@ -7,8 +7,14 @@
                     <card title="点击给wxb offer"></card>
                 </div>
                 <div class="center-panel">
-                    <pub v-model="pubContent"></pub>
-                    <!--   同 ↑   <pub v-model="pubContent"></pub>-->
+                    <pub @input="handleInput($event)" :text="pubContent" @btnClick="publishMoment()"></pub>
+
+                    <!-- todo div改成 momentCard组件-->
+<!--                    <div v-for="(item,index) in momentsList" :key="index" class="moment-card">-->
+<!--                        {{item}}-->
+<!--                    </div>-->
+                    <moment-card v-for="(item,index) in momentsList" :key="index" :content="item" class="moment-card">
+                    </moment-card>
                 </div>
                 <!--<div class="right-panel">-->
                     <!--<card></card>-->
@@ -20,27 +26,31 @@
 
 <script>
     import {postRequest, getRequest} from "./utils/api"
-    import navigate from "./components/navigate"
-    import pub from "./components/publish"
-    import card from "./components/card"
+    import navigate from "./components/Navigate"
+    import pub from "./components/Publish"
+    import card from "./components/Card"
+    import MomentCard from "./components/MomentCard"
 
     export default {
         name: 'app',
         components: {
             navigate,
             pub,
-            card
+            card,
+            MomentCard
         },
         data() {
             return {
                 pubContent:'',
                 offerNum: 0,
+                momentsList:[], // 朋友圈列表
                 postUrl: "/api/v1/giveoffer",
                 getUrl: "/api/v1/getoffer"
             }
         },
         mounted() {
             this.getOffer();
+            this.getMomentsList();
         },
         methods: {
             offerIncr() {
@@ -52,6 +62,24 @@
                 getRequest(this.getUrl).then(res => {
                     this.offerNum = res.data.offer_num
                 })
+            },
+            // 发布输入的内容
+            publishMoment(){
+
+                // todo 发送数据到后台接口
+
+                // todo 弹出一个发布成功状态框
+                this.momentsList.push(this.pubContent)
+                this.pubContent = '';
+
+
+            },
+            handleInput($event){
+                this.pubContent=$event.textVal;
+            },
+            // 获取动态列表
+            getMomentsList(){
+
             }
         }
     }
@@ -87,20 +115,12 @@
         width: 268px;
 
     }
-
-    /*#app {*/
-        /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-        /*-webkit-font-smoothing: antialiased;*/
-        /*-moz-osx-font-smoothing: grayscale;*/
-        /*text-align: center;*/
-        /*color: #2c3e50;*/
-        /*margin-top: 60px;*/
-        /*display: flex;*/
-        /*justify-content: center;*/
-        /*flex-wrap: wrap;*/
-    /*}*/
-
-    .no {
-        font-size: 25px
+    .moment-card{
+        margin-top: 10px;
+        height: 160px;
+        width: 632px;
+        background-color: #fff;
+        border-radius: 4px;
+        font-size: 30px;
     }
 </style>

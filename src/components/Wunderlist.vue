@@ -17,8 +17,8 @@
 </template>
 
 <script>
-    import item from './item.vue'
-    import alert from './alert.vue'
+    import item from './Item.vue'
+    import alert from './Alert.vue'
 
     export default {
         name: "Wunderlist",

@@ -165,6 +165,7 @@
 .fs13{font-size: 13px;}
 .fs14{font-size: 14px;}
 .fs15{font-size: 15px;}
+.fs16{font-size: 16px;}
 .fs20{font-size: 20px;}
 .fs22{font-size: 22px;}
 .fs23{font-size: 23px;}
@@ -304,5 +305,10 @@ a{
   text-decoration-line: none;
   text-decoration-style: initial;
   text-decoration-color: initial;
+}
+.dev{
+  border-style: solid;
+  border-width: 1px;
+  border-color: #FF595E;
 }
 

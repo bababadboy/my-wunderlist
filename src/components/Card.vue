@@ -10,7 +10,7 @@
 
 <script>
     import {postRequest, getRequest} from "../utils/api"
-    import topic from './topic'
+    import topic from './Topic'
     export default {
         name: "card",
         components:{

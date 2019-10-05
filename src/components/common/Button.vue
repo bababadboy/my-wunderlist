@@ -16,7 +16,7 @@
             },
             bg_color:{
                 type: String,
-                default: '#326EFD'
+                default: '#aaeaff'
             },
             font_color:{
                 type:String,
@@ -38,7 +38,6 @@
     }
 </script>
 
-<style src="../../assets/css/common.css"></style>
 <style scoped>
     .txt{
         width: 60px;
@@ -49,16 +48,19 @@
         justify-content: center;
     }
     .btn{
-        width: 80px;
-        height: 30px;
-        border-radius: 10%;
+        width: 70px;
+        height: 32px;
+        border-radius: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #326EFD;;
+        background-color: #4ed3ff;;
+        cursor: pointer;
+
     }
     .bg-disabled {
-        background-color: #98B6FE;
+        background-color: #aaeaff;
+        cursor: not-allowed;
     }
 
 </style>
