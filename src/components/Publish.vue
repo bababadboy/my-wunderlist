@@ -38,7 +38,9 @@
         },
         methods:{
             btnClick(){
-                this.$emit('btnClick')
+                if (!this.btnDisabled){
+                    this.$emit('btnClick')
+                }
             },
             handleInput($event){
                 this.currentVal = $event.textVal;
