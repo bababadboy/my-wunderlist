@@ -1,5 +1,5 @@
 <template>
-    <div :class="['btn',disabled?'bg-disabled':'']" @click="click">
+    <div :class="['btn',disabled?'bg-disabled':'']" :style="btnStyle" @click="click">
         <div class="txt">
             {{text}}
         </div>
@@ -25,7 +25,16 @@
             disabled:{
                 type:Boolean,
                 default:false
-            }
+            },
+            // 高度，以px为单位
+            height:{
+                type:String,
+                default:'35'
+            },
+            width:{
+                type:String,
+                default:'75'
+            },
 
         },
         methods:{
@@ -34,14 +43,18 @@
             }
         },
         computed:{
+            btnStyle(){
+                return {
+                    height: this.height + 'px',
+                    width: this.width + 'px',
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
     .txt{
-        width: 60px;
-        height: 20px;
         font-size: small;
         color: #FFFFFF;
         display: flex;

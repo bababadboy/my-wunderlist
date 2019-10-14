@@ -1,33 +1,62 @@
 <template>
     <div class="mmtcard-container">
-        <div class="i-face"></div>
-        <div class="main-content">
-            <div class="name fs15">
-                {{data.nickname}}
+        <!-- 动态行  -->
+        <div class="moment-row">
+            <div class="i-face"></div>
+            <div class="main-content">
+                <div class="name fs15">
+                    {{data.nickname}}
+                </div>
+                <div id="more-btn" class="iconfont icon-more icon fr" @click="clickMore"></div>
+                <!-- native监听当前组件，自定义事件       -->
+                <more-panel v-if="morePanelShownStatus" class="more-panel" @click.native="clickpanel()"></more-panel>
+                <div class="tc-slate fs12">
+                    {{data.publishTime}}
+                </div>
+                <div class="content fs14">
+                    {{data.content}}
+                </div>
+                <div class="mt15 mb10">
+                    <div class="single-btn">
+                        <div class="iconfont icon-fenxiang icon"></div>
+                        <span v-if="!data.numOfForwards"> 转发</span>
+                        <span v-else>{{data.numOfForwards}}</span>
+                    </div>
+                    <div class="single-btn" @click="clickComment()">
+                        <div class="iconfont icon-pinglun icon"></div>
+                        <span v-if="!data.numOfComment"> 评论</span>
+                        <span v-else>{{data.numOfComment}}</span>
+                    </div>
+                    <div class="single-btn">
+                        <div class="iconfont icon-dianzan icon"></div>
+                        <span v-if="!data.numOfLike"> 点赞</span>
+                        <span v-else>{{data.numOfLike}}</span>
+                    </div>
+                </div>
             </div>
-            <div id="more-btn" class="iconfont icon-more more-button fr" @click="clickMore"></div>
-                                                                        <!-- native监听当前组件，自定义事件       -->
-            <more-panel v-if="morePanelShownStatus" class="more-panel" @click.native="clickpanel()"></more-panel>
-            <div class="tc-slate fs12">
-                {{data.publishTime}}
+        </div>
+        <!-- 评论行 -->
+        <div class="comment-row" v-if="commentCardShownStatus" >
+            <div class="comment-send">
+                <comment-send
+                        @input="handleInput($event)"
+                        @SendComment="handleSendComment">
+                </comment-send>
             </div>
-            <div class="content fs14">
-                {{data.content}}
-            </div>
-            <div class="mt15">
-                <div class="single-btn">转发 {{data.numOfForwards}}</div>
-                <div class="single-btn">评论 {{data.numOfComment}}</div>
-                <div class="single-btn">点赞 {{data.numOfLike}}</div>
-            </div>
+<!--            <div class="comment-list">todo 评论列表</div>-->
         </div>
     </div>
 </template>
 
 <script>
     import MorePanel from './MorePanel'
+    // import Publish from './Publish'
+    import CommentSend from './CommentSend'
     export default {
         components:{
-            MorePanel
+            MorePanel,
+            // Publish,
+            CommentSend
         },
         name: "MomentCard",
         props:{
@@ -41,23 +70,47 @@
                         'content':'分布式系统不能抛弃 p(分区容错卫性)，所以一般会有 AP/CP两种选择。AP削弱了数据的一致性，比如发个微博啥的，数据延迟个几秒钟甚至几分钟问题不大，但为了用户体验不能不可用；而CP强调数据的一致性，宁愿用户有个短暂的无法使用，也必须保证数据是一致的，在金融相关软件更为常见。\n',
                         'numOfForwards':0,
                         'numOfComment':0,
-                        'numOfLike':0
+                        'numOfLike':0,
+                        'commentSend':'',
+                        'commentList':[{
+                            'nickname':'',
+                            'publishTime':'1970-1-1',
+                            'content':'分布式系统不能抛弃 p(分区容错卫性)，所以一般会有 AP/CP两种选择。AP削弱了数据的一致性，比如发个微博啥的，数据延迟个几秒钟甚至几分钟问题不大，但为了用户体验不能不可用；而CP强调数据的一致性，宁愿用户有个短暂的无法使用，也必须保证数据是一致的，在金融相关软件更为常见。\n',
+                            'numOfForwards':0,
+                            'numOfComment':0,
+                            'numOfLike':4,
+                        }]
                     }
                 }
             }
         },
         data(){
             return{
-                morePanelShownStatus:false
+                morePanelShownStatus:false,
+                commentCardShownStatus:false,
+                commentVal:''
             }
         },
         methods:{
-            clickMore(){
+            clickMore() {
                 this.morePanelShownStatus = !this.morePanelShownStatus;
             },
             clickpanel() {
                 this.$emit('delete')
                 this.morePanelShownStatus = false
+            },
+            // 显示动态 的评论内容
+            clickComment() {
+                this.$emit('commentClick')
+                this.commentCardShownStatus = !this.commentCardShownStatus
+
+            },
+            handleSendComment(){
+                this.$emit('sendComment')
+            },
+            handleInput($event){
+                this.commentVal = $event.textVal
+                this.$emit('commentInput',$event)
             }
         }
     }
@@ -82,16 +135,30 @@
 
     }
     .mmtcard-container{
+        display: block;
         margin-top: 10px;
-        /*height: 347px;*/
         width: 632px;
         background-color: #fff;
         border-color: #FF595E;
     }
 
+    .moment-row {
+        margin-top: 10px;
+        width: 632px;
+        border-radius: 5px;
+        background-color: #fff;
+        border-color: #FF595E;
+    }
+    .comment-row {
+        display: block;
+        /*width: 632px;*/
+        padding-bottom: 15px;
+        border-radius: 5px;
+        background-color: #fff;
+        border-color: #FF595E;
+    }
     .main-content {
         width: 534px;
-        /*height: 300px;*/
         padding-top: 10px;
         margin-top: -50px;
         margin-left: 85px;
@@ -114,8 +181,9 @@
         display: inline-block;
         width: 92px;
         font-size: 12px;
+        cursor: pointer;
     }
-    .more-button{
+    .icon{
         display: inline-block;
         cursor: pointer;
     }

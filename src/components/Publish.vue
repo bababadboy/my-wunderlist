@@ -65,10 +65,6 @@
     .pub-panel{
         height: 85%;
         width: 90%;
-        /*border-style: solid;*/
-        /*border-width: 2px;*/
-        /*border-color: #26BC7E;*/
-        /*border-radius: 4px;*/
         position: relative;
         left: 4%;
         top: 12%;
@@ -77,9 +73,6 @@
     .action-row{
         width: 100%;
         height: 30%;
-        /*border-style: solid;*/
-        /*border-width: 1px;*/
-        /*border-color: red;*/
     }
     .limit{
         display: inline-block;

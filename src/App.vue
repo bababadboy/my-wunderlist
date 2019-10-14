@@ -9,11 +9,15 @@
                 <div class="center-panel">
                     <pub @input="handleInput($event)" :text="pubContent" @btnClick="publishMoment()"></pub>
 
-                    <moment-card v-for="(item,index) in momentsList" :key="index" :data="item"
-                                 class="moment-card" @delete="handleDelete(item.id)">
+                    <moment-card class="moment-card"
+                                 v-for="(item,index) in momentsList" :key="index" :data="item"
+                                 @delete="handleDelete(item.id)"
+                                 @commentInput="handleCommentInput($event,item.id)"
+                                 @commentClick="handleCommentClick(item.id)"
+                                 @sendComment="handlePubComment">
                     </moment-card>
                 </div>
-                <!-- todo 右边的面板-->
+                <!-- todo 右边的面板显示个人信息-->
                 <!--<div class="right-panel">-->
                     <!--<card></card>-->
                 <!--</div>-->
@@ -42,6 +46,7 @@
                 pubContent:'',
                 offerNum: 0,
                 momentsList:[], // 朋友圈列表
+
                 api:{
                     incrOffer: "/api/v1/giveoffer",
                     getOffer: "/api/v1/getoffer",
@@ -89,10 +94,25 @@
             },
             // 删除动态卡片
             handleDelete(id){
-                // todo 删除动态请求
                 postRequest(this.api.deleteMoment,{'id':id}).then(()=>{
                     this.getMomentsList();
                 })
+            },
+            // 处理MomentCard的点击评论事件
+            handleCommentClick(){
+                // todo
+            },
+            // 处理MomentCard的评论输入事件
+            /*
+            handleCommentInput($event,id){
+                // todo
+                // alert(id+"=>"+$event.textVal)
+            },*/
+            // 处理MomentCard的发表评论的事件
+            handlePubComment(){
+                // todo
+                alert("发表成功")
+
             }
         }
     }
@@ -130,7 +150,7 @@
     }
     .moment-card{
         margin-top: 10px;
-        height: 160px;
+        /*height: 160px;*/
         width: 632px;
         position: relative; /* 使用 相对定位的原因是,子元素more-panel必须使用绝对定位，见 https://www.iteye.com/blog/lixh1986-1948337,或者google搜索:css absolute 如何相对父元素*/
         background-color: #fff;

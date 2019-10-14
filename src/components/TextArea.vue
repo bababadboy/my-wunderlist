@@ -6,9 +6,14 @@
 
     <div class="textarea-container">
         <label for="">
-            <textarea name="" id="" class="textarea" placeholder="说点什么吧" :value="text"
+            <textarea name="" id=""
+                      :placeholder='placeholder'
+                      :value="text"
+                      :style="textAreaStyle"
+                      :class="['textarea',active?'textarea-active':'']"
                       @input="handleInput($event)"
-                      @mouseover="addActive($event)" @focusout="removeActive($event)">
+                      @mouseover="addActive($event)"
+                      @focusout="removeActive($event)">
 
             </textarea>
         </label>
@@ -22,7 +27,33 @@
             text:{
                 type:String,
                 default:''
-            }
+            },
+            // 高度，以px为单位
+            height:{
+                type:String,
+                default:'76'
+            },
+            width:{
+                type:String,
+                default:'555'
+            },
+            placeholder:{
+                type:String,
+                default:'说点什么吧'
+            },
+            // 字体大小,以px为单位
+            fontSize:{
+                type:String,
+                default:'14'
+            },
+            bgColor:{
+                type:String,
+                default:'#e5e9ef'
+            },
+            active:{
+                type:Boolean,
+                default:false
+            },
         },
         methods: {
             addActive($event) {
@@ -38,6 +69,15 @@
                 }
                 this.$emit('input', value);
             }
+        },
+        computed:{
+            textAreaStyle(){
+                return{
+                    height: this.height + 'px',
+                    width: this.width + 'px',
+                    'font-size': this.fontSize + 'px',
+                }
+            }
         }
     }
 </script>
@@ -50,24 +90,18 @@
     }
 
     .textarea {
-        height: 76px;
-        width: 555px;
         border-style: solid;
         border-width: 1px;
         border-color: #e5e9ef;
         border-radius: 5px;
-        background-color: #e5e9ef;
         outline: none;
         padding: 4px 12px;
-        min-height: 76px;
         max-height: 200px;
         letter-spacing: 1px;
-        font-size: 14px;
-        /*去除右下角的三角图标*/
+        /*去除右下角的三角图标,禁止resize：拉扯改变大小*/
         resize: none;
     }
-
-    .textarea-active {
+    .textarea-active{
         border-color: #00a1d6;
         background-color: #fff;
     }
