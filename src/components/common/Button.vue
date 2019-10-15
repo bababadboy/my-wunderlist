@@ -39,7 +39,9 @@
         },
         methods:{
             click(){
-                this.$emit('click')
+                if (!this.btnDisabled){
+                    this.$emit('click')
+                }
             }
         },
         computed:{

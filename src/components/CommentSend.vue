@@ -1,14 +1,14 @@
 <template>
     <!--对动态发布评论的组件 -->
-    <div class="comment-send">
+    <div :class="['comment-send',borderTop?'bt':'']">
         <!-- 头像展示区    -->
         <div class="face"></div>
 
         <text-area class="txtarea"
                    @input="handleInput($event)"
-                   :text="text"
+                   :text="currentVal"
                    height="60"
-                   width="400"
+                   :width="txtAreaWidth"
                    placeholder="输入评论..."
                    fontSize="12">
         </text-area>
@@ -16,6 +16,7 @@
                   text="发表评论"
                   height="70"
                   width="70"
+                  :disabled="btnDisabled"
                   @click="btnClick()"></x-button>
     </div>
 </template>
@@ -33,6 +34,16 @@
             text:{
                 type:String,
                 default:''
+            },
+            // 输入框的宽度
+            txtAreaWidth:{
+                type:String,
+                default:'400'
+            },
+            //  上边界是否有灰色边界
+            borderTop:{
+                type:Boolean,
+                default:true
             }
         },
         data(){
@@ -43,17 +54,16 @@
         },
         methods:{
             btnClick(){
-                if (!this.btnDisabled){
-                    this.$emit('btnClick')
-                }
+                alert("评论发布成功："+this.currentVal)
+                this.currentVal = ''
             },
             handleInput($event){
                 this.currentVal = $event.textVal;
-                this.$emit('input',$event)
+                // this.$emit('input',$event)
             }
         },
         watch:{
-            text:function(){
+            currentVal:function(){
                 this.btnDisabled = this.currentVal === '';
             },
         }
@@ -67,11 +77,12 @@
         margin-left: 15px;
     }
     .comment-send {
-        width: 580px;
+        /*width: 580px;*/
         display: flex;
-        margin-left: 25px;
-        margin-top: 20px;
+        margin:0 0 20px 25px;
         padding-top: 20px;
+    }
+    .bt {
         border-top: 1px solid #e5e9ef;
     }
     .button {

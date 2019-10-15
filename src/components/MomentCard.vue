@@ -36,26 +36,28 @@
             </div>
         </div>
         <!-- 评论行 -->
-        <div class="comment-row" v-if="commentCardShownStatus" >
+        <div class="comment-row" v-show="commentCardShownStatus" >
             <div class="comment-send">
                 <comment-send
                         @input="handleInput($event)"
                         @SendComment="handleSendComment">
                 </comment-send>
+                <!-- 评论列表 -->
+                <floor class="ml20"></floor>
             </div>
-<!--            <div class="comment-list">todo 评论列表</div>-->
+
         </div>
     </div>
 </template>
 
 <script>
     import MorePanel from './MorePanel'
-    // import Publish from './Publish'
+    import Floor from './Floor'
     import CommentSend from './CommentSend'
     export default {
         components:{
             MorePanel,
-            // Publish,
+            Floor,
             CommentSend
         },
         name: "MomentCard",
@@ -64,6 +66,7 @@
                 type:Object,
                 default:function () {
                     return {
+                        'avatar':'',
                         'nickname':'',
                         'uid':'',
                         'publishTime':'1970-1-1',
@@ -73,6 +76,7 @@
                         'numOfLike':0,
                         'commentSend':'',
                         'commentList':[{
+                            'avatar':'',
                             'nickname':'',
                             'publishTime':'1970-1-1',
                             'content':'分布式系统不能抛弃 p(分区容错卫性)，所以一般会有 AP/CP两种选择。AP削弱了数据的一致性，比如发个微博啥的，数据延迟个几秒钟甚至几分钟问题不大，但为了用户体验不能不可用；而CP强调数据的一致性，宁愿用户有个短暂的无法使用，也必须保证数据是一致的，在金融相关软件更为常见。\n',
@@ -135,7 +139,6 @@
 
     }
     .mmtcard-container{
-        display: block;
         margin-top: 10px;
         width: 632px;
         background-color: #fff;
@@ -177,12 +180,7 @@
         box-sizing: border-box;
     }
 
-    .single-btn {
-        display: inline-block;
-        width: 92px;
-        font-size: 12px;
-        cursor: pointer;
-    }
+
     .icon{
         display: inline-block;
         cursor: pointer;

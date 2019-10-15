@@ -53,9 +53,9 @@
   color: #999999;
 }
 /* 背景色 */
-.bg-disabled { /* 按钮不可用状态背景色 */
-  background-color: #98B6FE;
-}
+/*.bg-disabled { !* 按钮不可用状态背景色 *!*/
+/*  background-color: #98B6FE;*/
+/*}*/
 .bg-blue {
   background-color: #326EFD;
 }
@@ -87,6 +87,7 @@
 .ml20{margin-left: 20px;}
 .ml25{margin-left: 25px;}
 .ml30{margin-left: 30px;}
+.ml35{margin-left: 35px;}
 .ml40{margin-left: 40px;}
 .ml50{margin-left: 50px;}
 .ml50p{margin-left: 50%;}
@@ -310,5 +311,15 @@ a{
   border-style: solid;
   border-width: 1px;
   border-color: #FF595E;
+}
+.single-btn {
+  display: inline-block;
+  width: 92px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.ib{
+  display: inline-block;
 }
 
