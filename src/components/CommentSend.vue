@@ -54,7 +54,7 @@
         },
         methods:{
             btnClick(){
-                alert("评论发布成功："+this.currentVal)
+                this.$emit("sendComment",{'input':this.currentVal})
                 this.currentVal = ''
             },
             handleInput($event){

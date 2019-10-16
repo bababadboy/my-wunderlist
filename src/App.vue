@@ -11,10 +11,7 @@
 
                     <moment-card class="moment-card"
                                  v-for="(item,index) in momentsList" :key="index" :data="item"
-                                 @delete="handleDelete(item.id)"
-                                 @commentInput="handleCommentInput($event,item.id)"
-                                 @commentClick="handleCommentClick(item.id)"
-                                 @sendComment="handlePubComment">
+                                 @delete="handleDelete(item.id)">
                     </moment-card>
                 </div>
                 <!-- todo 右边的面板显示个人信息-->
@@ -52,7 +49,7 @@
                     getOffer: "/api/v1/getoffer",
                     publishMoment:'/api/v1/publish_moment',
                     getMomentList:'/api/v1/get_moments_list',
-                    deleteMoment:'/api/v1/delete_moment'
+                    deleteMoment:'/api/v1/delete_moment',
                 }
             }
         },
@@ -76,6 +73,7 @@
                 // todo uid 改成登录的用户的uid，当前先写死
                 postRequest(this.api.publishMoment,{'uid':'10001','content':this.pubContent}).then(()=>{
                     // todo 弹出一个发布成功状态框
+                    alert("发布成功:"+this.pubContent)
                     this.pubContent = '';
                     // this.momentsList.push(this.pubContent)
                     this.getMomentsList();  // postRequest异步执行，必须把此行放在then()中
@@ -102,18 +100,6 @@
             handleCommentClick(){
                 // todo
             },
-            // 处理MomentCard的评论输入事件
-            /*
-            handleCommentInput($event,id){
-                // todo
-                // alert(id+"=>"+$event.textVal)
-            },*/
-            // 处理MomentCard的发表评论的事件
-            handlePubComment(){
-                // todo
-                alert("发表成功")
-
-            }
         }
     }
 </script>

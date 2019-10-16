@@ -3,21 +3,23 @@
     <div class="floor fs14">
         <div class="i-face"></div>
         <div class="container ml10">
-            <div class="name">我是皮卡丘</div>
-            <div class="text">我想说，我就是皮卡丘，qiuiquqiuqiu</div>
+            <div class="name">{{data.nickname}}</div>
+            <div class="text">{{data.content}}</div>
             <div class="info">
                 <div class="icon">
-                    <span>2019-10-12 16:33</span>
+                    <span>{{data.publish_time}}</span>
                 </div>
 
                 <div class="icon ml40">
                     <div class="iconfont icon-dianzan ib"></div>
-                    <span>点赞</span>
+                    <span v-if="data.num_of_like">{{data.num_of_like}}</span>
+                    <span v-else>点赞</span>
                 </div>
 
                 <div class="icon ml40" @click="showFloorReply()">
                     <div class="iconfont icon-pinglun ib"></div>
-                    <span>回复</span>
+                    <span v-if="data.num_of_replies">{{data.num_of_replies}}</span>
+                    <span v-else>回复</span>
                 </div>
             </div>
 
@@ -63,6 +65,20 @@
             CommentSend
         },
         props:{
+            data:{
+                type:Object,
+                default:function(){
+                    return{
+                        'avatar':'',
+                        'nickname':'',
+                        'content':'',
+                        'publish_time':'',
+                        'num_of_like':0,
+                        'num_of_dislike':0,
+                        'num_of_replies':0
+                    }
+                }
+            },
             replyList:{
                 type:Array,
                 default:function (){
@@ -92,6 +108,12 @@
                 // 楼主的回复 的回复框显示状态
                 replyReplyShown:[...Array(this.replyList.length)].map(()=>false)
             }
+        },
+        mounted:{
+          // 加载评论的回复内容
+          getReplies(){
+
+          }
         },
         methods:{
             // 显示楼主的回复框

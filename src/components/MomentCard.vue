@@ -27,10 +27,10 @@
                         <span v-if="!data.numOfComment"> 评论</span>
                         <span v-else>{{data.numOfComment}}</span>
                     </div>
-                    <div class="single-btn">
+                    <div class="single-btn" @click="clickLike()">
                         <div class="iconfont icon-dianzan icon"></div>
-                        <span v-if="!data.numOfLike"> 点赞</span>
-                        <span v-else>{{data.numOfLike}}</span>
+                        <span v-if="!likeNum"> 点赞</span>
+                        <span v-else>{{likeNum}}</span>
                     </div>
                 </div>
             </div>
@@ -40,10 +40,10 @@
             <div class="comment-send">
                 <comment-send
                         @input="handleInput($event)"
-                        @SendComment="handleSendComment">
+                        @sendComment="handleSendComment($event)">
                 </comment-send>
                 <!-- 评论列表 -->
-                <floor class="ml20"></floor>
+                <floor class="ml20" v-for="(item,index) in commentList" :key="index" :data="item"></floor>
             </div>
 
         </div>
@@ -54,6 +54,7 @@
     import MorePanel from './MorePanel'
     import Floor from './Floor'
     import CommentSend from './CommentSend'
+    import {getRequest, postRequest,} from "../utils/api";
     export default {
         components:{
             MorePanel,
@@ -66,6 +67,7 @@
                 type:Object,
                 default:function () {
                     return {
+                        'id':'',
                         'avatar':'',
                         'nickname':'',
                         'uid':'',
@@ -92,7 +94,16 @@
             return{
                 morePanelShownStatus:false,
                 commentCardShownStatus:false,
-                commentVal:''
+                inputVal:'',
+                likeClicked:false,  // 是否已经点击了"点赞按钮"
+                likeNum:this.data.numOfLike,
+                commentList:[],
+                api:{
+                    getCommentsList:'/api/v1/get_comments',
+                    postComment:'/api/v1/add_comment',
+                    likeIncr:'/api/v1/moment/like_incr',
+                    likeDecr:'/api/v1/moment/like_decr'
+                }
             }
         },
         methods:{
@@ -105,16 +116,49 @@
             },
             // 显示动态 的评论内容
             clickComment() {
-                this.$emit('commentClick')
                 this.commentCardShownStatus = !this.commentCardShownStatus
+                if(this.commentCardShownStatus){
+                    this.getCommentList()
+                }
 
             },
-            handleSendComment(){
-                this.$emit('sendComment')
+            // 获取评论列表
+            getCommentList(){
+                getRequest(this.api.getCommentsList,{'moment_id':this.data.id}).then(res=>{
+                    this.commentList = res.data.payload
+                })
+            },
+            // 发送动态的评论
+            handleSendComment($event){
+                let param={
+                    'uid':'10001',//todo 暂且写死
+                    'moment_id':this.data.id,
+                    'content':$event.input,
+                }
+                alert("发表成功")
+                postRequest(this.api.postComment,param).then(()=>{
+                    // 刷新
+                    this.getCommentList();
+                })
             },
             handleInput($event){
-                this.commentVal = $event.textVal
-                this.$emit('commentInput',$event)
+                this.inputVal = $event.textVal
+            },
+            // 点击点赞按钮
+            clickLike(){
+                let param={
+                    'uid':'10001',//todo 暂且写死
+                    'id':this.data.id,
+                }
+                this.likeClicked = !this.likeClicked
+                if(this.likeClicked){
+                    this.likeNum = this.likeNum +1;
+                    postRequest(this.api.likeIncr,param)
+
+                }else{
+                    this.likeNum = this.likeNum -1;
+                    postRequest(this.api.likeDecr,param)
+                }
             }
         }
     }
