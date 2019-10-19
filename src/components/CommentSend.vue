@@ -6,10 +6,11 @@
 
         <text-area class="txtarea"
                    @input="handleInput($event)"
+                   @submit="handleClick()"
                    :text="currentVal"
                    height="60"
                    :width="txtAreaWidth"
-                   placeholder="输入评论..."
+                   :placeholder="placeholder"
                    fontSize="12">
         </text-area>
         <x-button class="button"
@@ -17,7 +18,7 @@
                   height="70"
                   width="70"
                   :disabled="btnDisabled"
-                  @click="btnClick()"></x-button>
+                  @click="handleClick()"></x-button>
     </div>
 </template>
 
@@ -44,6 +45,11 @@
             borderTop:{
                 type:Boolean,
                 default:true
+            },
+            // placeholder
+            placeholder:{
+                type:String,
+                default:'输入评论...'
             }
         },
         data(){
@@ -53,13 +59,12 @@
             }
         },
         methods:{
-            btnClick(){
+            handleClick(){
                 this.$emit("sendComment",{'input':this.currentVal})
                 this.currentVal = ''
             },
             handleInput($event){
                 this.currentVal = $event.textVal;
-                // this.$emit('input',$event)
             }
         },
         watch:{

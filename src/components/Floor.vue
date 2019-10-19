@@ -7,51 +7,65 @@
             <div class="text">{{data.content}}</div>
             <div class="info">
                 <div class="icon">
-                    <span>{{data.publish_time}}</span>
+                    <span>{{data.publishTime}}</span>
                 </div>
 
                 <div class="icon ml40">
                     <div class="iconfont icon-dianzan ib"></div>
-                    <span v-if="data.num_of_like">{{data.num_of_like}}</span>
+                    <span v-if="data.numOfLike">{{data.numOfLike}}</span>
                     <span v-else>点赞</span>
                 </div>
 
-                <div class="icon ml40" @click="showFloorReply()">
+                <div class="icon ml40" @click="showFloorInput()">
                     <div class="iconfont icon-pinglun ib"></div>
-                    <span v-if="data.num_of_replies">{{data.num_of_replies}}</span>
+                    <span v-if="data.numOfReplies">{{data.numOfReplies}}</span>
                     <span v-else>回复</span>
                 </div>
             </div>
 
-            <!-- 回复输入框     -->
-            <comment-send txt-area-width="315" :border-top="topBorder" v-show="replyFloorShown"></comment-send>
+            <!-- 回复评论的输入框     -->
+            <comment-send
+                    txt-area-width="315"
+                    :border-top="topBorder"
+                    v-show="replyFloorShown"
+                    :placeholder="'回复'+data.nickname"
+                    @sendComment="handleSendComment($event)">
+            </comment-send>
 
             <!-- 回复列表  -->
             <div class="reply-box">
-                <div class="reply-item mt5" v-for="(item,index) in replyList" :key="index" :data="item">
+                <div class="pt10" v-for="(item,index) in data.replyList" :key="index" :data="item">
                     <div class="reply-face">
                     </div>
                     <div class="reply-con">
-                        <div class="user">{{item.user_name}}</div>
-                        <span>{{item.reply_txt}}</span>
+                        <div class="user">{{item.nickname}}</div>
+                        <span v-if="item.pnickname">{{'回复@'+item.pnickname+'： '}}</span>
+                        <span>{{item.content}}</span>
                     </div>
                     <div class="info">
                         <div class="icon ml35">
-                            <span>2019-10-12 18:33</span>
+                            <span>{{item.publishTime}}</span>
                         </div>
                         <div class="icon ml40">
                             <div class="iconfont icon-dianzan ib"></div>
-                            <span>{{item.like}}</span>
+                            <span>{{item.likeNum}}</span>
                         </div>
-                        <div class="icon ml40" @click="showReplyReply(index)">
+                        <div class="icon ml40" @click="showReplyInput(index)">
                             <div class="iconfont icon-pinglun ib"></div>
-                            <span>回复{{item.replies}}</span>
+                            <span>{{item.disLikeNum}}</span>
                         </div>
                     </div>
-                    <comment-send txt-area-width="315" :border-top="topBorder" v-show="replyReplyShown[index]"></comment-send>
+                    <!--    回复回复的的输入框-->
+                    <comment-send
+                            txt-area-width="315"
+                            :border-top="topBorder"
+                            v-show="replyInputShown[index]"
+                            :placeholder="'回复'+item.nickname"
+                            @sendComment="handleSendReply($event,index)">
+
+                    </comment-send>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -59,6 +73,7 @@
 
 <script>
     import CommentSend from './CommentSend'
+    import {getRequest, postRequest} from "../utils/api";
     export default {
         name: "Floor",
         components:{
@@ -69,64 +84,104 @@
                 type:Object,
                 default:function(){
                     return{
+                        'id':'',    // 评论id
+                        'uid':'',   // 用户id
                         'avatar':'',
                         'nickname':'',
                         'content':'',
-                        'publish_time':'',
-                        'num_of_like':0,
-                        'num_of_dislike':0,
-                        'num_of_replies':0
+                        'publishTime':'',
+                        'numOfLike':0,
+                        'numOfDislike':0,
+                        'numOfReplies':0,
+                        'replyList':[]  // 每个对象包含id,uid,nickname,pid,puid,pnickname,publishTime,content,likeNum,dislikeNum
                     }
                 }
             },
-            replyList:{
+
+            /*replyList:{
                 type:Array,
                 default:function (){
                     return[
                         {
                             'avatar':'../assets/images/avatar.jpg',
-                            'user_name':'无里狗焕',
-                            'reply_txt':'蹭一蹭一楼',
-                            'like':2,
+                            'nickname':'无里狗焕',
+                            'publishTime':'2019-10-12 16:32:11',
+                            'content':'蹭一蹭一楼',
+                            'likeNum':2,
                             'replies':[1001,1002]
                         },
                         {
                             'avatar':'../assets/images/avatar.jpg',
-                            'user_name':'无里哝哝',
-                            'reply_txt':'蹭一蹭二楼',
-                            'like':3,
+                            'nickname':'无里哝哝',
+                            'publishTime':'2019-10-12 16:32:11',
+                            'content':'蹭一蹭二楼',
+                            'likeNum':3,
                             'replies':[1001,1003]
-                        }
-                        ]
+                        }]
                 }
-            }
+            }*/
         },
         data(){
             return{
                 topBorder:false,
                 replyFloorShown:false,
                 // 楼主的回复 的回复框显示状态
-                replyReplyShown:[...Array(this.replyList.length)].map(()=>false)
+                replyInputShown:[...Array(this.data.replyList.length)].map(()=>false),
+                api:{
+                    addReply:'/api/v1/reply/add',
+                    getAllReplies:'/api/v1/reply/get_all'
+                }
             }
         },
-        mounted:{
-          // 加载评论的回复内容
-          getReplies(){
+        mounted(){
 
-          }
         },
         methods:{
             // 显示楼主的回复框
-            showFloorReply(){
+            showFloorInput(){
                 this.replyFloorShown = !this.replyFloorShown
             },
             // 显示回复的回复框
-            showReplyReply(index){
-                this.replyReplyShown.splice(index,1,!this.replyReplyShown[index])   // 使用splice避免vue无法动态更新数组
+            showReplyInput(index){
+                this.replyInputShown.splice(index,1,!this.replyInputShown[index])   // 使用splice避免vue无法动态更新数组
+            },
+            // 发送回复
+            handleSendComment($event){
+                let body = {
+                    'uid':'10001',
+                    'comment_id':this.data.id,
+                    'content':$event.input
+                }
+                postRequest(this.api.addReply,body).then(()=>{
+                    alert("回复"+this.data.nickname+" 成功")
+                    this.getReplies()
+                })
+            },
+            handleSendReply($event,index){
+                let body = {
+                    'uid':'10001',
+                    'comment_id':this.data.id,
+                    'content':$event.input,
+                    'pid': this.data.replyList[index].id    // 被回复的id作为 pid
+                }
+                console.log(body)
+                // 把 回复的输入框 显示状态置为false
+                this.replyInputShown.splice(index,1,false)
+                postRequest(this.api.addReply,body).then(()=>{
+                    alert("回复"+this.data.replyList[index].nickname+" 成功")
+                    this.getReplies()
+                })
+            },
+            // 获取评论的所有回复
+            getReplies(){
+                getRequest(this.api.getAllReplies,{'comment_id':this.data.id}).then(res=>{
+                    this.data.replyList = res.data.payload
+                })
             }
         }
     }
 </script>
+
 
 <style src="../assets/css/common.css" scoped></style>
 <style scoped>
@@ -177,7 +232,7 @@
     }
     .reply-box {
         background-color:#fafbfc;
-        padding: 8px 0 8px 8px;
+        padding: 0 0 0 8px;
     }
     .name {
         /*color: #4ed3ff;*/

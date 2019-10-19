@@ -7,7 +7,7 @@
                     <card title="点击给wxb offer"></card>
                 </div>
                 <div class="center-panel">
-                    <pub @input="handleInput($event)" :text="pubContent" @btnClick="publishMoment()"></pub>
+                    <pub @publish="publishMoment($event)"></pub>
 
                     <moment-card class="moment-card"
                                  v-for="(item,index) in momentsList" :key="index" :data="item"
@@ -45,11 +45,11 @@
                 momentsList:[], // 朋友圈列表
 
                 api:{
-                    incrOffer: "/api/v1/giveoffer",
-                    getOffer: "/api/v1/getoffer",
-                    publishMoment:'/api/v1/publish_moment',
-                    getMomentList:'/api/v1/get_moments_list',
-                    deleteMoment:'/api/v1/delete_moment',
+                    incrOffer: "/api/v1/offer/give",
+                    getOffer: "/api/v1/offer/get",
+                    publishMoment:'/api/v1/moment/publish',
+                    getMomentList:'/api/v1/moment/get_all',
+                    deleteMoment:'/api/v1/moment/delete',
                 }
             }
         },
@@ -69,13 +69,11 @@
                 })
             },
             // 发布输入的内容
-            publishMoment(){
+            publishMoment($event){
                 // todo uid 改成登录的用户的uid，当前先写死
-                postRequest(this.api.publishMoment,{'uid':'10001','content':this.pubContent}).then(()=>{
+                postRequest(this.api.publishMoment,{'uid':'10001','content':$event.value}).then(()=>{
                     // todo 弹出一个发布成功状态框
-                    alert("发布成功:"+this.pubContent)
-                    this.pubContent = '';
-                    // this.momentsList.push(this.pubContent)
+                    alert("发布成功:")
                     this.getMomentsList();  // postRequest异步执行，必须把此行放在then()中
                 })
 

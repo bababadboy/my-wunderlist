@@ -99,10 +99,10 @@
                 likeNum:this.data.numOfLike,
                 commentList:[],
                 api:{
-                    getCommentsList:'/api/v1/get_comments',
-                    postComment:'/api/v1/add_comment',
+                    getCommentsList:'/api/v1/comment/get_all',
+                    postComment:'/api/v1/comment/add',
                     likeIncr:'/api/v1/moment/like_incr',
-                    likeDecr:'/api/v1/moment/like_decr'
+                    likeDecr:'/api/v1/moment/like_decr',
                 }
             }
         },
@@ -122,11 +122,12 @@
                 }
 
             },
-            // 获取评论列表
+            // 获取评论列表 以及获取评论的回复列表
             getCommentList(){
                 getRequest(this.api.getCommentsList,{'moment_id':this.data.id}).then(res=>{
                     this.commentList = res.data.payload
                 })
+
             },
             // 发送动态的评论
             handleSendComment($event){

@@ -26,8 +26,8 @@
         data() {
             return {
                 offerNum: 0,
-                postUrl: "/api/v1/giveoffer",
-                getUrl: "/api/v1/getoffer"
+                postUrl: "/api/v1/offer/give",
+                getUrl: "/api/v1/offer/get"
             }
         },
         mounted() {

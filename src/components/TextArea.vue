@@ -12,6 +12,7 @@
                       :style="textAreaStyle"
                       :class="['textarea',active?'textarea-active':'']"
                       @input="handleInput($event)"
+                      @keyup.ctrl.enter="handleSubmit()"
                       @mouseover="addActive($event)"
                       @focusout="removeActive($event)">
 
@@ -68,6 +69,9 @@
                     textVal:$event.target.value
                 }
                 this.$emit('input', value);
+            },
+            handleSubmit(){
+                this.$emit('submit')
             }
         },
         computed:{
