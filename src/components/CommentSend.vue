@@ -60,8 +60,10 @@
         },
         methods:{
             handleClick(){
-                this.$emit("sendComment",{'input':this.currentVal})
-                this.currentVal = ''
+                if(!this.btnDisabled){
+                    this.$emit("sendComment",{'input':this.currentVal})
+                    this.currentVal = ''
+                }
             },
             handleInput($event){
                 this.currentVal = $event.textVal;
