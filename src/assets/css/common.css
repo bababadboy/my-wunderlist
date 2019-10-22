@@ -21,10 +21,12 @@
 .t-left{text-align: left;}
 .t-right{text-align: right;}
 .flex-1{ flex: 1; }
+
 .container {
   padding-left: 20px;
   padding-right: 20px;
 }
+
 /* 首行缩进 */
 .t-indent{text-indent: 2em;}
 /* 字体颜色 */
@@ -322,4 +324,6 @@ a{
 .ib{
   display: inline-block;
 }
-
+li{
+  list-style: none;
+}

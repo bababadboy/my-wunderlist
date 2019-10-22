@@ -1,12 +1,12 @@
 <template>
-    <div class="header" id="nav">
+    <div class="header" id="navigate">
         <div class="nav-menu">
             <div class="nav-mask">
                 <div class="nav-wrapper">
                     <div class="nav-con fl">
                         <ul>
                             <li class="nav-item">
-                                <a href="#" class="t">闵可夫斯基空间</a>
+                                <a href="#" class="t">闵可夫斯基树洞</a>
                             </li>
                             <li class="nav-item">
                                 <a href="#" class="t">我的主页</a>
@@ -27,7 +27,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="t">我是管理员</a>
+                                <a href="#" class="t" @click="handleLogin()">登录</a>
                             </li>
                         </ul>
                     </div>

@@ -164,7 +164,6 @@
                     'content':$event.input,
                     'pid': this.data.replyList[index].id    // 被回复的id作为 pid
                 }
-                console.log(body)
                 // 把 回复的输入框 显示状态置为false
                 this.replyInputShown.splice(index,1,false)
                 postRequest(this.api.addReply,body).then(()=>{

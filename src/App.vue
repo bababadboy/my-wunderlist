@@ -1,7 +1,8 @@
 <template>
-    <div id="app" style="margin-top: 0">
-        <navigate></navigate>
-        <div class="home-container">
+    <div id="app">
+        <navi @showAuth="showAuthCard()"></navi>
+        <auth-card v-if="authShown" @closeAuth="closeAuth"></auth-card>
+        <div class="container">
             <div class="home-content">
                 <div class="left-panel">
                     <card title="点击给wxb offer"></card>
@@ -25,25 +26,27 @@
 
 <script>
     import {postRequest, getRequest} from "./utils/api"
-    import navigate from "./components/Navigate"
+    import navi from "./components/Navi"
     import pub from "./components/Publish"
     import card from "./components/Card"
     import MomentCard from "./components/MomentCard"
+    import AuthCard from "./components/AuthCard"
 
     export default {
         name: 'app',
         components: {
-            navigate,
             pub,
             card,
-            MomentCard
+            MomentCard,
+            navi,
+            AuthCard
         },
         data() {
             return {
                 pubContent:'',
                 offerNum: 0,
                 momentsList:[], // 朋友圈列表
-
+                authShown:false,
                 api:{
                     incrOffer: "/api/v1/offer/give",
                     getOffer: "/api/v1/offer/get",
@@ -98,6 +101,14 @@
             handleCommentClick(){
                 // todo
             },
+            // 显示登录卡片
+            showAuthCard(){
+                this.authShown = true
+            },
+            // 关闭显示登录卡片、
+            closeAuth(){
+                this.authShown = false
+            }
         }
     }
 </script>
@@ -108,10 +119,10 @@
         color: #222;
         font-size: 14px;
         background-color: #d2e9fb;
+        margin: 0;
     }
 
     .home-container{
-        margin-top: 26px;
         width:100%;
     }
 
@@ -141,4 +152,6 @@
         border-radius: 4px;
         font-size: 30px;
     }
+
+
 </style>
