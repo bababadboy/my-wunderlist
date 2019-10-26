@@ -1,18 +1,20 @@
 <template>
     <div class="auth-model-box">
-        <form class="auth-card">
+        <div class="auth-card">
             <i class="close-btn" @click="closeAuth">x</i>
             <div class="panel" v-if="!registerShown">
                 <h1 class="title">登录</h1>
                 <div class="input-group">
                     <div class="input-box">
-                        <input type="text" placeholder="请输入手机号码或者邮箱" class="input">
+                        <input type="text" placeholder="请输入用户名" class="input" v-model="loginParam.nickname">
                     </div>
                     <div class="input-box">
-                        <input type="password" placeholder="请输入密码"  class="input">
+                        <input type="password" placeholder="请输入密码"  class="input"
+                               v-model="loginParam.password"
+                               @keyup.enter="login()">
                     </div>
                 </div>
-                <button class="btn">登录</button>
+                <button class="btn" @click="login()">登录</button>
                 <div class="prompt-box">
                     <span>没有账号？</span>
                     <span class="clickable"  @click="switchRegister()">注册</span>
@@ -53,13 +55,13 @@
                 </div>
             </div>
             <div class="agreement-box"></div>
-        </form>
-
+        </div>
     </div>
 </template>
 
 <script>
     // import XButton from "./common/Button"
+    // import {mapActions} from 'vuex'
 
     export default {
         name: "AuthCard",
@@ -68,10 +70,22 @@
         },
         data(){
             return{
-                registerShown:false //是否为注册卡片
+                registerShown:false, //是否为注册卡片
+                userToken:"",
+                loginParam:{
+                    "nickname":"",
+                    "password":""
+                },
+                registerParam:{
+                    "nickname":"",
+                    "password":"",
+                    "email":""
+                },
+
             }
         },
         methods:{
+            // ...mapActions(['setToken']),
             closeAuth(){
                 this.$emit('closeAuth')
             },
@@ -81,6 +95,13 @@
             switchAuth(){
                 this.registerShown = false;
             },
+            login(){
+                if (this.loginParam.nickname === '' || this.loginParam.password === '') {
+                    alert("用户名或者密码不能为空")
+                    return
+                }
+                this.$emit('login',{'loginParam':this.loginParam});
+            }
         }
     }
 </script>

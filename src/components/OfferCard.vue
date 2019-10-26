@@ -12,7 +12,7 @@
     import {postRequest, getRequest} from "../utils/api"
     import topic from './Topic'
     export default {
-        name: "card",
+        name: "offercard",
         components:{
             topic
         },

@@ -16,11 +16,14 @@
                                 <img src="https://b-gold-cdn.xitu.io/v3/static/img/juejin-search-icon.6f8ba1b.svg" alt="">
                             </form>
                         </li>
-                        <li class="nav-item auth" @click="showAuth()">
+                        <li v-if="$store.getters.authStatus">
+                            <div class="iconfont icon-xiaoxi fs24"></div>
+                        </li>
+                        <li v-if="!$store.getters.authStatus" class="nav-item auth" @click="showAuth()">
                             <span class="login">登录</span>
                             <span class="register">注册</span>
                         </li>
-
+                        <li v-else class="nav-item auth">退出登录</li>
                     </ul>
                 </nav>
             </div>
@@ -52,7 +55,7 @@
         left: 0;
         right: 0;
         top: 0;
-        height: 55px;
+        height: 45px;
         background-color: #fff;
         border-bottom: 1px solid #f1f1f1;
         z-index: 250;
@@ -85,7 +88,6 @@
 
     .nav-item {
         padding: 0 1rem;
-        font-size: 1.1rem;
         margin: 0;
         height: 100%;
         display: flex;
@@ -133,7 +135,7 @@
     }
 
     .container {
-        max-width: 960px;
+        max-width: 800px;
         position: relative;
         margin: 0 auto;
         width: 100%;

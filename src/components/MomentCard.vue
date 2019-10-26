@@ -132,8 +132,8 @@
             // 发送动态的评论
             handleSendComment($event){
                 let param={
-                    'uid':'10001',//todo 暂且写死
-                    'moment_id':this.data.id,
+                    'uid':this.$store.getters.profile.uid,
+                    'momentId':this.data.id,
                     'content':$event.input,
                 }
                 alert("发表成功")
@@ -148,7 +148,7 @@
             // 点击点赞按钮
             clickLike(){
                 let param={
-                    'uid':'10001',//todo 暂且写死
+                    'uid':this.$store.getters.profile.uid,
                     'id':this.data.id,
                 }
                 this.likeClicked = !this.likeClicked

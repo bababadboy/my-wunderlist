@@ -1,11 +1,13 @@
 <template>
     <div id="app">
         <navi @showAuth="showAuthCard()"></navi>
-        <auth-card v-if="authShown" @closeAuth="closeAuth"></auth-card>
+        <auth-card v-if="authShown"
+                   @closeAuth="closeAuth"
+                   @login="handleLogin($event)"></auth-card>
         <div class="container">
             <div class="home-content">
                 <div class="left-panel">
-                    <card title="点击给wxb offer"></card>
+                    <offer-card title="点击给wxb offer"></offer-card>
                 </div>
                 <div class="center-panel">
                     <pub @publish="publishMoment($event)"></pub>
@@ -15,10 +17,14 @@
                                  @delete="handleDelete(item.id)">
                     </moment-card>
                 </div>
-                <!-- todo 右边的面板显示个人信息-->
-                <!--<div class="right-panel">-->
-                    <!--<card></card>-->
-                <!--</div>-->
+                <div class="right-panel">
+                    <profile-card
+                            v-if="$store.getters.authStatus"
+                            :userProfile="$store.getters.profile">
+                    </profile-card>
+
+<!--                    <button  @click="showProfile">获取用户信息</button>-->
+                </div>
             </div>
         </div>
     </div>
@@ -28,18 +34,19 @@
     import {postRequest, getRequest} from "./utils/api"
     import navi from "./components/Navi"
     import pub from "./components/Publish"
-    import card from "./components/Card"
+    import OfferCard from "./components/OfferCard"
     import MomentCard from "./components/MomentCard"
     import AuthCard from "./components/AuthCard"
-
+    import ProfileCard from './components/ProfileCard'
     export default {
         name: 'app',
         components: {
             pub,
-            card,
+            OfferCard,
             MomentCard,
             navi,
-            AuthCard
+            AuthCard,
+            ProfileCard
         },
         data() {
             return {
@@ -50,9 +57,13 @@
                 api:{
                     incrOffer: "/api/v1/offer/give",
                     getOffer: "/api/v1/offer/get",
+                    // 动态相关
                     publishMoment:'/api/v1/moment/publish',
                     getMomentList:'/api/v1/moment/get_all',
                     deleteMoment:'/api/v1/moment/delete',
+                    // 登录注册
+                    login:"/api/v1/user/auth",
+                    register:"/api/v1/user/register"
                 }
             }
         },
@@ -73,10 +84,13 @@
             },
             // 发布输入的内容
             publishMoment($event){
-                // todo uid 改成登录的用户的uid，当前先写死
-                postRequest(this.api.publishMoment,{'uid':'10001','content':$event.value}).then(()=>{
+                postRequest(this.api.publishMoment,
+                    {
+                        'uid':this.$store.getters.profile.uid,
+                        'content':$event.value
+                    }).then(()=>{
                     // todo 弹出一个发布成功状态框
-                    alert("发布成功:")
+                    alert("发布成功: )")
                     this.getMomentsList();  // postRequest异步执行，必须把此行放在then()中
                 })
 
@@ -86,7 +100,7 @@
             },
             // 获取动态列表
             getMomentsList(){
-                getRequest(this.api.getMomentList,{'uid':'10001'}).then(res=>{
+                getRequest(this.api.getMomentList).then(res=>{
                     // console.log(res)
                     this.momentsList =res.data.payload;
                 })
@@ -97,10 +111,7 @@
                     this.getMomentsList();
                 })
             },
-            // 处理MomentCard的点击评论事件
-            handleCommentClick(){
-                // todo
-            },
+
             // 显示登录卡片
             showAuthCard(){
                 this.authShown = true
@@ -108,7 +119,32 @@
             // 关闭显示登录卡片、
             closeAuth(){
                 this.authShown = false
-            }
+            },
+            // 处理登录
+            handleLogin($event){
+                window.console.log($event.loginParam)
+                postRequest(this.api.login,$event.loginParam).then(res=>{
+                    // 加上 Bearer
+                    window.console.log(res)
+                    let token = "Bearer "+res.data.token
+                    // 把token存到 localStorage
+                    this.$store.dispatch('setAuthorization',{'Authorization':token})
+                    // 存储用户基本信息
+                    this.$store.dispatch('setProfile',res.data.userDto)
+
+                    // 关闭auth界面
+                    this.closeAuth()
+                    alert("登录成功")
+                }).catch(err=>{
+                    alert("用户名或者密码错误")
+                    window.console.log(err)
+                })
+            },
+            // 获取用户信息
+            // showProfile(){
+            //     window.console.log('==========用户信息========')
+            //     window.console.log(JSON.parse(this.$store.getters.profile))
+            // }
         }
     }
 </script>

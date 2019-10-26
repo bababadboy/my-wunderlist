@@ -148,7 +148,7 @@
             // 发送回复
             handleSendComment($event){
                 let body = {
-                    'uid':'10001',
+                    'uid':this.$store.getters.profile.uid,
                     'comment_id':this.data.id,
                     'content':$event.input
                 }
@@ -159,7 +159,7 @@
             },
             handleSendReply($event,index){
                 let body = {
-                    'uid':'10001',
+                    'uid':this.$store.getters.profile.uid,
                     'comment_id':this.data.id,
                     'content':$event.input,
                     'pid': this.data.replyList[index].id    // 被回复的id作为 pid
