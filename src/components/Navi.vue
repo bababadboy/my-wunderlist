@@ -23,7 +23,7 @@
                             <span class="login">登录</span>
                             <span class="register">注册</span>
                         </li>
-                        <li v-else class="nav-item auth">退出登录</li>
+                        <li v-else class="nav-item auth" @click="logout()">退出登录</li>
                     </ul>
                 </nav>
             </div>
@@ -37,6 +37,9 @@
         methods:{
             showAuth(){
                 this.$emit('showAuth')
+            },
+            logout(){
+                this.$emit('logout')
             }
         }
     }

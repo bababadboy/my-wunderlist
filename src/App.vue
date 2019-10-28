@@ -1,6 +1,8 @@
 <template>
     <div id="app">
-        <navi @showAuth="showAuthCard()"></navi>
+        <navi @showAuth="showAuthCard()"
+              @logout="handleLogout()">
+        </navi>
         <auth-card v-if="authShown"
                    @closeAuth="closeAuth"
                    @login="handleLogin($event)"></auth-card>
@@ -103,6 +105,7 @@
                 getRequest(this.api.getMomentList).then(res=>{
                     // console.log(res)
                     this.momentsList =res.data.payload;
+                    window.console.log(res.data.payload)
                 })
             },
             // 删除动态卡片
@@ -125,21 +128,28 @@
                 window.console.log($event.loginParam)
                 postRequest(this.api.login,$event.loginParam).then(res=>{
                     // 加上 Bearer
-                    window.console.log(res)
                     let token = "Bearer "+res.data.token
                     // 把token存到 localStorage
                     this.$store.dispatch('setAuthorization',{'Authorization':token})
                     // 存储用户基本信息
-                    this.$store.dispatch('setProfile',res.data.userDto)
+                    this.$store.dispatch('setProfile',res.data.userDto).then(()=>{
+                        // 关闭auth界面
+                        this.closeAuth()
+                        // this.$router.push('/');
+                        // alert("登录成功")
+                    })
 
-                    // 关闭auth界面
-                    this.closeAuth()
-                    alert("登录成功")
                 }).catch(err=>{
                     alert("用户名或者密码错误")
                     window.console.log(err)
                 })
             },
+            handleLogout(){
+                let r = confirm("你确定要离开吗？")
+                if (r){
+                    this.$store.dispatch('removeAuth').then(()=>{});
+                }
+            }
             // 获取用户信息
             // showProfile(){
             //     window.console.log('==========用户信息========')

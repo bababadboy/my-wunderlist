@@ -149,7 +149,7 @@
             handleSendComment($event){
                 let body = {
                     'uid':this.$store.getters.profile.uid,
-                    'comment_id':this.data.id,
+                    'commentId':this.data.id,
                     'content':$event.input
                 }
                 postRequest(this.api.addReply,body).then(()=>{
@@ -160,7 +160,7 @@
             handleSendReply($event,index){
                 let body = {
                     'uid':this.$store.getters.profile.uid,
-                    'comment_id':this.data.id,
+                    'commentId':this.data.id,
                     'content':$event.input,
                     'pid': this.data.replyList[index].id    // 被回复的id作为 pid
                 }

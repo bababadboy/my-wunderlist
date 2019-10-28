@@ -8,32 +8,34 @@ let base = 'http://localhost:8008'
 axios.interceptors.request.use(
     config => {
         if (localStorage.getItem('Authorization')) {
-            window.console.log(localStorage.getItem('Authorization'))
             config.headers.Authorization =  localStorage.getItem('Authorization')
         }
         return config;
     },
     error => {
         // 如果请求返回401,则说明token无效了
+        window.console.log(error.status)
         if (error.response && error.response.status === 401) {
             localStorage.removeItem('Authorization')
+            localStorage.removeItem('userInfo')
         }
         return Promise.reject(error);
     });
 
-//请求返回拦截，
-// axios.interceptors.response.use(
-//     (response) => {
-//     //特殊错误处理，状态为10时为登录超时
-//         window.console.log(response)
-//
-//     },
-//      (error)=> {
-//          if (error.response && error.response.status === 401) {
-//              localStorage.removeItem('Authorization')
-//          }
-//          return Promise.reject(error);
-// });
+// 请求返回拦截，错误码401则删除登录信息
+axios.interceptors.response.use(
+    (response) => {
+        window.console.log(response)
+        return response
+    },
+     (error)=> {
+         if (error.response && error.response.status === 401) {
+             localStorage.removeItem('Authorization')
+             localStorage.removeItem('userInfo')
+             alert('请登录: )')
+         }
+         return Promise.reject(error);
+});
 
 export const postRequest = (url, params) => {
     return axios({

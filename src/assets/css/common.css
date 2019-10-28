@@ -36,6 +36,9 @@
 .fc-green {
   color: #26BC7E;
 }
+.fc-lg {
+  color: #19fa28;
+}
 .fc-blue {
   color: #326EFD;
 }
@@ -169,6 +172,8 @@
 .fs14{font-size: 14px;}
 .fs15{font-size: 15px;}
 .fs16{font-size: 16px;}
+.fs18{font-size: 18px;}
+.fs19{font-size: 19px;}
 .fs20{font-size: 20px;}
 .fs22{font-size: 22px;}
 .fs23{font-size: 23px;}
@@ -326,4 +331,12 @@ a{
 }
 li{
   list-style: none;
+}
+
+/*alibaba icon symbol模式*/
+.icon {
+  width: 1em; height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
 }

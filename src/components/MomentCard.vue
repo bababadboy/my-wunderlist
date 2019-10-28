@@ -27,10 +27,19 @@
                         <span v-if="!data.numOfComment"> 评论</span>
                         <span v-else>{{data.numOfComment}}</span>
                     </div>
+
                     <div class="single-btn" @click="clickLike()">
-                        <div class="iconfont icon-dianzan icon"></div>
-                        <span v-if="!likeNum"> 点赞</span>
-                        <span v-else>{{likeNum}}</span>
+                        <svg v-if="data.vote" class="icon fs20" aria-hidden="true">
+                            <use xlink:href="#icon-icon_dianzan_green"></use>
+                        </svg>
+                        <svg v-else class="icon fs20" aria-hidden="true">
+                            <use xlink:href="#icon-icon_dianzan_white"></use>
+                        </svg>
+<!--                        <div v-if="likeClicked" class="iconfont icon-dianzan icon fc-lg"></div>-->
+<!--                        <div v-else class="iconfont icon-dianzan icon"></div>-->
+
+                        <span v-if="!data.numOfLike"> 点赞</span>
+                        <span v-else :class="data.vote? 'fc-lg':''">{{data.numOfLike}}</span>
                     </div>
                 </div>
             </div>
@@ -95,14 +104,13 @@
                 morePanelShownStatus:false,
                 commentCardShownStatus:false,
                 inputVal:'',
-                likeClicked:false,  // 是否已经点击了"点赞按钮"
+                likeClicked:this.data.vote,  // 是否已经点击了"点赞按钮"
                 likeNum:this.data.numOfLike,
                 commentList:[],
                 api:{
                     getCommentsList:'/api/v1/comment/get_all',
                     postComment:'/api/v1/comment/add',
-                    likeIncr:'/api/v1/moment/like_incr',
-                    likeDecr:'/api/v1/moment/like_decr',
+                    thumbUp:'/api/v1/msg/like'
                 }
             }
         },
@@ -148,18 +156,14 @@
             // 点击点赞按钮
             clickLike(){
                 let param={
-                    'uid':this.$store.getters.profile.uid,
-                    'id':this.data.id,
+                    'msg_id':this.data.id,
+                    'msg_type':'m'
                 }
-                this.likeClicked = !this.likeClicked
-                if(this.likeClicked){
-                    this.likeNum = this.likeNum +1;
-                    postRequest(this.api.likeIncr,param)
-
-                }else{
-                    this.likeNum = this.likeNum -1;
-                    postRequest(this.api.likeDecr,param)
-                }
+                postRequest(this.api.thumbUp,param).then(res=>{
+                    window.console.log(res)
+                    this.data.vote = res.data.vote
+                    this.data.numOfLike = res.data.count
+                })
             }
         }
     }

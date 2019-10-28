@@ -5,7 +5,7 @@ Vue.use(Vuex);
 const state={
     // loginStatus:false,
     Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
-    profile: localStorage.getItem('userInfo') ? localStorage.getItem('userInfo') : ''
+    profile: localStorage.getItem('userInfo') ? localStorage.getItem('userInfo') : '{}'
 };
 
 const getters = {
@@ -35,9 +35,15 @@ const mutations = {
         localStorage.setItem('Authorization',state.Authorization);
     },
     setProfile(state,user){
-        state.profile = user;
+        state.profile = JSON.stringify(user);
         // 字符串化存储user对象
         localStorage.setItem('userInfo',JSON.stringify(user));
+    },
+    removeAuth(state){
+        localStorage.removeItem('Authorization');
+        localStorage.removeItem('userInfo');
+        state.Authorization = '';
+        state.userProfile = '{}';
     }
 };
 
@@ -50,6 +56,9 @@ const actions ={
     },
     setProfile(context,user){
         context.commit('setProfile',user);
+    },
+    removeAuth(context){
+        context.commit('removeAuth')
     }
 };
 

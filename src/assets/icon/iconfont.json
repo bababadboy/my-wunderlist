@@ -20,6 +20,13 @@
       "unicode_decimal": 59025
     },
     {
+      "icon_id": "6465453",
+      "name": "icon2扩展_点赞 nor",
+      "font_class": "icon_dianzan_blue",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
       "icon_id": "8338446",
       "name": "more",
       "font_class": "more",
@@ -137,6 +144,27 @@
       "font_class": "zengjia",
       "unicode": "e881",
       "unicode_decimal": 59521
+    },
+    {
+      "icon_id": "11503061",
+      "name": "icon2扩展_点赞 nor",
+      "font_class": "icon_dianzan_green",
+      "unicode": "e882",
+      "unicode_decimal": 59522
+    },
+    {
+      "icon_id": "11503084",
+      "name": "icon2扩展_点赞 nor",
+      "font_class": "icon_dianzan_white",
+      "unicode": "e883",
+      "unicode_decimal": 59523
+    },
+    {
+      "icon_id": "11503091",
+      "name": "点赞",
+      "font_class": "dianzan-copy",
+      "unicode": "e884",
+      "unicode_decimal": 59524
     }
   ]
 }
