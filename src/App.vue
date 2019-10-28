@@ -70,10 +70,13 @@
             }
         },
         mounted() {
-            this.getOffer();
-            this.getMomentsList();
+            this.init();
         },
         methods: {
+            init(){
+                this.getOffer();
+                this.getMomentsList();
+            },
             offerIncr() {
                 postRequest(this.api.incrOffer).then(res => {
                     this.offerNum = res.data.offer_num
@@ -109,11 +112,13 @@
                 })
             },
             // 删除动态卡片
+            /*
             handleDelete(id){
+                todo 暂且不使用
                 postRequest(this.api.deleteMoment,{'id':id}).then(()=>{
                     this.getMomentsList();
                 })
-            },
+            },*/
 
             // 显示登录卡片
             showAuthCard(){
@@ -134,9 +139,8 @@
                     // 存储用户基本信息
                     this.$store.dispatch('setProfile',res.data.userDto).then(()=>{
                         // 关闭auth界面
-                        this.closeAuth()
-                        // this.$router.push('/');
-                        // alert("登录成功")
+                        this.closeAuth();
+                        this.init();
                     })
 
                 }).catch(err=>{
@@ -148,6 +152,7 @@
                 let r = confirm("你确定要离开吗？")
                 if (r){
                     this.$store.dispatch('removeAuth').then(()=>{});
+                    this.init();
                 }
             }
             // 获取用户信息
