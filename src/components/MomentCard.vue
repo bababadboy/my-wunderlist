@@ -160,7 +160,6 @@
                     'msg_type':'m'
                 }
                 postRequest(this.api.thumbUp,param).then(res=>{
-                    window.console.log(res)
                     this.data.vote = res.data.vote
                     this.data.numOfLike = res.data.count
                 })
