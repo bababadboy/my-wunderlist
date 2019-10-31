@@ -333,6 +333,9 @@ li{
   list-style: none;
 }
 
+.bs{
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05)
+}
 /*alibaba icon symbol模式*/
 .icon {
   width: 1em; height: 1em;

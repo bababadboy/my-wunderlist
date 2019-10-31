@@ -7,7 +7,9 @@
                 <div class="name fs15">
                     {{data.nickname}}
                 </div>
-                <div id="more-btn" class="iconfont icon-more icon fr" @click="clickMore"></div>
+                <button class="follow-btn fr">关注</button>
+                <div class="iconfont icon-more icon more-btn" @click="clickMore"></div>
+
                 <!-- native监听当前组件，自定义事件       -->
                 <more-panel v-if="morePanelShownStatus" class="more-panel" @click.native="clickpanel()"></more-panel>
                 <div class="tc-slate fs12">
@@ -239,8 +241,25 @@
         top: 33px;
         cursor: pointer;
     }
-    #more-btn:hover{
-        color: #4ed3ff;
+
+
+
+    .follow-btn {
+        padding: 0;
+        width: 55px;
+        height: 26px;
+        font-size: 13px;
+        border-color: #347bff;
+        color: #347bff;
+        position: relative;
+        right: 20px;
     }
+
+    .more-btn{
+        position: relative;
+        left: 480px;
+        top: -10px;
+    }
+
 
 </style>

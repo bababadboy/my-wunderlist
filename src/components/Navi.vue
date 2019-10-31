@@ -23,7 +23,20 @@
                             <span class="login">登录</span>
                             <span class="register">注册</span>
                         </li>
-                        <li v-else class="nav-item auth" @click="logout()">退出登录</li>
+<!--                        <li v-else class="nav-item auth" @click="logout()">退出登录</li>-->
+                        <li v-else class="ml20">
+                            <div class="avatar" @click="showMenu()">
+                                <img src="../assets/images/avatar.jpg" alt="avatar" class="avatar">
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="nav-menu" v-if="menuStatus">
+                        <li class="nav-menu-item">我的主页</li>
+                        <li class="nav-menu-item">我的关注</li>
+                        <li class="nav-menu-item">我的粉丝</li>
+                        <li class="nav-menu-item">我赞过的</li>
+                        <li class="nav-menu-item">设置</li>
+                        <li class="nav-menu-item" @click="logout">登出</li>
                     </ul>
                 </nav>
             </div>
@@ -34,12 +47,23 @@
 <script>
     export default {
         name: "Navi",
+        data(){
+            return{
+                menuStatus:false
+            }
+        },
+        mounted(){
+        },
         methods:{
             showAuth(){
                 this.$emit('showAuth')
             },
             logout(){
                 this.$emit('logout')
+                this.menuStatus = false;
+            },
+            showMenu() {
+                this.menuStatus = !this.menuStatus
             }
         }
     }
@@ -49,7 +73,7 @@
 <style scoped>
     .header-box {
         position: relative;
-        height: 5rem;
+        height: 4rem;
     }
 
 
@@ -101,6 +125,7 @@
 
     .search {
         flex: 1 1 auto;
+        justify-content: flex-end;
     }
 
     .search-form {
@@ -144,6 +169,37 @@
         width: 100%;
         display: flex;
     }
+
+    .avatar {
+        height: 32px;
+        width: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .nav-menu {
+        width: 120px;
+        border-radius: 5px;
+        transform: translateX(0);
+        position: absolute;
+        right: 15px;
+        top: 35px;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+        border: 1px solid rgba(177,180,185,.45);
+        font-size: 14px;
+        padding: 0;
+    }
+
+    .nav-menu-item {
+        color: #71777c;
+        cursor: pointer;
+        padding: 10px;
+    }
+    .nav-menu-item:hover {
+        background-color: #f4f5f5;
+    }
+
 </style>
 <style src="../assets/css/common.css" scoped>
 </style>

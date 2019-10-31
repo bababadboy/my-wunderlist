@@ -12,15 +12,16 @@
                     <offer-card title="点击给wxb offer"></offer-card>
                 </div>
                 <div class="center-panel">
-                    <pub @publish="publishMoment($event)"></pub>
+                    <pub @publish="publishMoment($event)" class="bs"></pub>
 
-                    <moment-card class="moment-card"
+                    <moment-card class="moment-card bs"
                                  v-for="(item,index) in momentsList" :key="index" :data="item"
                                  @delete="handleDelete(item.id)">
                     </moment-card>
                 </div>
                 <div class="right-panel">
                     <profile-card
+                            class="bs"
                             v-if="$store.getters.authStatus"
                             :userProfile="$store.getters.profile">
                     </profile-card>
@@ -169,7 +170,8 @@
         font-family: Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
         color: #222;
         font-size: 14px;
-        background-color: #d2e9fb;
+        /*background-color: #d2e9fb;*/
+        background-color: #f4f5f5;
         margin: 0;
     }
 
