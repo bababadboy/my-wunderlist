@@ -7,7 +7,15 @@
                 <div class="name fs15">
                     {{data.nickname}}
                 </div>
-                <button class="follow-btn fr">关注</button>
+
+                <!--   todo replace with 组件follow-button        -->
+                <follow-button class="follow-btn">
+                </follow-button>
+<!--                <button class="follow-btn" @click="handleFollowClick()">-->
+<!--                    <span v-if="true">关注</span>-->
+<!--                    <span v-else>已关注</span>-->
+<!--                </button>-->
+
                 <div class="iconfont icon-more icon more-btn" @click="clickMore"></div>
 
                 <!-- native监听当前组件，自定义事件       -->
@@ -65,12 +73,14 @@
     import MorePanel from './MorePanel'
     import Floor from './Floor'
     import CommentSend from './CommentSend'
+    import FollowButton from './common/FollowButton'
     import {getRequest, postRequest,} from "../utils/api";
     export default {
         components:{
             MorePanel,
             Floor,
-            CommentSend
+            CommentSend,
+            FollowButton
         },
         name: "MomentCard",
         props:{
@@ -109,6 +119,7 @@
                 likeClicked:this.data.vote,  // 是否已经点击了"点赞按钮"
                 likeNum:this.data.numOfLike,
                 commentList:[],
+                followState:false,
                 api:{
                     getCommentsList:'/api/v1/comment/get_all',
                     postComment:'/api/v1/comment/add',
@@ -164,7 +175,11 @@
                 postRequest(this.api.thumbUp,param).then(res=>{
                     this.data.vote = res.data.vote
                     this.data.numOfLike = res.data.count
+                    this.data.numOfLike = res.data.count
                 })
+            },
+            handleFollowClick(){
+                this.followState = !this.followState
             }
         }
     }
@@ -221,6 +236,7 @@
     .name {
         color: #4ed3ff;
         display: inline-block;
+        width: 450px;
     }
 
     .content {
@@ -245,20 +261,13 @@
 
 
     .follow-btn {
-        padding: 0;
-        width: 55px;
-        height: 26px;
-        font-size: 13px;
-        border-color: #347bff;
-        color: #347bff;
         position: relative;
-        right: 20px;
+        top: -13px;
     }
 
     .more-btn{
-        position: relative;
-        left: 480px;
-        top: -10px;
+       /*margin-left: 10px;*/
+        float: right;
     }
 
 
