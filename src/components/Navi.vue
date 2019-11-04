@@ -7,7 +7,7 @@
                 </a>
                 <nav role="navigation" class="main-nav">
                     <ul class="nav-list">
-                        <li class="nav-item">首页</li>
+                        <li class="nav-item" @click="toIndex()">首页</li>
                         <li class="nav-item">推荐</li>
                         <li class="nav-item">话题</li>
                         <li class="nav-item search">
@@ -18,9 +18,10 @@
                         </li>
                         <li v-if="$store.getters.authStatus">
 <!--                            <div class="iconfont icon-xiaoxi fs24"></div>-->
-                            <svg class="icon fs22" aria-hidden="true">
-                                <use xlink:href="#icon-xiaoxi1"></use>
-                            </svg>
+<!--                            <svg class="icon fs22" aria-hidden="true">-->
+<!--                                <use xlink:href="#icon-xiaoxi1"></use>-->
+<!--                            </svg>-->
+                            <notify></notify>
                         </li>
                         <li v-if="!$store.getters.authStatus" class="nav-item auth" @click="showAuth()">
                             <span class="login">登录</span>
@@ -35,7 +36,7 @@
                     </ul>
                     <ul class="nav-menu" v-if="menuStatus">
 
-                        <li class="nav-menu-item">
+                        <li class="nav-menu-item" @click="handleUserPage()">
                             <svg class="icon fs16 mr5" aria-hidden="true">
                                 <use xlink:href="#icon-danseshixintubiao-"></use>
                             </svg>
@@ -61,8 +62,12 @@
 </template>
 
 <script>
+    import notify from './Notify'
     export default {
         name: "Navi",
+        components:{
+            notify
+        },
         data(){
             return{
                 menuStatus:false
@@ -80,6 +85,14 @@
             },
             showMenu() {
                 this.menuStatus = !this.menuStatus
+            },
+            handleUserPage(){
+                this.$router.push('user').catch(()=>{})
+                this.$emit('toUserPage')
+                this.menuStatus  = false
+            },
+            toIndex(){
+                this.$router.push('/').catch(()=>{})
             }
         }
     }

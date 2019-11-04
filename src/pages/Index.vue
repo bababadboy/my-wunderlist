@@ -1,24 +1,43 @@
 <template>
-    <div id="app">
-        <navi @showAuth="showAuthCard()"
-              @logout="handleLogout()">
-        </navi>
-        <auth-card v-if="authShown"
-                   @closeAuth="closeAuth"
-                   @login="handleLogin($event)"></auth-card>
-        <router-view></router-view>
+    <div id="index">
+        <div class="container">
+            <div class="home-content">
+                <div class="left-panel">
+                    <offer-card title="点击给wxb offer"></offer-card>
+                </div>
+                <div class="center-panel">
+                    <pub @publish="publishMoment($event)" class="bs"></pub>
+
+                    <moment-card class="moment-card bs"
+                                 v-for="(item,index) in momentsList" :key="index" :data="item"
+                                 @delete="handleDelete(item.id)">
+                    </moment-card>
+                </div>
+                <div class="right-panel">
+                    <profile-card
+                            class="bs"
+                            v-if="$store.getters.authStatus"
+                            :userProfile="$store.getters.profile">
+                    </profile-card>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import {postRequest, getRequest} from "./utils/api"
-    import AuthCard from "./components/AuthCard"
-    import navi from './components/Navi'
+    import {postRequest, getRequest} from "../utils/api"
+    import pub from "../components/Publish"
+    import OfferCard from "../components/OfferCard"
+    import MomentCard from "../components/MomentCard"
+    import ProfileCard from '../components/ProfileCard'
     export default {
-        name: 'app',
+        name: 'index',
         components: {
-            AuthCard,
-            navi
+            pub,
+            OfferCard,
+            MomentCard,
+            ProfileCard,
         },
         data() {
             return {
@@ -144,14 +163,7 @@
 </script>
 
 <style>
-    body {
-        font-family: Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
-        color: #222;
-        font-size: 14px;
-        /*background-color: #d2e9fb;*/
-        background-color: #f4f5f5;
-        margin: 0;
-    }
+
 
     .home-container{
         width:100%;

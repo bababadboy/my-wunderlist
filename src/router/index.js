@@ -1,20 +1,22 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Index from "../pages/Index";
+import User from "../pages/User";
 
 Vue.use(Router);
 
 const router = new Router({
     routes: [
-        // {
-        //     path: '/',
-        //     name: '/',
-        //     redirect: '/'
-        // }
-        // {
-        //     path: '/login',
-        //     name: 'login',
-        //     component: login
-        // },
+        {
+            path: '/user',
+            name: 'user',
+            component:User
+        },
+        {
+            path: '/',
+            name: 'index',
+            component: Index
+        },
         // {
         //     path: '/home',
         //     name: 'home',
