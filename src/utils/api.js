@@ -32,7 +32,6 @@ axios.interceptors.response.use(
          if (error.response && error.response.status === 401) {
              localStorage.removeItem('Authorization')
              localStorage.removeItem('userInfo')
-             alert('请登录: )')
          }
          return Promise.reject(error);
 });

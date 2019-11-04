@@ -46,8 +46,10 @@
         height: 26px;
         border-radius: 3px;
         font-size: 13px;
-        border-color: #6cbd45;
-        color: #6cbd45;
+        /*border-color: #6cbd45;*/
+        border-color: #00cd00;
+        /*color: #6cbd45;*/
+        color: #00cd00;
 
     }
 
@@ -55,6 +57,7 @@
         border-color: #ebebeb;
         color: #ebebeb;
         background-color: #6cbd45;
+        /*background-color: #00cd00;*/
     }
 
     .btn-container {

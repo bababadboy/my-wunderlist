@@ -37,6 +37,9 @@
             offerIncr() {
                 postRequest(this.postUrl).then(res => {
                     this.offerNum = res.data.offer_num
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
             getOffer() {

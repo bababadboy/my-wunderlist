@@ -161,6 +161,9 @@
                 postRequest(this.api.postComment,param).then(()=>{
                     // 刷新
                     this.getCommentList();
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
             handleInput($event){
@@ -176,6 +179,9 @@
                     this.data.vote = res.data.vote
                     this.data.numOfLike = res.data.count
                     this.data.numOfLike = res.data.count
+                }).catch(()=>{
+                    // window.console.log(err)
+                    alert("请登录")
                 })
             },
             handleFollowClick(){

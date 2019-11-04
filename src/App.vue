@@ -81,6 +81,9 @@
             offerIncr() {
                 postRequest(this.api.incrOffer).then(res => {
                     this.offerNum = res.data.offer_num
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
             getOffer() {
@@ -98,6 +101,9 @@
                     // todo 弹出一个发布成功状态框
                     alert("发布成功: )")
                     this.getMomentsList();  // postRequest异步执行，必须把此行放在then()中
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
 
             },

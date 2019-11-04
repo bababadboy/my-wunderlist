@@ -6,11 +6,39 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1403069",
+      "name": "设置",
+      "font_class": "setting-preferences-gear-office-application-structure-define-process-fbaaebdf",
+      "unicode": "e784",
+      "unicode_decimal": 59268
+    },
+    {
+      "icon_id": "1409628",
+      "name": "28退出",
+      "font_class": "tuichu",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
       "icon_id": "1764101",
       "name": "消息",
       "font_class": "xiaoxi",
       "unicode": "e6f5",
       "unicode_decimal": 59125
+    },
+    {
+      "icon_id": "4114104",
+      "name": "more",
+      "font_class": "more1",
+      "unicode": "e69e",
+      "unicode_decimal": 59038
+    },
+    {
+      "icon_id": "4421941",
+      "name": "消息",
+      "font_class": "xiaoxi1",
+      "unicode": "e672",
+      "unicode_decimal": 58994
     },
     {
       "icon_id": "4520183",
@@ -25,6 +53,20 @@
       "font_class": "icon_dianzan_blue",
       "unicode": "e60b",
       "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "8103415",
+      "name": "个人中心",
+      "font_class": "danseshixintubiao-",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "8289013",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e86d",
+      "unicode_decimal": 59501
     },
     {
       "icon_id": "8338446",
@@ -144,6 +186,13 @@
       "font_class": "zengjia",
       "unicode": "e881",
       "unicode_decimal": 59521
+    },
+    {
+      "icon_id": "11399523",
+      "name": "退出",
+      "font_class": "tuichu1",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
     },
     {
       "icon_id": "11503061",

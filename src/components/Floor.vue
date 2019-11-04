@@ -143,6 +143,9 @@
                 postRequest(this.api.addReply,body).then(()=>{
                     alert("回复"+this.data.nickname+" 成功")
                     this.getReplies()
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
             handleSendReply($event,index){
@@ -157,6 +160,9 @@
                 postRequest(this.api.addReply,body).then(()=>{
                     alert("回复"+this.data.replyList[index].nickname+" 成功")
                     this.getReplies()
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
             // 获取评论的所有回复
@@ -174,6 +180,9 @@
                 postRequest(this.api.thumbUp,param).then(res=>{
                     this.data.vote = res.data.vote
                     this.data.numOfLike = res.data.count
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
             // 回复点赞
@@ -185,6 +194,9 @@
                 postRequest(this.api.thumbUp,param).then(res=>{
                     this.data.replyList[index].vote = res.data.vote
                     this.data.replyList[index].likeNum = res.data.count
+                }).catch(err=>{
+                    window.console.log(err)
+                    alert("请登录")
                 })
             },
         }

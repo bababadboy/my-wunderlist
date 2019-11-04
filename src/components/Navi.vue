@@ -17,7 +17,10 @@
                             </form>
                         </li>
                         <li v-if="$store.getters.authStatus">
-                            <div class="iconfont icon-xiaoxi fs24"></div>
+<!--                            <div class="iconfont icon-xiaoxi fs24"></div>-->
+                            <svg class="icon fs22" aria-hidden="true">
+                                <use xlink:href="#icon-xiaoxi1"></use>
+                            </svg>
                         </li>
                         <li v-if="!$store.getters.authStatus" class="nav-item auth" @click="showAuth()">
                             <span class="login">登录</span>
@@ -31,12 +34,25 @@
                         </li>
                     </ul>
                     <ul class="nav-menu" v-if="menuStatus">
-                        <li class="nav-menu-item">我的主页</li>
-                        <li class="nav-menu-item">我的关注</li>
-                        <li class="nav-menu-item">我的粉丝</li>
-                        <li class="nav-menu-item">我赞过的</li>
-                        <li class="nav-menu-item">设置</li>
-                        <li class="nav-menu-item" @click="logout">登出</li>
+
+                        <li class="nav-menu-item">
+                            <svg class="icon fs16 mr5" aria-hidden="true">
+                                <use xlink:href="#icon-danseshixintubiao-"></use>
+                            </svg>
+                            <span>我的主页</span>
+                        </li>
+                        <li class="nav-menu-item">
+                            <svg class="icon fs16 mr5" aria-hidden="true">
+                                <use xlink:href="#icon-setting-preferences-gear-office-application-structure-define-process-fbaaebdf"></use>
+                            </svg>
+                            <span>设置</span>
+                        </li>
+                        <li class="nav-menu-item" @click="logout">
+                            <svg class="icon fs16 mr5" aria-hidden="true">
+                                <use xlink:href="#icon-tuichu"></use>
+                            </svg>
+                            <span>退出</span>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -179,7 +195,7 @@
 
     .nav-menu {
         width: 120px;
-        border-radius: 5px;
+        border-radius: 3px;
         transform: translateX(0);
         position: absolute;
         right: 15px;
@@ -194,7 +210,7 @@
     .nav-menu-item {
         color: #71777c;
         cursor: pointer;
-        padding: 10px;
+        padding: 10px 0 10px 20px;
     }
     .nav-menu-item:hover {
         background-color: #f4f5f5;
