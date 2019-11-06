@@ -163,13 +163,12 @@
 <style>
 
 
-    .home-container{
-        width:100%;
-    }
 
     .home-content{
+        width: 1000px;
+        margin: 0 auto;
         display: flex;
-        justify-content: center;
+
     }
 
     .left-panel{
