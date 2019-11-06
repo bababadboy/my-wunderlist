@@ -153,36 +153,5 @@
         margin: 0;
     }
 
-    .home-container{
-        width:100%;
-    }
-
-    .home-content{
-        display: flex;
-        justify-content: center;
-    }
-
-    .left-panel{
-        width: 244px;
-    }
-    .center-panel{
-        width: 632px;
-        margin: 0 8px;
-
-    }
-    .right-panel{
-        width: 268px;
-
-    }
-    .moment-card{
-        margin-top: 10px;
-        /*height: 160px;*/
-        width: 632px;
-        position: relative; /* 使用 相对定位的原因是,子元素more-panel必须使用绝对定位，见 https://www.iteye.com/blog/lixh1986-1948337,或者google搜索:css absolute 如何相对父元素*/
-        background-color: #fff;
-        border-radius: 4px;
-        font-size: 30px;
-    }
-
 
 </style>

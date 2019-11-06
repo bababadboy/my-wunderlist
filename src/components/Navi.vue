@@ -2,9 +2,8 @@
     <div id="navi" class="header-box">
         <header class="main-header">
             <div class="container header-container">
-                <a href="" class="logo">
                     <!--<img src="https://b-gold-cdn.xitu.io/v3/static/img/logo.a7995ad.svg" alt="">-->
-                </a>
+                <span>MINKOWSK</span>
                 <nav role="navigation" class="main-nav">
                     <ul class="nav-list">
                         <li class="nav-item" @click="toIndex()">首页</li>
@@ -21,7 +20,7 @@
 <!--                            <svg class="icon fs22" aria-hidden="true">-->
 <!--                                <use xlink:href="#icon-xiaoxi1"></use>-->
 <!--                            </svg>-->
-                            <notify></notify>
+                            <notify :count="99"></notify>
                         </li>
                         <li v-if="!$store.getters.authStatus" class="nav-item auth" @click="showAuth()">
                             <span class="login">登录</span>
@@ -102,7 +101,7 @@
 <style scoped>
     .header-box {
         position: relative;
-        height: 4rem;
+        height: 60px;
     }
 
 
@@ -192,7 +191,7 @@
     }
 
     .container {
-        max-width: 800px;
+        max-width: 900px;
         position: relative;
         margin: 0 auto;
         width: 100%;

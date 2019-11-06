@@ -1,10 +1,9 @@
 <template>
     <div id="index">
-        <div class="container">
-            <div class="home-content">
-                <div class="left-panel">
-                    <offer-card title="点击给wxb offer"></offer-card>
-                </div>
+        <div class="home-content">
+<!--                <div class="left-panel">-->
+<!--                    <offer-card title="点击给wxb offer"></offer-card>-->
+<!--                </div>-->
                 <div class="center-panel">
                     <pub @publish="publishMoment($event)" class="bs"></pub>
 
@@ -21,21 +20,20 @@
                     </profile-card>
                 </div>
             </div>
-        </div>
     </div>
 </template>
 
 <script>
     import {postRequest, getRequest} from "../utils/api"
     import pub from "../components/Publish"
-    import OfferCard from "../components/OfferCard"
+    // import OfferCard from "../components/OfferCard"
     import MomentCard from "../components/MomentCard"
     import ProfileCard from '../components/ProfileCard'
     export default {
         name: 'index',
         components: {
             pub,
-            OfferCard,
+            // OfferCard,
             MomentCard,
             ProfileCard,
         },
@@ -179,7 +177,7 @@
     }
     .center-panel{
         width: 632px;
-        margin: 0 8px;
+        margin: 0 20px;
 
     }
     .right-panel{
