@@ -16,23 +16,18 @@
            </div>
            <div class="user-main-pannel">
                <div class="user-main-left">
-                   <div class="user-activity-filter bs">
-                       <div class="user-filter-item" @click="getMyMoments()">我的动态</div>
-                       <div class="user-filter-item" @click="getMyThumbUp()">我的点赞</div>
-                       <div class="user-filter-item">我的评论</div>
-                       <div class="user-filter-item">我的关注</div>
-                       <div class="user-filter-item">关注我的</div>
-                   </div>
+<!--                   <div class="user-activity-filter bs">-->
+<!--                       <div class="user-filter-item" @click="getMyMoments()">动态</div>-->
+<!--                       <div class="user-filter-item" @click="getMyThumbUp()">点赞</div>-->
+<!--                       <div class="user-filter-item">评论</div>-->
+<!--                       <div class="user-filter-item">关注</div>-->
+<!--                       <div class="user-filter-item">粉丝</div>-->
+<!--                   </div>-->
+                   <select-bar :list="selectItems" @choose="selectItem($event)">
 
+                   </select-bar>
 
                    <router-view></router-view>
-<!--                   <moment-card class="user-moment-card bs"-->
-<!--                                v-for="(item,index) in momentList" :key="index" :data="item">-->
-<!--                   </moment-card>-->
-
-<!--                   <moment-card class="user-moment-card bs"-->
-<!--                                v-for="(item,index) in thumbMomentList" :key="index" :data="item">-->
-<!--                   </moment-card>-->
                </div>
                <div class="user-main-right">
                    <div class="user-info-item"></div>
@@ -46,17 +41,20 @@
 
 <script>
     import XButton from '../components/common/EditButton'
+    import SelectBar from '../components/SelectBar'
     import {getRequest} from "../utils/api"
 
     export default {
         name: "User",
         components:{
             XButton,
+            SelectBar
         },
         data() {
             return {
                 momentList:[],
                 thumbMomentList:[],
+                selectItems:['动态','点赞','关注','粉丝'],
                 api:{
                     userMoment:'/api/v1/moment/own',
                     thumbUpMoment:'/api/v1/moment/thumb'
@@ -90,6 +88,15 @@
                 }).catch(()=>{
                     alert("错误: )")
                 })
+            },
+            selectItem($event) {
+                if ($event.index === 0){
+                    this.getMyMoments()
+                }else if ($event.index === 1) {
+                    this.getMyThumbUp()
+                }else{
+                    window.console.log('尚不支持: )')
+                }
             }
         }
     }
