@@ -267,8 +267,7 @@
 
 
     .follow-btn {
-        position: relative;
-        top: -13px;
+        position: absolute;
     }
 
     .more-btn{

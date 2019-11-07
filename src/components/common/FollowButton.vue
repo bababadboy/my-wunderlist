@@ -50,6 +50,7 @@
         border-color: #00cd00;
         /*color: #6cbd45;*/
         color: #00cd00;
+        background-color: #fff;
 
     }
 

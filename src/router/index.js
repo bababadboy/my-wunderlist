@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Index from "../pages/Index";
 import User from "../pages/User";
+import UserMomentList from "../pages/user/UserMomentList";
+import UserThumbUpList from "../pages/user/UserThumbUpList";
 
 Vue.use(Router);
 
@@ -10,13 +12,24 @@ const router = new Router({
         {
             path: '/user',
             name: 'user',
-            component:User
+            component:User,
+            children: [
+                // 当 /user/:id 匹配成功，
+                // UserHome 会被渲染在 User 的 <router-view> 中
+                //     {
+                //         path: '/user', name:'userMoment',component: UserMomentList,props:true
+                //     },
+                    { path: '/moments',name:'userMoment', component: UserMomentList ,props:true},
+                    { path: '/thumbup',name:'userThumbUp' ,component: UserThumbUpList ,props:true}
+                ]
         },
         {
             path: '/',
             name: 'index',
             component: Index
         },
+
+
         // {
         //     path: '/home',
         //     name: 'home',

@@ -17,14 +17,22 @@
            <div class="user-main-pannel">
                <div class="user-main-left">
                    <div class="user-activity-filter bs">
-                       <div class="user-filter-item">我的动态</div>
-                       <div class="user-filter-item">我的点赞</div>
+                       <div class="user-filter-item" @click="getMyMoments()">我的动态</div>
+                       <div class="user-filter-item" @click="getMyThumbUp()">我的点赞</div>
                        <div class="user-filter-item">我的评论</div>
                        <div class="user-filter-item">我的关注</div>
                        <div class="user-filter-item">关注我的</div>
                    </div>
-                   <moment-card class="user-moment-card bs">
-                   </moment-card>
+
+
+                   <router-view></router-view>
+<!--                   <moment-card class="user-moment-card bs"-->
+<!--                                v-for="(item,index) in momentList" :key="index" :data="item">-->
+<!--                   </moment-card>-->
+
+<!--                   <moment-card class="user-moment-card bs"-->
+<!--                                v-for="(item,index) in thumbMomentList" :key="index" :data="item">-->
+<!--                   </moment-card>-->
                </div>
                <div class="user-main-right">
                    <div class="user-info-item"></div>
@@ -38,29 +46,50 @@
 
 <script>
     import XButton from '../components/common/EditButton'
-    import MomentCard from '../components/MomentCard'
-    import getRequest from "../utils/api"
+    import {getRequest} from "../utils/api"
 
     export default {
         name: "User",
         components:{
             XButton,
-            MomentCard
         },
         data() {
             return {
                 momentList:[],
+                thumbMomentList:[],
                 api:{
-                    userMoment:''
+                    userMoment:'/api/v1/moment/own',
+                    thumbUpMoment:'/api/v1/moment/thumb'
                 }
             }
         },
         mounted() {
-            this.profileInit()
+            this.getMyMoments()
         },
         methods:{
-            profileInit() {
-                getRequest()
+            // 获取用户点赞的动态
+            getMyThumbUp() {
+                getRequest(this.api.thumbUpMoment).then(res=>{
+                    this.thumbMomentList = res.data.payload
+                    // 把动态列表数据传进 路由自组件
+                    this.$router.push(
+                            {
+                                name:'userThumbUp',
+                                params: {list:res.data.payload}
+                            }
+                        ).catch(()=>{})
+                }).catch(()=>{
+                    alert("错误: )")
+                })
+            },
+            // 获取用户自己的动态
+            getMyMoments() {
+                getRequest(this.api.userMoment).then(res=>{
+                    this.momentList = res.data.payload
+                    this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
+                }).catch(()=>{
+                    alert("错误: )")
+                })
             }
         }
     }
@@ -179,20 +208,13 @@
         align-items: center;
     }
 
-    .user-moment-card {
-        margin-top: 10px;
-        /*height: 160px;*/
-        width: 632px;
-        position: relative; /* 使用 相对定位的原因是,子元素more-panel必须使用绝对定位，见 https://www.iteye.com/blog/lixh1986-1948337,或者google搜索:css absolute 如何相对父元素*/
-        background-color: #fff;
-        border-radius: 4px;
-        font-size: 30px;
-    }
+
 
     .user-filter-item {
         /*display: inline-block;*/
-        padding: 0 35px;
         cursor: pointer;
+        width: 60px;
+        margin: 0 30px;
 
     }
 </style>

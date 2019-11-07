@@ -87,7 +87,7 @@
             },
             handleUserPage(){
                 this.$router.push('user').catch(()=>{})
-                this.$emit('toUserPage')
+                // this.$emit('toUserPage')
                 this.menuStatus  = false
             },
             toIndex(){
@@ -112,7 +112,7 @@
         top: 0;
         height: 45px;
         background-color: #fff;
-        border-bottom: 1px solid #f1f1f1;
+        box-shadow: 0 1px 3px rgba(26,26,26,.1);;
         z-index: 250;
     }
 
