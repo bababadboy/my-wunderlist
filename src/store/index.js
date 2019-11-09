@@ -5,16 +5,14 @@ Vue.use(Vuex);
 const state={
     // loginStatus:false,
     Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
-    profile: localStorage.getItem('userInfo') ? localStorage.getItem('userInfo') : '{}'
+    profile: localStorage.getItem('userInfo') ? localStorage.getItem('userInfo') : '{}',
+    navItemState: [false,false,false]
 };
 
 const getters = {
     getUserAuth: (state)=>{
         return state.Authorization;
     },
-    // getUserLoginStatus: (state)=>{
-    //     return state.loginStatus;
-    // }
     // 登录的装填，有Authorization，登录成功
     authStatus(state) {
         return state.Authorization?true:false;
@@ -22,7 +20,11 @@ const getters = {
     profile(state){
         let pf = JSON.parse(state.profile)
         return  pf;
+    },
+    navItemState (state) {
+        return state.navItemState
     }
+
 
 };
 
@@ -44,13 +46,16 @@ const mutations = {
         localStorage.removeItem('userInfo');
         state.Authorization = '';
         state.userProfile = '{}';
+    },
+    changeNavItemState(state,newState){
+        for (let i = 0; i < state.navItemState.length; i++) {
+            state.navItemState.splice(i,1,newState[i])
+        }
     }
 };
 
 const actions ={
-    // setLoginStatus(context){
-    //     context.commit('changeLoginStatus')
-    // }
+
     setAuthorization(context,auth){
         context.commit('setAuth',auth)
     },
@@ -59,7 +64,11 @@ const actions ={
     },
     removeAuth(context){
         context.commit('removeAuth')
+    },
+    changeNavItemState(context) {
+        context.commit('changeNavItemState')
     }
+
 };
 
 const store = new Vuex.Store({

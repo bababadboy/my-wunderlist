@@ -63,6 +63,7 @@
             init(){
                 this.getOffer();
                 this.getMomentsList();
+                this.$store.commit('changeNavItemState',[true,false,false])
             },
             offerIncr() {
                 postRequest(this.api.incrOffer).then(res => {
@@ -149,6 +150,7 @@
                 }
             },
             handle2UserPage(){
+
                 this.$router.push({name:'user'}).catch(()=>{})
             }
             // 获取用户信息

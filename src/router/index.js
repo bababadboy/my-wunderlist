@@ -16,11 +16,11 @@ const router = new Router({
             children: [
                 // 当 /user/:id 匹配成功，
                 // UserHome 会被渲染在 User 的 <router-view> 中
-                //     {
-                //         path: '/user', name:'userMoment',component: UserMomentList,props:true
-                //     },
-                    { path: '/moments',name:'userMoment', component: UserMomentList ,props:true},
-                    { path: '/thumbup',name:'userThumbUp' ,component: UserThumbUpList ,props:true}
+                    {
+                        path: '/user', name:'userMoment',component: UserMomentList,props:true
+                    },
+                    // { path: '/user/moments',name:'userMoment', component: UserMomentList ,props:true},
+                    { path: '/user/thumbup',name:'userThumbUp' ,component: UserThumbUpList ,props:true}
                 ]
         },
         {

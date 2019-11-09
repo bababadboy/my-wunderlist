@@ -22,7 +22,7 @@
         },
         data(){
             return {
-                selectStatus:[false,false,false,false],
+                selectStatus:[true,false,false,false],
             }
         },
         methods: {
@@ -44,7 +44,7 @@
         margin-bottom: 10px;
         background-color: #fff;
         display: flex;
-        justify-content: start;
+        justify-content: flex-start;
     }
 
     .user-filter-item {

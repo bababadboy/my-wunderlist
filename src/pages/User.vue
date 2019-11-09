@@ -63,6 +63,7 @@
         },
         mounted() {
             this.getMyMoments()
+            this.$store.commit('changeNavItemState',[false,false,false])
         },
         methods:{
             // 获取用户点赞的动态

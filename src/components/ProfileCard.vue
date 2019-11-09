@@ -1,10 +1,10 @@
 <template>
     <div class="profile-box">
         <div class="profile">
-            <div class="avatar">
-                <img src="../assets/images/avatar.jpg" alt="avatar" class="avatar">
+            <div>
+                <img src="../assets/images/avatar.jpg" alt="avatar" class="avatar" @click="toUser()">
             </div>
-            <div class="nickname fs16">{{userProfile.nickname}}</div>
+            <div class="nickname fs16" @click="toUser()">{{userProfile.nickname}}</div>
         </div>
         <div class="stat-lit">
             <div class="stat-item">
@@ -48,6 +48,13 @@
                 },
 
             }
+        },
+        methods:{
+            toUser() {
+                // 改变导航栏的状态为f,f,f
+                this.$store.commit('changeNavItemState',[false,false,false])
+                this.$router.push({name:'user'})
+            }
         }
     }
 </script>
@@ -81,10 +88,12 @@
         width: 60px;
         height:60px;
         border-radius: 50%;
+        cursor: pointer;
     }
 
     .nickname {
         padding: 15px;
+        cursor: pointer;
     }
 
     .stat-item {

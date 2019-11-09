@@ -6,9 +6,11 @@
                 <span>MINKOWSK</span>
                 <nav role="navigation" class="main-nav">
                     <ul class="nav-list">
-                        <li class="nav-item" @click="toIndex()">首页</li>
-                        <li class="nav-item">推荐</li>
-                        <li class="nav-item">话题</li>
+                        <li :class="['nav-item',navItemState[0]?'nav-item-active':'']" @click="toIndex()">
+                            <span class="nav-item-title">首页</span>
+                        </li>
+                        <li :class="['nav-item',navItemState[1]?'nav-item-active':'']">推荐</li>
+                        <li :class="['nav-item',navItemState[2]?'nav-item-active':'']">话题</li>
                         <li class="nav-item search">
                             <form action="" class="search-form">
                                 <input type="text" placeholder="搜索树洞" class="search-input">
@@ -16,17 +18,12 @@
                             </form>
                         </li>
                         <li v-if="$store.getters.authStatus">
-<!--                            <div class="iconfont icon-xiaoxi fs24"></div>-->
-<!--                            <svg class="icon fs22" aria-hidden="true">-->
-<!--                                <use xlink:href="#icon-xiaoxi1"></use>-->
-<!--                            </svg>-->
                             <notify :count="99"></notify>
                         </li>
                         <li v-if="!$store.getters.authStatus" class="nav-item auth" @click="showAuth()">
                             <span class="login">登录</span>
                             <span class="register">注册</span>
                         </li>
-<!--                        <li v-else class="nav-item auth" @click="logout()">退出登录</li>-->
                         <li v-else class="ml20">
                             <div class="avatar" @click="showMenu()">
                                 <img src="../assets/images/avatar.jpg" alt="avatar" class="avatar">
@@ -61,6 +58,7 @@
 </template>
 
 <script>
+
     import notify from './Notify'
     export default {
         name: "Navi",
@@ -69,10 +67,12 @@
         },
         data(){
             return{
-                menuStatus:false
+                menuStatus:false,
+                navItemState:this.$store.getters.navItemState
             }
         },
         mounted(){
+
         },
         methods:{
             showAuth(){
@@ -87,12 +87,15 @@
             },
             handleUserPage(){
                 this.$router.push('user').catch(()=>{})
-                // this.$emit('toUserPage')
+                this.$store.commit('changeNavItemState',[false,false,false])
                 this.menuStatus  = false
             },
             toIndex(){
+                this.$store.commit('changeNavItemState',[true,false,false])
                 this.$router.push('/').catch(()=>{})
+
             }
+
         }
     }
 </script>
@@ -142,13 +145,27 @@
     }
 
     .nav-item {
-        padding: 0 1rem;
-        margin: 0;
+        /*padding: 0 1rem;*/
+        margin: 0 15px;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+    }
+
+    .nav-item:hover {
+        color:#000;
+    }
+
+    .nav-item-active {
+        color: #000;
+        border-bottom: solid 3px #0084ff;
+    }
+
+    .nav-item-title {
+        /*line-height: 50px;*/
+        /*width:auto;*/
     }
 
     .search {
