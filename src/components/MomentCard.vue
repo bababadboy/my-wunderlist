@@ -2,13 +2,12 @@
     <div class="mmtcard-container">
         <!-- 动态行  -->
         <div class="moment-row">
-            <div class="i-face"></div>
+            <div class="i-face cp" @click="toUserPage()"></div>
             <div class="main-content">
-                <div class="name fs15">
-                    {{data.nickname}}
+                <div class="name cp fs15">
+                    <span @click="toUserPage()">{{data.nickname}}</span>
                 </div>
 
-                <!--   todo replace with 组件follow-button        -->
                 <follow-button class="follow-btn">
                 </follow-button>
 <!--                <button class="follow-btn" @click="handleFollowClick()">-->
@@ -186,14 +185,23 @@
             },
             handleFollowClick(){
                 this.followState = !this.followState
+            },
+            // 转到userpage
+            toUserPage() {
+                this.$router.push(
+                    {
+                        name:'user',
+                        params:{
+                            'uid':'uid',
+                            'username':'nickname'
+                        }
+                    }).catch((err)=>{window.console.log(err)})
             }
         }
     }
 </script>
 
-<style src="../assets/css/common.css" scoped>
 
-</style>
 <style scoped>
     .i-face{
         height: 48px;
@@ -276,4 +284,6 @@
     }
 
 
+</style>
+<style src="../assets/css/common.css" scoped>
 </style>

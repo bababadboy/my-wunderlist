@@ -53,7 +53,16 @@
             toUser() {
                 // 改变导航栏的状态为f,f,f
                 this.$store.commit('changeNavItemState',[false,false,false])
-                this.$router.push({name:'user'})
+                this.$router.push(
+                    {
+                        name:'user',
+                        params:{
+                            'uid':this.$store.getters.profile.uid,
+                            'username':this.$store.getters.profile.nickname
+                        }
+                    }).catch(err=>{
+                    window.console.log(err)
+                })
             }
         }
     }

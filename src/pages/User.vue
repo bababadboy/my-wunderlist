@@ -52,8 +52,8 @@
         },
         data() {
             return {
-                momentList:[],
-                thumbMomentList:[],
+                // momentList:[],
+                // thumbMomentList:[],
                 selectItems:['动态','点赞','关注','粉丝'],
                 api:{
                     userMoment:'/api/v1/moment/own',
@@ -69,7 +69,7 @@
             // 获取用户点赞的动态
             getMyThumbUp() {
                 getRequest(this.api.thumbUpMoment).then(res=>{
-                    this.thumbMomentList = res.data.payload
+                    // this.thumbMomentList = res.data.payload
                     // 把动态列表数据传进 路由自组件
                     this.$router.push(
                             {
@@ -84,7 +84,7 @@
             // 获取用户自己的动态
             getMyMoments() {
                 getRequest(this.api.userMoment).then(res=>{
-                    this.momentList = res.data.payload
+                    // this.momentList = res.data.payload
                     this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
                 }).catch(()=>{
                     alert("错误: )")
