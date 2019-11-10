@@ -8,16 +8,16 @@
         </div>
         <div class="stat-lit">
             <div class="stat-item">
-                <div class="smtitle">动态</div>
-                <div class="num">{{userProfile.moments}}</div>
+                <div class="smtitle"><span class="cp" @click="toUserMoments()">动态</span></div>
+                <div class="num"><span class="cp" @click="toUserMoments()">{{userProfile.moments}}</span></div>
             </div>
             <div class="stat-item">
-                <div class="smtitle">关注</div>
-                <div class="num">{{userProfile.following}}</div>
+                <div class="smtitle"><span class="cp" @click="toFollowing()">关注</span></div>
+                <div class="num"><span class="cp" @click="toFollowing()">{{userProfile.following}}</span></div>
             </div>
             <div class="stat-item">
-                <div class="smtitle">粉丝</div>
-                <div class="num">{{userProfile.followers}}</div>
+                <div class="smtitle"><span class="cp" @click="toFollower()">关注者</span></div>
+                <div class="num"><span class="cp" @click="toFollower()">{{userProfile.followers}}</span></div>
             </div>
         </div>
     </div>
@@ -50,6 +50,26 @@
             }
         },
         methods:{
+            toFollowing(){
+
+            },
+            toFollower() {
+
+            },
+            toUserMoments(){
+                // 改变导航栏的状态为f,f,f
+                this.$store.commit('changeNavItemState',[false,false,false])
+                this.$router.push(
+                    {
+                        name:'user',
+                        params:{
+                            uid:this.$store.getters.profile.uid.toString(),
+                            // 'username':this.$store.getters.profile.nickname
+                        }
+                    }).catch(err=>{
+                    window.console.log(err)
+                })
+            },
             toUser() {
                 // 改变导航栏的状态为f,f,f
                 this.$store.commit('changeNavItemState',[false,false,false])
@@ -57,8 +77,8 @@
                     {
                         name:'user',
                         params:{
-                            'uid':this.$store.getters.profile.uid,
-                            'username':this.$store.getters.profile.nickname
+                            uid:this.$store.getters.profile.uid.toString(),
+                            // 'username':this.$store.getters.profile.nickname
                         }
                     }).catch(err=>{
                     window.console.log(err)

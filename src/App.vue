@@ -131,9 +131,9 @@
                     this.init();
                 }
             },
-            handle2UserPage(){
-                this.$router.push({name:'user'}).catch(()=>{})
-            }
+            // handle2UserPage(){
+            //     this.$router.push({name:'user'}).catch(()=>{})
+            // }
             // 获取用户信息
             // showProfile(){
             //     window.console.log('==========用户信息========')

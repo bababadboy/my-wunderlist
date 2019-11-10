@@ -6,12 +6,13 @@
                <div class="user-avatar"></div>
                <div class="user-info">
                    <div class="user-name">
-                       <span>{{$store.getters.profile.nickname}}</span>
+                       <span>{{userProfile.nickname}}</span>
                    </div>
                    <div class="user-intro">
                        <span>主人很烂没有介绍</span>
                    </div>
-                   <x-button class="user-profile-edit-btn"></x-button>
+                   <x-button v-if="userProfile.uid===$store.getters.profile.uid" class="user-profile-edit-btn"></x-button>
+                   <follow-button v-else class="user-profile-edit-btn"></follow-button>
                </div>
            </div>
            <div class="user-main-pannel">
@@ -41,6 +42,7 @@
 
 <script>
     import XButton from '../components/common/EditButton'
+    import FollowButton from '../components/common/FollowButton'
     import SelectBar from '../components/SelectBar'
     import {getRequest} from "../utils/api"
 
@@ -48,27 +50,54 @@
         name: "User",
         components:{
             XButton,
+            FollowButton,
             SelectBar
+        },
+        props:{
+            uid:{
+                type:String,
+                required:true
+            },
+            // username:{
+            //     type:String
+            // }
         },
         data() {
             return {
                 // momentList:[],
                 // thumbMomentList:[],
                 selectItems:['动态','点赞','关注','粉丝'],
+                userProfile:{
+                    nickname:'没有名字',
+                    avatar:'',
+                    gender:'',
+                    headLine:''
+                },
                 api:{
                     userMoment:'/api/v1/moment/own',
-                    thumbUpMoment:'/api/v1/moment/thumb'
+                    thumbUpMoment:'/api/v1/moment/thumb',
+                    userBasicInfo:'/api/v1/people/info'
                 }
             }
         },
         mounted() {
+            this.getUserBasicInfo()
             this.getMyMoments()
             this.$store.commit('changeNavItemState',[false,false,false])
         },
         methods:{
+            // 获取用户基本信息
+            getUserBasicInfo() {
+                getRequest(this.api.userBasicInfo,{uid:this.uid}).then(res=>{
+                    this.userProfile = res.data.payload
+                }).catch(()=>{
+                    alert("错误: )")
+                })
+            },
             // 获取用户点赞的动态
             getMyThumbUp() {
-                getRequest(this.api.thumbUpMoment).then(res=>{
+
+                getRequest(this.api.thumbUpMoment,{uid:this.uid}).then(res=>{
                     // this.thumbMomentList = res.data.payload
                     // 把动态列表数据传进 路由自组件
                     this.$router.push(
@@ -83,7 +112,7 @@
             },
             // 获取用户自己的动态
             getMyMoments() {
-                getRequest(this.api.userMoment).then(res=>{
+                getRequest(this.api.userMoment,{uid:this.uid}).then(res=>{
                     // this.momentList = res.data.payload
                     this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
                 }).catch(()=>{

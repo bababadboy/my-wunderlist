@@ -86,7 +86,13 @@
                 this.menuStatus = !this.menuStatus
             },
             handleUserPage(){
-                this.$router.push('user',{username:this.$store.getters.profile.nickname}).catch(()=>{})
+                this.$router.push(
+                    {
+                        name:'user',
+                        params: {
+                                uid:this.$store.getters.profile.uid.toString()
+                            }
+                    }).catch(()=>{})
                 this.$store.commit('changeNavItemState',[false,false,false])
                 this.menuStatus  = false
             },

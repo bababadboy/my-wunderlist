@@ -16,7 +16,7 @@
                     <profile-card
                             class="bs"
                             v-if="$store.getters.authStatus"
-                            :userProfile="$store.getters.profile">
+                            :userProfile="userInfo">
                     </profile-card>
                 </div>
             </div>
@@ -42,6 +42,7 @@
                 pubContent:'',
                 offerNum: 0,
                 momentsList:[], // 朋友圈列表
+                userInfo:{},
                 authShown:false,
                 api:{
                     incrOffer: "/api/v1/offer/give",
@@ -52,7 +53,9 @@
                     deleteMoment:'/api/v1/moment/delete',
                     // 登录注册
                     login:"/api/v1/user/auth",
-                    register:"/api/v1/user/register"
+                    register:"/api/v1/user/register",
+                    // 用户信息
+                    userInfo:"/api/v1/people/info"
                 }
             }
         },
@@ -61,10 +64,19 @@
         },
         methods: {
             init(){
-                this.getOffer();
+                // this.getOffer();
                 this.getMomentsList();
+                this.getUserInfo();
                 this.$store.commit('changeNavItemState',[true,false,false])
             },
+            getUserInfo () {
+                getRequest(this.api.userInfo,{uid:this.$store.getters.profile.uid}).then(res=>{
+                    this.userInfo = res.data.payload
+                }).catch(()=>{
+                    alert("错误: )")
+                })
+            },
+
             offerIncr() {
                 postRequest(this.api.incrOffer).then(res => {
                     this.offerNum = res.data.offer_num
@@ -88,6 +100,7 @@
                     // todo 弹出一个发布成功状态框
                     alert("发布成功: )")
                     this.getMomentsList();  // postRequest异步执行，必须把此行放在then()中
+                    this.getUserInfo();
                 }).catch(err=>{
                     window.console.log(err)
                     alert("请登录")
@@ -149,10 +162,6 @@
                     this.init();
                 }
             },
-            handle2UserPage(){
-
-                this.$router.push({name:'user'}).catch(()=>{})
-            }
             // 获取用户信息
             // showProfile(){
             //     window.console.log('==========用户信息========')

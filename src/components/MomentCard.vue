@@ -8,8 +8,8 @@
                     <span @click="toUserPage()">{{data.nickname}}</span>
                 </div>
 
-                <follow-button class="follow-btn">
-                </follow-button>
+<!--                <follow-button class="follow-btn">-->
+<!--                </follow-button>-->
 <!--                <button class="follow-btn" @click="handleFollowClick()">-->
 <!--                    <span v-if="true">关注</span>-->
 <!--                    <span v-else>已关注</span>-->
@@ -188,12 +188,14 @@
             },
             // 转到userpage
             toUserPage() {
+                // window.console.log("momentcard的uid数据类型是====>"+this.data.uid.toString())
+
                 this.$router.push(
                     {
                         name:'user',
                         params:{
-                            'uid':'uid',
-                            'username':'nickname'
+                            uid:this.data.uid.toString(),
+                            // username:this.data.nickname
                         }
                     }).catch((err)=>{window.console.log(err)})
             }
