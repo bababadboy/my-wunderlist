@@ -26,7 +26,7 @@
                         </li>
                         <li v-else class="ml20">
                             <div class="avatar" @click="showMenu()">
-                                <img src="../assets/images/avatar.jpg" alt="avatar" class="avatar">
+                                <img src="../assets/images/jay.png" alt="avatar" class="avatar">
                             </div>
                         </li>
                     </ul>
@@ -86,13 +86,14 @@
                 this.menuStatus = !this.menuStatus
             },
             handleUserPage(){
-                this.$router.push(
-                    {
+                this.$router.push({
                         name:'user',
                         params: {
                                 uid:this.$store.getters.profile.uid.toString()
                             }
-                    }).catch(()=>{})
+                    }).then(()=>{
+                        window.location.reload();
+                }).catch(()=>{})
                 this.$store.commit('changeNavItemState',[false,false,false])
                 this.menuStatus  = false
             },

@@ -2,7 +2,7 @@
     <div class="profile-box">
         <div class="profile">
             <div>
-                <img src="../assets/images/avatar.jpg" alt="avatar" class="avatar" @click="toUser()">
+                <img src="../assets/images/jay.png" alt="avatar" class="avatar" @click="toUser()">
             </div>
             <div class="nickname fs16" @click="toUser()">{{userProfile.nickname}}</div>
         </div>

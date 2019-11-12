@@ -1,7 +1,7 @@
 <template>
-    <div class="btn-container">
+    <div class="btn-container cp">
         <button :class="['follow-btn',followState?'active':'']" @click="handleFollowClick()">
-            <span v-if="!followState">关注</span>
+            <span v-if="!followState">+ 关注</span>
             <span v-else>已关注</span>
         </button>
     </div>
@@ -18,17 +18,20 @@
             height: {
                 type:String,
                 default:'55'
+            },
+            followState: {
+                type:Boolean,
+                default:false
             }
         },
         data() {
             return{
-                followState:false,
+                // followState:false,
             }
         },
         methods:{
             handleFollowClick() {
-                this.followState = !this.followState
-                this.$emit('follow',{'follow':this.followState})
+                this.$emit('follow')
             }
         }
     }
@@ -41,9 +44,9 @@
     }
 
     .follow-btn {
-        padding: 0;
-        width: 55px;
-        height: 26px;
+        padding: 0 16px;
+        /*width: 60px;*/
+        height: 32px;
         border-radius: 3px;
         font-size: 13px;
         /*border-color: #6cbd45;*/
@@ -62,6 +65,7 @@
     }
 
     .btn-container {
+        /*cursor: pointer;*/
         display: inline-block;
     }
 </style>

@@ -66,7 +66,9 @@
             init(){
                 // this.getOffer();
                 this.getMomentsList();
-                this.getUserInfo();
+                if (this.$store.getters.authStatus) {
+                    this.getUserInfo();
+                }
                 this.$store.commit('changeNavItemState',[true,false,false])
             },
             getUserInfo () {

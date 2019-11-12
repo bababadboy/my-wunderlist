@@ -41,6 +41,7 @@ const mutations = {
         // 字符串化存储user对象
         localStorage.setItem('userInfo',JSON.stringify(user));
     },
+    // 删除认证信息和登录信息
     removeAuth(state){
         localStorage.removeItem('Authorization');
         localStorage.removeItem('userInfo');

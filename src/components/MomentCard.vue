@@ -72,14 +72,14 @@
     import MorePanel from './MorePanel'
     import Floor from './Floor'
     import CommentSend from './CommentSend'
-    import FollowButton from './common/FollowButton'
+    // import FollowButton from './common/FollowButton'
     import {getRequest, postRequest,} from "../utils/api";
     export default {
         components:{
             MorePanel,
             Floor,
             CommentSend,
-            FollowButton
+            // FollowButton
         },
         name: "MomentCard",
         props:{
@@ -156,12 +156,11 @@
                     'momentId':this.data.id,
                     'content':$event.input,
                 }
-                alert("发表成功")
                 postRequest(this.api.postComment,param).then(()=>{
                     // 刷新
                     this.getCommentList();
-                }).catch(err=>{
-                    window.console.log(err)
+                    alert("发表成功")
+                }).catch(()=>{
                     alert("请登录")
                 })
             },
@@ -190,14 +189,15 @@
             toUserPage() {
                 // window.console.log("momentcard的uid数据类型是====>"+this.data.uid.toString())
 
-                this.$router.push(
-                    {
+                this.$router.push({
                         name:'user',
                         params:{
                             uid:this.data.uid.toString(),
                             // username:this.data.nickname
                         }
-                    }).catch((err)=>{window.console.log(err)})
+                    }).then(()=>{
+                        window.location.reload()
+                }).catch((err)=>{window.console.log(err)})
             }
         }
     }
@@ -213,7 +213,7 @@
         top: 24px;
         left: 24px;
         display: inline-block;
-        background-image: url("../assets/images/avatar.jpg");
+        background-image: url("../assets/images/jay.png");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;

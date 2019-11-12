@@ -5,13 +5,14 @@
         </navi>
         <auth-card v-if="authShown"
                    @closeAuth="closeAuth"
-                   @login="handleLogin($event)"></auth-card>
+                   @login="handleLogin($event)">
+        </auth-card>
         <router-view></router-view>
     </div>
 </template>
 
 <script>
-    import {postRequest, getRequest} from "./utils/api"
+    import {postRequest} from "./utils/api"
     import AuthCard from "./components/AuthCard"
     import navi from './components/Navi'
     export default {
@@ -40,53 +41,28 @@
             }
         },
         mounted() {
-            this.init();
+            // this.init();
         },
         methods: {
             init(){
-                this.getOffer();
-                this.getMomentsList();
-            },
-            offerIncr() {
-                postRequest(this.api.incrOffer).then(res => {
-                    this.offerNum = res.data.offer_num
-                }).catch(err=>{
-                    window.console.log(err)
-                    alert("请登录")
-                })
-            },
-            getOffer() {
-                getRequest(this.api.getOffer).then(res => {
-                    this.offerNum = res.data.offer_num
-                })
-            },
-            // 发布输入的内容
-            publishMoment($event){
-                postRequest(this.api.publishMoment,
-                    {
-                        'uid':this.$store.getters.profile.uid,
-                        'content':$event.value
-                    }).then(()=>{
-                    // todo 弹出一个发布成功状态框
-                    alert("发布成功: )")
-                    this.getMomentsList();  // postRequest异步执行，必须把此行放在then()中
-                }).catch(err=>{
-                    window.console.log(err)
-                    alert("请登录")
-                })
+                // this.getOffer();
+                // this.getMomentsList();
+                window.location.reload();
 
             },
-            handleInput($event){
-                this.pubContent=$event.textVal;
-            },
-            // 获取动态列表
-            getMomentsList(){
-                getRequest(this.api.getMomentList).then(res=>{
-                    // console.log(res)
-                    this.momentsList =res.data.payload;
-                    window.console.log(res.data.payload)
-                })
-            },
+            // offerIncr() {
+            //     postRequest(this.api.incrOffer).then(res => {
+            //         this.offerNum = res.data.offer_num
+            //     }).catch(err=>{
+            //         window.console.log(err)
+            //         alert("请登录")
+            //     })
+            // },
+            // getOffer() {
+            //     getRequest(this.api.getOffer).then(res => {
+            //         this.offerNum = res.data.offer_num
+            //     })
+            // },
             // 删除动态卡片
             /*
             handleDelete(id){

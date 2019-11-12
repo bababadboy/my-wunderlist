@@ -12,7 +12,10 @@
                        <span>主人很烂没有介绍</span>
                    </div>
                    <x-button v-if="userProfile.uid===$store.getters.profile.uid" class="user-profile-edit-btn"></x-button>
-                   <follow-button v-else class="user-profile-edit-btn"></follow-button>
+                   <follow-button v-else class="user-profile-edit-btn"
+                                  @follow="followMe()"
+                                  :follow-state="followInfo.followStatus">
+                   </follow-button>
                </div>
            </div>
            <div class="user-main-pannel">
@@ -44,7 +47,7 @@
     import XButton from '../components/common/EditButton'
     import FollowButton from '../components/common/FollowButton'
     import SelectBar from '../components/SelectBar'
-    import {getRequest} from "../utils/api"
+    import {getRequest, postRequest} from "../utils/api"
 
     export default {
         name: "User",
@@ -58,25 +61,30 @@
                 type:String,
                 required:true
             },
-            // username:{
-            //     type:String
-            // }
         },
         data() {
             return {
                 // momentList:[],
                 // thumbMomentList:[],
-                selectItems:['动态','点赞','关注','粉丝'],
+                selectItems:['动态','点赞','关注的','关注者'],
                 userProfile:{
                     nickname:'没有名字',
                     avatar:'',
                     gender:'',
-                    headLine:''
+                    headLine:'',
+                    followers: 0,
+                    following: 0,
+                },
+                followInfo:{
+                    followStatus:false,
+                    followerCnt:0,
                 },
                 api:{
                     userMoment:'/api/v1/moment/own',
                     thumbUpMoment:'/api/v1/moment/thumb',
-                    userBasicInfo:'/api/v1/people/info'
+                    userBasicInfo:'/api/v1/people/info',
+                    follow:'/api/v1/people/follow',
+                    followState:'/api/v1/people/follow_state'
                 }
             }
         },
@@ -86,10 +94,26 @@
             this.$store.commit('changeNavItemState',[false,false,false])
         },
         methods:{
+            // 是否有关注
+            getFollowState() {
+                  getRequest(this.api.followState,
+                      {'uid':this.userProfile.uid,'follower_uid':this.$store.getters.profile.uid}).then(res=>{
+                          this.followInfo.followStatus  = res.data.follow_state?true:false
+                  })
+            },
+            followMe() {
+                postRequest(this.api.follow,
+                    {'uid':this.userProfile.uid,'follower_uid':this.$store.getters.profile.uid}).then(res=>{
+                        this.followInfo.followStatus = res.data.follow_status?true:false;
+                        this.followInfo.followerCnt = res.data.follower_cnt;
+                }).catch((err)=>{window.console.log(err)})
+            },
             // 获取用户基本信息
             getUserBasicInfo() {
                 getRequest(this.api.userBasicInfo,{uid:this.uid}).then(res=>{
                     this.userProfile = res.data.payload
+                    // 获取用户关注状态
+                    this.getFollowState()
                 }).catch(()=>{
                     alert("错误: )")
                 })

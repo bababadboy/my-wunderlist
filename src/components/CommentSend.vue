@@ -101,7 +101,7 @@
         border-radius: 50%;
         position: relative;
         display: inline-block;
-        background-image: url("../assets/images/happy.gif");
+        background-image: url("../assets/images/jay.png");
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;

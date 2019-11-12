@@ -1,7 +1,8 @@
 import axios from 'axios'
+import store from '../store/index'
 
-// let base = 'http://106.14.191.82:8008'
-let base = 'http://localhost:8008'
+let base = 'http://106.14.191.82:8008'
+// let base = 'http://localhost:8008'
 
 
 // 添加请求拦截器，在请求头中加token
@@ -16,8 +17,7 @@ axios.interceptors.request.use(
         // 如果请求返回401,则说明token无效了
         window.console.log(error.status)
         if (error.response && error.response.status === 401) {
-            localStorage.removeItem('Authorization')
-            localStorage.removeItem('userInfo')
+            store.commit('removeAuth')
         }
         return Promise.reject(error);
     });
@@ -30,8 +30,9 @@ axios.interceptors.response.use(
     },
      (error)=> {
          if (error.response && error.response.status === 401) {
-             localStorage.removeItem('Authorization')
-             localStorage.removeItem('userInfo')
+             store.commit('removeAuth')
+             // localStorage.removeItem('Authorization')
+             // localStorage.removeItem('userInfo')
          }
          return Promise.reject(error);
 });
