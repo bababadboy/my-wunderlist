@@ -106,7 +106,9 @@
                     {'uid':this.userProfile.uid,'follower_uid':this.$store.getters.profile.uid}).then(res=>{
                         this.followInfo.followStatus = res.data.follow_status?true:false;
                         this.followInfo.followerCnt = res.data.follower_cnt;
-                }).catch((err)=>{window.console.log(err)})
+                }).catch(()=>{
+                    alert("请先登录")
+                })
             },
             // 获取用户基本信息
             getUserBasicInfo() {
@@ -124,8 +126,7 @@
                 getRequest(this.api.thumbUpMoment,{uid:this.uid}).then(res=>{
                     // this.thumbMomentList = res.data.payload
                     // 把动态列表数据传进 路由自组件
-                    this.$router.push(
-                            {
+                    this.$router.push({
                                 name:'userThumbUp',
                                 params: {list:res.data.payload}
                             }
