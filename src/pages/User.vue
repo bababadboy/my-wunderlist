@@ -122,27 +122,22 @@
             },
             // 获取用户点赞的动态
             getMyThumbUp() {
-
-                getRequest(this.api.thumbUpMoment,{uid:this.uid}).then(res=>{
-                    // this.thumbMomentList = res.data.payload
-                    // 把动态列表数据传进 路由自组件
                     this.$router.push({
                                 name:'userThumbUp',
-                                params: {list:res.data.payload}
+                                params: {uid:this.uid}
                             }
                         ).catch(()=>{})
-                }).catch(()=>{
-                    alert("错误: )")
-                })
             },
             // 获取用户自己的动态
             getMyMoments() {
-                getRequest(this.api.userMoment,{uid:this.uid}).then(res=>{
-                    // this.momentList = res.data.payload
-                    this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
-                }).catch(()=>{
-                    alert("错误: )")
-                })
+                this.$router.push({name:'userMoment',params:{uid:this.uid}}).catch(()=>{})
+
+                // getRequest(this.api.userMoment,{uid:this.uid}).then(res=>{
+                //     // this.momentList = res.data.payload
+                //     this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
+                // }).catch(()=>{
+                //     alert("错误: )")
+                // })
             },
             selectItem($event) {
                 if ($event.index === 0){

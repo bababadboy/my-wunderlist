@@ -8,16 +8,36 @@
 
 <script>
     import MomentCard from '../../components/MomentCard'
+    import {getRequest} from "../../utils/api";
+
     export default {
         name: "UserMomentList",
-        props:{
-            list:{
-                type:Array,
-                default:()=>{return []}
-            }
-        },
+
         components:{
             MomentCard
+        },
+        props:{
+            uid:{
+                type:String
+            }
+        },
+        data() {
+            return {
+                list :[],
+                api:{
+                    userMoment:'/api/v1/moment/own',
+                    thumbUpMoment:'/api/v1/moment/thumb',
+                }
+            }
+
+        },
+        mounted() {
+            getRequest(this.api.userMoment,{uid:this.uid}).then(res=>{
+                this.list = res.data.payload
+                // this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
+            }).catch(()=>{
+                alert("错误: )")
+            })
         }
     }
 </script>

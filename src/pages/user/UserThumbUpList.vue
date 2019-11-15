@@ -8,16 +8,34 @@
 
 <script>
     import MomentCard from '../../components/MomentCard'
+    import {getRequest} from "../../utils/api";
+
     export default {
         name: "UserThumbUpList",
         props:{
-            list:{
-                type:Array,
-                default: ()=>{return []}
+            uid:{
+                type:String,
+            }
+        },
+        data(){
+            return{
+                list:[],
+                api:{
+                    userMoment:'/api/v1/moment/own',
+                    thumbUpMoment:'/api/v1/moment/thumb',
+                }
             }
         },
         components:{
             MomentCard
+        },
+        mounted() {
+            getRequest(this.api.thumbUpMoment,{uid:this.uid}).then(res=>{
+                // this.thumbMomentList = res.data.payload
+                this.list = res.data.payload
+            }).catch(()=>{
+                alert("错误: )")
+            })
         }
     }
 </script>
