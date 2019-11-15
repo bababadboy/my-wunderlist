@@ -4,6 +4,8 @@ import Index from "../pages/Index";
 import User from "../pages/User";
 import UserMomentList from "../pages/user/UserMomentList";
 import UserThumbUpList from "../pages/user/UserThumbUpList";
+import FollowerList from "../pages/user/FollowerList";
+import FollowingList from "../pages/user/FollowingList";
 
 Vue.use(Router);
 
@@ -21,7 +23,9 @@ const router = new Router({
                 //         path: '/user', name:'userMoment',component: UserMomentList,props:true
                 //     },
                     { path: '/user/:uid/moments',name:'userMoment', component: UserMomentList ,props:true},
-                    { path: '/user/:uid/thumbup',name:'userThumbUp' ,component: UserThumbUpList ,props:true}
+                    { path: '/user/:uid/thumbup',name:'userThumbUp' ,component: UserThumbUpList ,props:true},
+                    { path: '/user/:uid/following',name:'userFollowing' ,component: FollowingList ,props:true},
+                    { path: '/user/:uid/follower',name:'userFollower' ,component: FollowerList ,props:true}
                 ]
         },
         {

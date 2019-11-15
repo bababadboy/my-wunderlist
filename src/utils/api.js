@@ -1,8 +1,8 @@
 import axios from 'axios'
 import store from '../store/index'
 
-let base = 'http://106.14.191.82:8008'
-// let base = 'http://localhost:8008'
+// let base = 'http://106.14.191.82:8008'
+let base = 'http://localhost:8008'
 
 
 // 添加请求拦截器，在请求头中加token

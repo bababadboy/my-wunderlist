@@ -27,8 +27,7 @@
 <!--                       <div class="user-filter-item">关注</div>-->
 <!--                       <div class="user-filter-item">粉丝</div>-->
 <!--                   </div>-->
-                   <select-bar :list="selectItems" @choose="selectItem($event)">
-
+                   <select-bar :list="uid==$store.getters.profile.uid? selectItemsMe:selectItems" @choose="selectItem($event)">
                    </select-bar>
 
                    <router-view></router-view>
@@ -66,7 +65,8 @@
             return {
                 // momentList:[],
                 // thumbMomentList:[],
-                selectItems:['动态','点赞','关注的','关注者'],
+                selectItems:['动态','点赞','Ta关注的','关注者Ta的'],
+                selectItemsMe:['动态','点赞','我关注的','关注我的'],
                 userProfile:{
                     nickname:'没有名字',
                     avatar:'',
@@ -131,21 +131,24 @@
             // 获取用户自己的动态
             getMyMoments() {
                 this.$router.push({name:'userMoment',params:{uid:this.uid}}).catch(()=>{})
-
-                // getRequest(this.api.userMoment,{uid:this.uid}).then(res=>{
-                //     // this.momentList = res.data.payload
-                //     this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
-                // }).catch(()=>{
-                //     alert("错误: )")
-                // })
+            },
+            getFollowing(){
+                this.$router.push({name:'userFollowing',params:{uid:this.uid}}).catch(()=>{})
+            },
+            getFollowers(){
+                this.$router.push({name:'userFollower',params:{uid:this.uid}}).catch(()=>{})
             },
             selectItem($event) {
                 if ($event.index === 0){
                     this.getMyMoments()
                 }else if ($event.index === 1) {
                     this.getMyThumbUp()
-                }else{
-                    window.console.log('尚不支持: )')
+                }else if ($event.index === 2) {
+                    this.getFollowing()
+                }else if ($event.index === 3){
+                    this.getFollowers()
+                } else{
+                    alert("错误")
                 }
             }
         }
