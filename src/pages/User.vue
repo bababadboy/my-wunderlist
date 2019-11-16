@@ -65,7 +65,7 @@
             return {
                 // momentList:[],
                 // thumbMomentList:[],
-                selectItems:['动态','点赞','Ta关注的','关注者Ta的'],
+                selectItems:['动态','点赞','Ta关注的','关注Ta的'],
                 selectItemsMe:['动态','点赞','我关注的','关注我的'],
                 userProfile:{
                     nickname:'没有名字',
@@ -257,17 +257,6 @@
         right: 0;
         bottom: 0;
     }
-
-    .user-activity-filter {
-        width: 100%;
-        height: 50px;
-        margin-bottom: 10px;
-        background-color: #fff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
 
 
     .user-filter-item {

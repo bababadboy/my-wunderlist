@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="list.length===0">还没有人关注你</div>
+        <div v-if="list.length===0"></div>
         <div v-else>
             <follow-card  v-for="(item,index) in list" :item="item" :key="index">
             </follow-card>

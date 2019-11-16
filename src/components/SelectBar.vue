@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="user-activity-filter bs">
+        <div class="user-activity-filter bs fs16 fw5">
             <div :class="['user-filter-item',selectStatus[index]?'active':'']"
                  v-for="(item,index) in list" :key="index" @click="choose(index)">
                 {{item}}
@@ -41,7 +41,7 @@
     .user-activity-filter {
         width: 100%;
         height: 45px;
-        margin-bottom: 10px;
+        margin-bottom: 2px;
         background-color: #fff;
         display: flex;
         justify-content: flex-start;
@@ -50,7 +50,7 @@
     .user-filter-item {
         /*display: inline-block;*/
         cursor: pointer;
-        width: 60px;
+        width: 70px;
         height: 45px;
         margin: 0 30px;
         text-align: center;

@@ -1,5 +1,5 @@
 <template>
-    <div class="btn-container cp">
+    <div class="btn-container">
         <button :class="['follow-btn',followState?'active':'']" @click="handleFollowClick()">
             <span v-if="!followState">+ 关注</span>
             <span v-else>已关注</span>
@@ -65,7 +65,6 @@
     }
 
     .btn-container {
-        /*cursor: pointer;*/
         display: inline-block;
     }
 </style>

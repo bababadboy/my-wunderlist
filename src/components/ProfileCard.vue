@@ -51,10 +51,31 @@
         },
         methods:{
             toFollowing(){
-
+                // 改变导航栏的状态为f,f,f
+                this.$store.commit('changeNavItemState',[false,false,false])
+                this.$router.push(
+                    {
+                        name:'userFollowing',
+                        params:{
+                            uid:this.$store.getters.profile.uid.toString(),
+                        }
+                    }).catch(err=>{
+                    window.console.log(err)
+                })
             },
             toFollower() {
-
+                // 改变导航栏的状态为f,f,f
+                this.$store.commit('changeNavItemState',[false,false,false])
+                this.$router.push(
+                    {
+                        name:'userFollower',
+                        params:{
+                            uid:this.$store.getters.profile.uid.toString(),
+                            // 'username':this.$store.getters.profile.nickname
+                        }
+                    }).catch(err=>{
+                    window.console.log(err)
+                })
             },
             toUserMoments(){
                 // 改变导航栏的状态为f,f,f

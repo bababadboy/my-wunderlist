@@ -1,27 +1,25 @@
 <template>
     <div>
-        <div v-if="list.length===0">你还没有关注其他人</div>
+        <div v-if="list.length===0"></div>
         <div v-else>
-            <div v-for="(item,index) in list" :data="item" :key="index">
-                关注状态：{{item.followState}}
-                用户名：{{item.user.nickname}}
-                关注他的:{{item.user.followers}}
-                他关注的：{{item.user.following}}
-                他的动态：{{item.user.moments}}
-            </div>
+            <follow-card  v-for="(item,index) in list" :item="item" :key="index">
+            </follow-card>
         </div>
     </div>
 </template>
 
 <script>
     import {getRequest} from "../../utils/api";
-
+    import FollowCard from "../../components/FollowCard"
     export default {
         name: "FollowingList",
         props:{
             uid:{
                 type:String,
             }
+        },
+        components:{
+            FollowCard
         },
         data() {
             return {
@@ -36,6 +34,9 @@
             getRequest(this.api.following,{'uid':this.uid}).then(res=>{
                 this.list  = res.data.payload
             })
+        },
+        methods:{
+
         }
     }
 </script>
