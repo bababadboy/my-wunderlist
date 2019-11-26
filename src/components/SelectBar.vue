@@ -18,14 +18,36 @@
                 default:function () {
                     return ['动态','点赞','关注','粉丝']
                 }
-            }
+            },
+            // selectStatus:{
+            //     type:Array,
+            //     default:function () {
+            //         return [true,false,false,false]
+            //     }
+            // }
         },
         data(){
             return {
-                selectStatus:[true,false,false,false],
+                selectStatus:[false,false,false,false],
             }
         },
+        mounted(){
+            this.initSelectStatus()
+        },
         methods: {
+            initSelectStatus(){
+                // 根据路由决定selectBar的状态
+                switch (this.$route.name) {
+                    case 'userMoment':this.choose(0);break;
+                    case 'userThumbUp':this.choose(1);break;
+                    case 'userFollowing':this.choose(2);break;
+                    case 'userFollower':this.choose(3);break;
+                    default:this.choose(0);
+                }
+                window.console.log(this.$route.name)
+                // this.choose()
+            },
+
             choose(index) {
                 for (let i = 0; i < this.selectStatus.length; i++) {
                     this.selectStatus.splice(i,1,false)

@@ -2,9 +2,9 @@
     <div class="profile-box">
         <div class="profile">
             <div>
-                <img src="../assets/images/jay.png" alt="avatar" class="avatar" @click="toUser()">
+                <img src="../assets/images/jay.png" alt="avatar" class="avatar" @click="toUserMoments()">
             </div>
-            <div class="nickname fs16" @click="toUser()">{{userProfile.nickname}}</div>
+            <div class="nickname fs16" @click="toUserMoments()">{{userProfile.nickname}}</div>
         </div>
         <div class="stat-lit">
             <div class="stat-item">
@@ -82,7 +82,7 @@
                 this.$store.commit('changeNavItemState',[false,false,false])
                 this.$router.push(
                     {
-                        name:'user',
+                        name:'userMoment',
                         params:{
                             uid:this.$store.getters.profile.uid.toString(),
                             // 'username':this.$store.getters.profile.nickname
@@ -91,7 +91,8 @@
                     window.console.log(err)
                 })
             },
-            toUser() {
+
+            /*toUser() {
                 // 改变导航栏的状态为f,f,f
                 this.$store.commit('changeNavItemState',[false,false,false])
                 this.$router.push(
@@ -104,7 +105,7 @@
                     }).catch(err=>{
                     window.console.log(err)
                 })
-            }
+            }*/
         }
     }
 </script>

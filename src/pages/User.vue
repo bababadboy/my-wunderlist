@@ -27,7 +27,9 @@
 <!--                       <div class="user-filter-item">关注</div>-->
 <!--                       <div class="user-filter-item">粉丝</div>-->
 <!--                   </div>-->
-                   <select-bar :list="uid==$store.getters.profile.uid? selectItemsMe:selectItems" @choose="selectItem($event)">
+                   <select-bar
+                           :list="uid==$store.getters.profile.uid? selectItemsMe:selectItems"
+                           @choose="selectItem($event)" >
                    </select-bar>
 
                    <router-view></router-view>
@@ -90,7 +92,6 @@
         },
         mounted() {
             this.getUserBasicInfo()
-            this.getMyMoments()
             this.$store.commit('changeNavItemState',[false,false,false])
         },
         methods:{

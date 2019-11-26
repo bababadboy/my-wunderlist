@@ -23,9 +23,9 @@ const router = new Router({
                 //         path: '/user', name:'userMoment',component: UserMomentList,props:true
                 //     },
                     { path: '/user/:uid/moments',name:'userMoment', component: UserMomentList ,props:true},
-                    { path: '/user/:uid/thumbup',name:'userThumbUp' ,component: UserThumbUpList ,props:true},
-                    { path: '/user/:uid/following',name:'userFollowing' ,component: FollowingList ,props:true},
-                    { path: '/user/:uid/follower',name:'userFollower' ,component: FollowerList ,props:true}
+                    { path: '/user/:uid/thumbup',name:'userThumbUp',component: UserThumbUpList ,props:true},
+                    { path: '/user/:uid/following',name:'userFollowing',component: FollowingList ,props:true},
+                    { path: '/user/:uid/follower',name:'userFollower',component: FollowerList ,props:true}
                 ]
         },
         {
