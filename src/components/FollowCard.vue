@@ -74,6 +74,10 @@
         },
         methods:{
             handleFollow() {
+                if (this.item.user.uid === this.$store.getters.profile.uid){
+                    alert("不能关注自己")
+                    return
+                }
                 postRequest(this.api.follow,
                     {'uid':this.item.user.uid,'follower_uid':this.$store.getters.profile.uid}).then(res=>{
                     this.item.followState = res.data.follow_status;
