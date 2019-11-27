@@ -87,7 +87,7 @@
             },
             handleUserPage(){
                 this.$router.push({
-                        name:'userMoment',
+                        name:'userActivity',
                         params: {
                                 uid:this.$store.getters.profile.uid.toString()
                             }

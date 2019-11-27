@@ -21,8 +21,8 @@
            <div class="user-main-pannel">
                <div class="user-main-left">
 <!--                   <div class="user-activity-filter bs">-->
-<!--                       <div class="user-filter-item" @click="getMyMoments()">动态</div>-->
-<!--                       <div class="user-filter-item" @click="getMyThumbUp()">点赞</div>-->
+<!--                       <div class="user-filter-item" @click="getMyActivities()">动态</div>-->
+<!--                       <div class="user-filter-item" @click="getMyMoments()">点赞</div>-->
 <!--                       <div class="user-filter-item">评论</div>-->
 <!--                       <div class="user-filter-item">关注</div>-->
 <!--                       <div class="user-filter-item">粉丝</div>-->
@@ -67,8 +67,8 @@
             return {
                 // momentList:[],
                 // thumbMomentList:[],
-                selectItems:['动态','点赞','Ta关注的','关注Ta的'],
-                selectItemsMe:['动态','点赞','我关注的','关注我的'],
+                selectItems:['动态','发布','Ta关注的','关注Ta的'],
+                selectItemsMe:['动态','发布','我关注的','关注我的'],
                 userProfile:{
                     nickname:'没有名字',
                     avatar:'',
@@ -83,7 +83,6 @@
                 },
                 api:{
                     userMoment:'/api/v1/moment/own',
-                    thumbUpMoment:'/api/v1/moment/thumb',
                     userBasicInfo:'/api/v1/people/info',
                     follow:'/api/v1/people/follow',
                     followState:'/api/v1/people/follow_state'
@@ -122,16 +121,16 @@
                 })
             },
             // 获取用户点赞的动态
-            getMyThumbUp() {
+            getMyMoments() {
                     this.$router.push({
-                                name:'userThumbUp',
+                                name:'userMoment',
                                 params: {uid:this.uid}
                             }
                         ).catch(()=>{})
             },
             // 获取用户自己的动态
-            getMyMoments() {
-                this.$router.push({name:'userMoment',params:{uid:this.uid}}).catch(()=>{})
+            getMyActivities() {
+                this.$router.push({name:'userActivity',params:{uid:this.uid}}).catch(()=>{})
             },
             getFollowing(){
                 this.$router.push({name:'userFollowing',params:{uid:this.uid}}).catch(()=>{})
@@ -141,9 +140,9 @@
             },
             selectItem($event) {
                 if ($event.index === 0){
-                    this.getMyMoments()
+                    this.getMyActivities()
                 }else if ($event.index === 1) {
-                    this.getMyThumbUp()
+                    this.getMyMoments()
                 }else if ($event.index === 2) {
                     this.getFollowing()
                 }else if ($event.index === 3){

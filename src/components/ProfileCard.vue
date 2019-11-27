@@ -2,14 +2,14 @@
     <div class="profile-box">
         <div class="profile">
             <div>
-                <img src="../assets/images/jay.png" alt="avatar" class="avatar" @click="toUserMoments()">
+                <img src="../assets/images/jay.png" alt="avatar" class="avatar" @click="toUserActivity()">
             </div>
-            <div class="nickname fs16" @click="toUserMoments()">{{userProfile.nickname}}</div>
+            <div class="nickname fs16" @click="toUserActivity()">{{userProfile.nickname}}</div>
         </div>
         <div class="stat-lit">
             <div class="stat-item">
-                <div class="smtitle"><span class="cp" @click="toUserMoments()">动态</span></div>
-                <div class="num"><span class="cp" @click="toUserMoments()">{{userProfile.moments}}</span></div>
+                <div class="smtitle"><span class="cp" @click="toUserActivity()">动态</span></div>
+                <div class="num"><span class="cp" @click="toUserActivity()">{{userProfile.moments}}</span></div>
             </div>
             <div class="stat-item">
                 <div class="smtitle"><span class="cp" @click="toFollowing()">关注</span></div>
@@ -77,12 +77,12 @@
                     window.console.log(err)
                 })
             },
-            toUserMoments(){
+            toUserActivity(){
                 // 改变导航栏的状态为f,f,f
                 this.$store.commit('changeNavItemState',[false,false,false])
                 this.$router.push(
                     {
-                        name:'userMoment',
+                        name:'userActivity',
                         params:{
                             uid:this.$store.getters.profile.uid.toString(),
                             // 'username':this.$store.getters.profile.nickname

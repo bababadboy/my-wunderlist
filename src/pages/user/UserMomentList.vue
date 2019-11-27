@@ -1,5 +1,5 @@
 <template>
-    <div id="user-moment-list">
+    <div id="user-thumb-list">
         <moment-card class="user-moment-card bs"
                      v-for="(item,index) in list" :key="index" :data="item">
         </moment-card>
@@ -12,29 +12,27 @@
 
     export default {
         name: "UserMomentList",
-
-        components:{
-            MomentCard
-        },
         props:{
             uid:{
-                type:String
+                type:String,
             }
         },
-        data() {
-            return {
-                list :[],
+        data(){
+            return{
+                list:[],
                 api:{
                     userMoment:'/api/v1/moment/own',
                     thumbUpMoment:'/api/v1/moment/thumb',
                 }
             }
-
+        },
+        components:{
+            MomentCard
         },
         mounted() {
             getRequest(this.api.userMoment,{uid:this.uid}).then(res=>{
+                // this.thumbMomentList = res.data.payload
                 this.list = res.data.payload
-                // this.$router.push({name:'userMoment',params: {list:res.data.payload}}).catch(()=>{})
             }).catch(()=>{
                 alert("错误: )")
             })
