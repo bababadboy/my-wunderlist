@@ -61,7 +61,7 @@
                         @sendComment="handleSendComment($event)">
                 </comment-send>
                 <!-- 评论列表 -->
-                <floor class="ml20" v-for="(item,index) in commentList" :key="index" :data="item"></floor>
+                <floor class="ml20" v-for="(item,index) in commentList" :key="index" :data="item" :author="data.nickname"></floor>
             </div>
 
         </div>
@@ -250,7 +250,7 @@
     }
 
     .name {
-        color: #4ed3ff;
+        /*color: #4ed3ff;*/
         display: inline-block;
         width: 450px;
     }

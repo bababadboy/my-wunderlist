@@ -30,27 +30,28 @@
                             </div>
                         </li>
                     </ul>
-                    <ul class="nav-menu" v-if="menuStatus">
-
-                        <li class="nav-menu-item" @click="handleUserPage()">
-                            <svg class="icon fs16 mr5" aria-hidden="true">
-                                <use xlink:href="#icon-danseshixintubiao-"></use>
-                            </svg>
-                            <span>我的主页</span>
-                        </li>
-                        <li class="nav-menu-item">
-                            <svg class="icon fs16 mr5" aria-hidden="true">
-                                <use xlink:href="#icon-setting-preferences-gear-office-application-structure-define-process-fbaaebdf"></use>
-                            </svg>
-                            <span>设置</span>
-                        </li>
-                        <li class="nav-menu-item" @click="logout">
-                            <svg class="icon fs16 mr5" aria-hidden="true">
-                                <use xlink:href="#icon-tuichu"></use>
-                            </svg>
-                            <span>退出</span>
-                        </li>
-                    </ul>
+                    <div class="nav-item-wrapper" @click="closeNavItem()" v-if="menuStatus">
+                        <ul class="nav-menu" >
+                            <li class="nav-menu-item" @click="handleUserPage()">
+                                <svg class="icon fs16 mr5" aria-hidden="true">
+                                    <use xlink:href="#icon-danseshixintubiao-"></use>
+                                </svg>
+                                <span>我的主页</span>
+                            </li>
+                            <li class="nav-menu-item">
+                                <svg class="icon fs16 mr5" aria-hidden="true">
+                                    <use xlink:href="#icon-setting-preferences-gear-office-application-structure-define-process-fbaaebdf"></use>
+                                </svg>
+                                <span>设置</span>
+                            </li>
+                            <li class="nav-menu-item" @click="logout">
+                                <svg class="icon fs16 mr5" aria-hidden="true">
+                                    <use xlink:href="#icon-tuichu"></use>
+                                </svg>
+                                <span>退出</span>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
             </div>
         </header>
@@ -75,6 +76,9 @@
 
         },
         methods:{
+            closeNavItem(){
+                this.menuStatus = false;
+            },
             showAuth(){
                 this.$emit('showAuth')
             },
@@ -229,20 +233,6 @@
         cursor: pointer;
     }
 
-    .nav-menu {
-        width: 120px;
-        border-radius: 3px;
-        transform: translateX(0);
-        position: absolute;
-        right: 15px;
-        top: 35px;
-        background-color: #fff;
-        box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
-        border: 1px solid rgba(177,180,185,.45);
-        font-size: 14px;
-        padding: 0;
-    }
-
     .nav-menu-item {
         color: #71777c;
         cursor: pointer;
@@ -252,6 +242,29 @@
         background-color: #f4f5f5;
     }
 
+    .nav-item-wrapper {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 80;
+    }
+
+    .nav-menu {
+        z-index: 100;
+        width: 120px;
+        border-radius: 3px;
+        transform: translateX(0);
+        position: absolute;
+        right: 220px;
+        top: 35px;
+        background-color: #fff;
+        box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
+        border: 1px solid rgba(177,180,185,.45);
+        font-size: 14px;
+        padding: 0;
+    }
 </style>
 <style src="../assets/css/common.css" scoped>
 </style>

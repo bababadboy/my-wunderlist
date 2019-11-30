@@ -3,7 +3,8 @@
     <div class="floor fs14">
         <div class="i-face"></div>
         <div class="container ml10">
-            <div class="name">{{data.nickname}}</div>
+            <div v-if="author===this.data.nickname" class="name">{{data.nickname}}(作者)</div>
+            <div v-else class="name">{{data.nickname}}</div>
             <div class="text">{{data.content}}</div>
             <div class="info">
                 <div class="info-item">
@@ -106,6 +107,9 @@
                         'replyList':[]  // 每个对象包含id,uid,nickname,pid,puid,pnickname,publishTime,content,likeNum,dislikeNum
                     }
                 }
+            },
+            author: {
+                type:String,
             },
         },
         data(){
