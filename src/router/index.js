@@ -7,6 +7,7 @@ import FollowerList from "../pages/user/FollowerList";
 import FollowingList from "../pages/user/FollowingList";
 import UserMomentList from "../pages/user/UserMomentList";
 import NotificationPage from "../pages/NotificationPage";
+import MomentDetails from "../pages/MomentDetails";
 
 Vue.use(Router);
 
@@ -40,6 +41,13 @@ const router = new Router({
             path: '/notification',
             name: 'notification',
             component: NotificationPage
+        },
+
+        {
+            path:'/moment/:id',
+            name:'moment',
+            component:MomentDetails,
+            props:true
         }
     ]
 });
@@ -47,7 +55,7 @@ const router = new Router({
 // 导航守卫
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 // router.beforeEach((to, from, next) => {
-//     if (to.path === '/login') {
+//     if (to.path === '/') {
 //         next();
 //     } else {
 //         let token = localStorage.getItem('Authorization');

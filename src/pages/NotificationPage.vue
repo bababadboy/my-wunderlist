@@ -26,7 +26,10 @@
                         {{actionName[item.type]}}
                     </div>
                     <div class="notification-item-content-line">{{item.content}}</div>
-                    <div v-if="item.target.content" class="notification-item-target-content">{{item.target.content}}</div>
+                    <div v-if="item.target.content" class="notification-item-target-content cp"
+                         @click="goToMomentDetail(item.type,item.target)">
+                        {{item.target.content}}
+                    </div>
                 </div>
             </div>
 
@@ -79,6 +82,23 @@
             this.getUserAllNoti()
         },
         methods:{
+            // 跳转到动态详细界面
+            goToMomentDetail(type,target){
+                // todo 对于动态/评论/回复做不同的处理
+                if (type === 'MOMENT_LIKE' || type === 'COMMENT_TO_MOMENT'){
+
+                    this.$router.push({name:'moment',params:{id:target.id}})
+
+                } else if (type === 'COMMENT_LIKE' || type === 'REPLY_TO_COMMENT'){
+                    this.$router.push({name:'moment',params:{id:target.momentId}})
+
+                }else if (type === 'REPLY_LIKE' || type === 'REPLY_TO_REPLY') {
+                    window.console.log("暂不支持 :  )")
+
+                }else{
+                    window.console.log("暂不支持 :  )")
+                }
+            },
             // 跳转到用户个人主页
             goToUserPage(userUid) {
                 this.$router.push({name:'userActivity',params:{uid:userUid}}).catch(err=>{
