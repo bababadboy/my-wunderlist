@@ -6,6 +6,7 @@ import UserActivityList from "../pages/user/UserActivityList";
 import FollowerList from "../pages/user/FollowerList";
 import FollowingList from "../pages/user/FollowingList";
 import UserMomentList from "../pages/user/UserMomentList";
+import NotificationPage from "../pages/NotificationPage";
 
 Vue.use(Router);
 
@@ -35,11 +36,11 @@ const router = new Router({
         },
 
 
-        // {
-        //     path: '/home',
-        //     name: 'home',
-        //     component: home
-        // }
+        {
+            path: '/notification',
+            name: 'notification',
+            component: NotificationPage
+        }
     ]
 });
 

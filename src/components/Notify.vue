@@ -23,6 +23,7 @@
     #notify {
         display: inline-block;
         position: relative;
+        cursor: pointer;
     }
     .notify-count {
         position: absolute;

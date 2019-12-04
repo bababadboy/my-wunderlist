@@ -24,6 +24,7 @@
         border-radius: 3px;
         border: 1px solid #0084ff;
         color: #0084ff;
+        background-color: #fff;
     }
     .edit-btn:hover {
         background-color: rgba(0,132,255,0.1);

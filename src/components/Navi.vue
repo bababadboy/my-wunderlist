@@ -18,7 +18,8 @@
                             </form>
                         </li>
                         <li v-if="$store.getters.authStatus">
-                            <notify :count="99"></notify>
+                                <!--                            todo-->
+                            <notify :count="unreadCnt" @click.native="notificationPage()"></notify>
                         </li>
                         <li v-if="!$store.getters.authStatus" class="nav-item auth" @click="showAuth()">
                             <span class="login">登录</span>
@@ -30,28 +31,28 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="nav-item-wrapper" @click="closeNavItem()" v-if="menuStatus">
-                        <ul class="nav-menu" >
-                            <li class="nav-menu-item" @click="handleUserPage()">
-                                <svg class="icon fs16 mr5" aria-hidden="true">
-                                    <use xlink:href="#icon-danseshixintubiao-"></use>
-                                </svg>
-                                <span>我的主页</span>
-                            </li>
-                            <li class="nav-menu-item">
-                                <svg class="icon fs16 mr5" aria-hidden="true">
-                                    <use xlink:href="#icon-setting-preferences-gear-office-application-structure-define-process-fbaaebdf"></use>
-                                </svg>
-                                <span>设置</span>
-                            </li>
-                            <li class="nav-menu-item" @click="logout">
-                                <svg class="icon fs16 mr5" aria-hidden="true">
-                                    <use xlink:href="#icon-tuichu"></use>
-                                </svg>
-                                <span>退出</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="nav-item-wrapper" @click="closeNavItem()" v-if="menuStatus"></div>
+
+                    <ul class="nav-menu" v-if="menuStatus">
+                        <li class="nav-menu-item" @click="handleUserPage()">
+                            <svg class="icon fs16 mr5" aria-hidden="true">
+                                <use xlink:href="#icon-danseshixintubiao-"></use>
+                            </svg>
+                            <span>我的主页</span>
+                        </li>
+                        <li class="nav-menu-item">
+                            <svg class="icon fs16 mr5" aria-hidden="true">
+                                <use xlink:href="#icon-setting-preferences-gear-office-application-structure-define-process-fbaaebdf"></use>
+                            </svg>
+                            <span>设置</span>
+                        </li>
+                        <li class="nav-menu-item" @click="logout">
+                            <svg class="icon fs16 mr5" aria-hidden="true">
+                                <use xlink:href="#icon-tuichu"></use>
+                            </svg>
+                            <span>退出</span>
+                        </li>
+                    </ul>
                 </nav>
             </div>
         </header>
@@ -61,6 +62,8 @@
 <script>
 
     import notify from './Notify'
+    import {getRequest} from "../utils/api";
+
     export default {
         name: "Navi",
         components:{
@@ -69,13 +72,27 @@
         data(){
             return{
                 menuStatus:false,
-                navItemState:this.$store.getters.navItemState
+                navItemState:this.$store.getters.navItemState,
+                unreadCnt:0,
+                api:{
+                    unreadNotificationCnt:'/api/v1/notification/count'
+                }
             }
         },
         mounted(){
-
+            this.getUnreadCnt()
         },
         methods:{
+            // 获取未读通知个数
+            getUnreadCnt() {
+                getRequest(this.api.unreadNotificationCnt).then(res=>{
+                    this.unreadCnt = res.data.payload
+                })
+            },
+            // 跳转到通知页面
+            notificationPage(){
+                this.$router.push({name:'notification'})
+            },
             closeNavItem(){
                 this.menuStatus = false;
             },
@@ -257,13 +274,13 @@
         border-radius: 3px;
         transform: translateX(0);
         position: absolute;
-        right: 220px;
+        right: 0;
         top: 35px;
         background-color: #fff;
         box-shadow: 0 1px 2px 0 rgba(0,0,0,.1);
         border: 1px solid rgba(177,180,185,.45);
         font-size: 14px;
-        padding: 0;
+        padding: 5px 0;
     }
 </style>
 <style src="../assets/css/common.css" scoped>
