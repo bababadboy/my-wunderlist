@@ -61,8 +61,8 @@
                 selectBarStatus:false,
                 notifyList:[],
                 api:{
-                    userAllNotification:'/api/v1/notification/all'
-
+                    userAllNotification:'/api/v1/notification/all',
+                    commentsParent:'/api/v1/comment/parent_moment'
                 },
                 actionName : {
                     'MOMENT_LIKE':'点赞了你的动态',
@@ -93,7 +93,11 @@
                     this.$router.push({name:'moment',params:{id:target.momentId}})
 
                 }else if (type === 'REPLY_LIKE' || type === 'REPLY_TO_REPLY') {
-                    window.console.log("暂不支持 :  )")
+                    // 先获取reply的上级动态id
+                    getRequest(this.api.commentsParent,{comment_id:target.commentId}).then(res=>{
+
+                        this.$router.push({name:'moment',params:{id:res.data.payload.id}})
+                    })
 
                 }else{
                     window.console.log("暂不支持 :  )")

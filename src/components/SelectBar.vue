@@ -44,8 +44,6 @@
                     case 'userFollower':this.choose(3);break;
                     default:this.choose(0);
                 }
-                window.console.log(this.$route.name)
-                // this.choose()
             },
 
             choose(index) {

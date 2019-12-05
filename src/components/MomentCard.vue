@@ -108,6 +108,10 @@
                         }]
                     }
                 }
+            },
+            autoLoadComment:{
+                type: Boolean,
+                default:false
             }
         },
         data(){
@@ -124,6 +128,12 @@
                     postComment:'/api/v1/comment/add',
                     thumbUp:'/api/v1/msg/like'
                 }
+            }
+        },
+        mounted(){
+            // 自动打开评论列表
+            if (this.autoLoadComment) {
+                this.clickComment()
             }
         },
         methods:{
@@ -144,6 +154,15 @@
             },
             // 获取评论列表 以及获取评论的回复列表
             getCommentList(){
+
+                if (!this.data.id) { //mounted 时还没赋值
+                    // moment_id参数通过路由得到
+                    getRequest(this.api.getCommentsList,{'moment_id':this.$route.path.split("/")[2]}).then(res=>{
+                        this.commentList = res.data.payload
+                    })
+                    return
+                }
+
                 getRequest(this.api.getCommentsList,{'moment_id':this.data.id}).then(res=>{
                     this.commentList = res.data.payload
                 })
@@ -220,6 +239,7 @@
 
     }
     .mmtcard-container{
+        position: relative;
         margin-top: 10px;
         width: 632px;
         background-color: #fff;
