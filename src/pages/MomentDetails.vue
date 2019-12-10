@@ -1,6 +1,6 @@
 <template>
     <div class="moment-con">
-        <moment-card class="bs" :data="momentData" :auto-load-comment="true">
+        <moment-card v-if="momentData" class="bs" :data="momentData" :auto-load-comment="true">
         </moment-card>
     </div>
 </template>

@@ -49,6 +49,8 @@
                 return {
                     height: this.height + 'px',
                     width: this.width + 'px',
+                    'background-color':this.bg_color,
+                    'color':this.font_color,
                 }
             }
         }
@@ -58,19 +60,19 @@
 <style scoped>
     .txt{
         font-size: small;
-        color: #FFFFFF;
         display: flex;
         justify-content: center;
+        position: relative;
+        top: 25%;
     }
     .btn{
         width: 70px;
         height: 32px;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        border-radius: 4px;
         background-color: #4ed3ff;;
         cursor: pointer;
+        color: #FFFFFF;
+        position:relative;
 
     }
     .bg-disabled {

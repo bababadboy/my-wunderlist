@@ -8,6 +8,7 @@ import FollowingList from "../pages/user/FollowingList";
 import UserMomentList from "../pages/user/UserMomentList";
 import NotificationPage from "../pages/NotificationPage";
 import MomentDetails from "../pages/MomentDetails";
+import ProfileEdit from "../pages/ProfileEdit";
 
 Vue.use(Router);
 
@@ -48,7 +49,15 @@ const router = new Router({
             name:'moment',
             component:MomentDetails,
             props:true
-        }
+        },
+
+        {
+            path:'/profile/edit',
+            name:'profileEdit',
+            component:ProfileEdit,
+            props:true
+        },
+
     ]
 });
 

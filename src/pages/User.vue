@@ -11,7 +11,8 @@
                    <div class="user-intro">
                        <span>主人很烂没有介绍</span>
                    </div>
-                   <x-button v-if="userProfile.uid===$store.getters.profile.uid" class="user-profile-edit-btn"></x-button>
+                   <x-button class="user-profile-edit-btn"
+                           v-if="userProfile.uid===$store.getters.profile.uid" @click.native="editProfile()"></x-button>
                    <follow-button v-else class="user-profile-edit-btn"
                                   @follow="followMe()"
                                   :follow-state="followInfo.followStatus">
@@ -94,6 +95,11 @@
             this.$store.commit('changeNavItemState',[false,false,false])
         },
         methods:{
+            // 编辑个人信息界面
+            editProfile(){
+                // alert("edit button")
+                this.$router.push({name:'profileEdit'})
+            },
             // 是否有关注
             getFollowState() {
                   getRequest(this.api.followState,

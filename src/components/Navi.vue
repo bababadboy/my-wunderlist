@@ -239,6 +239,7 @@
         max-width: 900px;
         position: relative;
         margin: 0 auto;
+        padding: 0 20px;
         width: 100%;
         display: flex;
     }
