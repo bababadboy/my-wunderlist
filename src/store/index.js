@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 Vue.use(Vuex);
 
 const state={
     // loginStatus:false,
     Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
     profile: localStorage.getItem('userInfo') ? localStorage.getItem('userInfo') : '{}',
-    navItemState: [false,false,false]
+    navItemState: [false,false,false],
 };
 
 const getters = {
@@ -23,7 +24,7 @@ const getters = {
     },
     navItemState (state) {
         return state.navItemState
-    }
+    },
 
 
 };

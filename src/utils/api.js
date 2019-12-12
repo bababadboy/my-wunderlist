@@ -1,8 +1,8 @@
 import axios from 'axios'
 import store from '../store/index'
 
-let base = 'http://106.14.191.82:8008'
-// let base = 'http://localhost:8008'
+// const base = 'http://106.14.191.82:8008'
+const base = 'http://localhost:8008'
 
 
 // 添加请求拦截器，在请求头中加token
@@ -50,6 +50,18 @@ export const postRequest = (url, params) => {
 };
 
 
+export const uploadFile = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    })
+};
+
+
 export const getRequest = (url, params) => {
     return axios({
         method: 'get',
@@ -57,3 +69,7 @@ export const getRequest = (url, params) => {
         params: params,
     });
 };
+
+export default {
+    base
+}

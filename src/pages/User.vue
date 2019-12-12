@@ -3,7 +3,9 @@
        <div class="user-center-pannel">
            <div class="user-card bs">
                <div class="background"></div>
-               <div class="user-avatar"></div>
+<!--               <div class="user-avatar">-->
+               <img :src="avatarUrl+$store.getters.profile.avatar" alt="" class="user-avatar">
+<!--               </div>-->
                <div class="user-info">
                    <div class="user-name">
                        <span>{{userProfile.nickname}}</span>
@@ -68,6 +70,7 @@
             return {
                 // momentList:[],
                 // thumbMomentList:[],
+                avatarUrl:this.GLOBAL.staticUrl,
                 selectItems:['动态','发布','Ta关注的','关注Ta的'],
                 selectItemsMe:['动态','发布','我关注的','关注我的'],
                 userProfile:{
@@ -221,10 +224,6 @@
         border: 4px solid #fff;
         border-radius: 8px;
         background-color: #fff;
-        background-image: url("../assets/images/jay.png");
-        background-repeat: no-repeat;
-        /*background-size: contain;*/
-        background-size: cover;
         position: absolute;
         bottom: 25px;
         left: 25px;

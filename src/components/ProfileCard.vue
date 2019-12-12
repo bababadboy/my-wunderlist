@@ -2,7 +2,7 @@
     <div class="profile-box">
         <div class="profile">
             <div>
-                <img src="../assets/images/jay.png" alt="avatar" class="avatar" @click="toUserActivity()">
+                <img :src="avatarUrl+$store.getters.profile.avatar" alt="" class="avatar" @click="toUserActivity()">
             </div>
             <div class="nickname fs16" @click="toUserActivity()">{{userProfile.nickname}}</div>
         </div>
@@ -47,6 +47,11 @@
                     }
                 },
 
+            }
+        },
+        data(){
+            return {
+                avatarUrl:this.GLOBAL.staticUrl
             }
         },
         methods:{

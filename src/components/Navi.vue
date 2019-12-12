@@ -27,7 +27,9 @@
                         </li>
                         <li v-else class="ml20">
                             <div class="avatar" @click="showMenu()">
-                                <img src="../assets/images/jay.png" alt="avatar" class="avatar">
+<!--                                <img src="../assets/images/jay.png" alt="avatar" class="avatar">-->
+                                <img :src="avatarUrl+$store.getters.profile.avatar" alt="" class="avatar">
+
                             </div>
                         </li>
                     </ul>
@@ -71,6 +73,7 @@
         },
         data(){
             return{
+                avatarUrl:this.GLOBAL.staticUrl,
                 menuStatus:false,
                 navItemState:this.$store.getters.navItemState,
                 unreadCnt:0,

@@ -3,13 +3,13 @@
        <div class="edit-card bs">
            <div class="edit-avatar">
 
-<!--               <div class="avatar-mask" @click="alertText('1')"></div>-->
+               <div class="avatar-mask"></div>
                <div class="avatar-edit-hint">
-                   <span class="hint-text">修改我的图像</span>
+                   <span class="hint-text">修改我的头像</span>
                </div>
-               <img src="../assets/images/jay.png" alt="avatar" class="avatar-img" @click="alertText('3')">
+               <img :src="avatarUrl+avatarName" alt="avatar" class="avatar-img">
                <label>
-                   <input type="file" accept="image/jpeg,image/png" class="input-file-btn cp" @click="alertText('2')">
+                   <input type="file" accept="image/jpeg,image/png" class="input-file-btn cp" @change="handleFileUpload">
                </label>
 
            </div>
@@ -58,6 +58,11 @@
 <script>
     import TextInput from '../components/common/TextInput'
     import XButton from '../components/common/Button'
+    import {uploadFile} from "../utils/api";
+    // import axios from 'axios'
+
+
+
     export default {
         name: "ProfileEdit",
         components:{
@@ -66,6 +71,12 @@
         },
         data() {
             return {
+                api:{
+                    avatarUpload:'/api/v1/upload/avatar'
+                },
+                avatarUrl:this.GLOBAL.staticUrl,
+                avatarName:'wangxbd8f4e485b2b848ff9e87233b0bbe0db4.jpg',
+                errorStr:'',
                 textInputShown:{
                     name:false,
                     gender:false,
@@ -73,10 +84,58 @@
                 },
                 name:this.$store.getters.profile.nickname,
                 selfIntro:'我什么也没有介绍',
-                gender:'男'
+                gender:'男',
+
             }
         },
+        mounted(){
+            // 把个人信息拿出来 todo
+
+        },
         methods:{
+            // 处理图片上传
+            handleFileUpload(e){
+                let file = e.target.files[0]
+                window.console.log(file)
+                // 获取图片的大小，做大小限制有用
+                let imgSize = file.size
+                window.console.log(imgSize)
+                // 比如上传头像限制2M大小，这里获取的大小单位是b
+                if (imgSize <= 2 * 1024 * 1024) {
+                    // 合格
+                    this.errorStr = ''
+                    window.console.log('大小合适')
+                    // 开始渲染选择的图片
+                    // 本地路径方法 1
+                    this.avatarSrc = window.URL.createObjectURL(file)
+                    window.console.log(window.URL.createObjectURL(file)) // 获取当前文件的信息
+
+                    let image = new FormData()
+                    image.append('avatar', file)
+
+                    // 上传图片到服务器
+                    uploadFile(this.api.avatarUpload,image).then(res=>{
+                        this.avatarName = res.data.name
+                        //
+                    }).catch(err=>{
+                        window.console.log(err)
+
+                    })
+                    // base64方法 2
+                    // var reader = new FileReader()
+                    // reader.readAsDataURL(file) // 读出 base64
+                    // reader.onloadend = function () {
+                    //     // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+                    //     var dataURL = reader.result
+                    //     window.console.log(dataURL)
+                    //     this.avatarSrc = dataURL
+                    //     // 下面逻辑处理
+                    // }
+                } else {
+                    window.console.log('大小不合适')
+                    this.errorStr = '图片大小超出范围'
+                }
+            },
             alertText(n){
                 alert(n)
             },
@@ -155,6 +214,7 @@
     .avatar-mask {
         width: 100%;
         height: 100%;
+        border-radius: 4px;
         background-color: #1a1a1a;
         opacity: 0.4;
         z-index: 1;
@@ -201,6 +261,7 @@
     }
 
     .input-file-btn {
+        position: absolute;
         width: 100%;
         height: 100%;
         opacity: 0;
