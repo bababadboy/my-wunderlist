@@ -2,7 +2,9 @@
     <div class="mmtcard-container">
         <!-- 动态行  -->
         <div class="moment-row">
-            <div class="i-face cp" @click="toUserPage()"></div>
+<!--            <div class="i-face cp" @click="toUserPage()"></div>-->
+            <img :src="avatarUrl+data.avatar" alt="" class="i-face cp" @click="toUserPage()">
+
             <div class="main-content">
                 <div class="name cp fs15">
                     <span @click="toUserPage()">{{data.nickname}}</span>
@@ -61,7 +63,13 @@
                         @sendComment="handleSendComment($event)">
                 </comment-send>
                 <!-- 评论列表 -->
-                <floor class="ml20" v-for="(item,index) in commentList" :key="index" :data="item" :author="data.nickname"></floor>
+                <floor class="ml20"
+                       v-for="(item,index) in commentList"
+                       :key="index"
+                       :data="item"
+                       :author="data.nickname">
+
+                </floor>
             </div>
 
         </div>
@@ -116,6 +124,8 @@
         },
         data(){
             return{
+                avatarUrl:this.GLOBAL.staticUrl,
+
                 morePanelShownStatus:false,
                 commentCardShownStatus:false,
                 inputVal:'',
@@ -232,10 +242,10 @@
         top: 24px;
         left: 24px;
         display: inline-block;
-        background-image: url("../assets/images/jay.png");
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
+        /*background-image: url("../assets/images/jay.png");*/
+        /*background-size: cover;*/
+        /*background-position: center center;*/
+        /*background-repeat: no-repeat;*/
 
     }
     .mmtcard-container{

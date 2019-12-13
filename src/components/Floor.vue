@@ -1,7 +1,9 @@
 <template>
     <!--评论组件 楼层 -->
     <div class="floor fs14">
-        <div class="i-face"></div>
+<!--        <div class="i-face">-->
+            <img :src="GLOBAL.staticUrl+$store.getters.profile.avatar" alt="" class="i-face">
+<!--        </div>-->
         <div class="container ml10">
             <div v-if="author===this.data.nickname" class="name">{{data.nickname}}(作者)</div>
             <div v-else class="name">{{data.nickname}}</div>
@@ -41,8 +43,10 @@
             <!-- 回复列表  -->
             <div class="reply-box">
                 <div class="pt10" v-for="(item,index) in data.replyList" :key="index" :data="item">
-                    <div class="reply-face">
-                    </div>
+<!--                    <div class="reply-face">-->
+                    <!--                    todo-->
+                    <img :src="GLOBAL.staticUrl+item.avatar" alt="" class="reply-face">
+<!--                    </div>-->
                     <div class="reply-con">
                         <div class="user">{{item.nickname}}</div>
                         <span v-if="item.pnickname">{{'回复@'+item.pnickname+'： '}}</span>
@@ -223,10 +227,6 @@
         border-radius: 50%;
         position: relative;
         display: inline-block;
-        background-image: url("../assets/images/jay.png");
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
         float: left;
         margin: 24px 0 0 5px;
     }
@@ -237,10 +237,6 @@
         border-radius: 50%;
         position: relative;
         display: inline-block;
-        background-image: url("../assets/images/jay.png");
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
         float: left;
         margin: 5px 10px 0 0;
     }

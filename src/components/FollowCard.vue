@@ -1,7 +1,6 @@
 <template>
     <div class="follower-card">
-        <div class="follower-card-avatar cp"  @click="toUser()">
-        </div>
+        <img :src="GLOBAL.staticUrl+item.user.avatar" alt="" class="follower-card-avatar cp"  @click="toUser()">
         <div class="follower-card-content">
             <div class="follower-card-content-name  fs18 fw6 cp"  @click="toUser()">
                 {{item.user.nickname}}
@@ -47,7 +46,7 @@
                         // list的中的元素为：
                         followState: 0,
                         user: {
-                            avatar: null,
+                            avatar: '',
                             email: "chendanddd@qq.com",
                             followers: 0,
                             following: 1,

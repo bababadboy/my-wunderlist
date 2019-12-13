@@ -7,7 +7,7 @@
                <div class="avatar-edit-hint">
                    <span class="hint-text">修改我的头像</span>
                </div>
-               <img :src="avatarUrl+avatarName" alt="avatar" class="avatar-img">
+               <img :src="avatarUrl+profile.avatar" alt="avatar" class="avatar-img">
                <label>
                    <input type="file" accept="image/jpeg,image/png" class="input-file-btn cp" @change="handleFileUpload">
                </label>
@@ -18,7 +18,7 @@
            <div class="edit-box">
                <h3 class="edit-label">用户名</h3>
                <div v-if="!textInputShown.name" class="edit-content">
-                   <span>{{$store.getters.profile.nickname}}</span>
+                   <span>{{this.profile.nickname}}</span>
                    <span class="modify-btn cp" @click="modify('name')">修改</span>
                </div>
                <div v-if="textInputShown.name" class="edit-content">
@@ -32,7 +32,7 @@
            <div class="edit-box">
                <h3 class="edit-label">性别</h3>
                <div class="edit-content">
-                   <span>{{gender}}</span>
+                   <span>{{genderConverter[profile.gender]}}</span>
                    <span class="modify-btn cp" @click="modify()">修改</span>
                </div>
            </div>
@@ -62,7 +62,6 @@
     // import axios from 'axios'
 
 
-
     export default {
         name: "ProfileEdit",
         components:{
@@ -74,23 +73,35 @@
                 api:{
                     avatarUpload:'/api/v1/upload/avatar'
                 },
+                genderConverter : {
+                    0:'男',
+                    1:'女',
+                    2:'保密'
+                },
+                profile:{
+                    avatar: "",
+                    email: "",
+                    followers: 0,
+                    following: 0,
+                    gender: 0,
+                    moments: 0,
+                    nickname: "",
+                    uid: 0,
+                    userType: 0,
+                    vip: 0,
+                },
                 avatarUrl:this.GLOBAL.staticUrl,
-                avatarName:'wangxbd8f4e485b2b848ff9e87233b0bbe0db4.jpg',
-                errorStr:'',
                 textInputShown:{
                     name:false,
                     gender:false,
                     selfIntro:false
                 },
-                name:this.$store.getters.profile.nickname,
                 selfIntro:'我什么也没有介绍',
-                gender:'男',
-
             }
         },
         mounted(){
-            // 把个人信息拿出来 todo
-
+            // 把个人信息拿出来
+            this.profile = this.$store.getters.profile
         },
         methods:{
             // 处理图片上传
@@ -103,20 +114,23 @@
                 // 比如上传头像限制2M大小，这里获取的大小单位是b
                 if (imgSize <= 2 * 1024 * 1024) {
                     // 合格
-                    this.errorStr = ''
                     window.console.log('大小合适')
                     // 开始渲染选择的图片
                     // 本地路径方法 1
-                    this.avatarSrc = window.URL.createObjectURL(file)
-                    window.console.log(window.URL.createObjectURL(file)) // 获取当前文件的信息
+                    // this.avatarSrc = window.URL.createObjectURL(file)
+                    // window.console.log(window.URL.createObjectURL(file)) // 获取当前文件的信息
 
                     let image = new FormData()
                     image.append('avatar', file)
 
                     // 上传图片到服务器
                     uploadFile(this.api.avatarUpload,image).then(res=>{
-                        this.avatarName = res.data.name
-                        //
+
+                        this.profile.avatar = res.data.name
+
+                        this.$store.dispatch('setProfile',this.profile).then(()=>{
+
+                        })
                     }).catch(err=>{
                         window.console.log(err)
 

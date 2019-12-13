@@ -2,7 +2,9 @@
     <!--对动态发布评论的组件 -->
     <div :class="['comment-send',borderTop?'bt':'']">
         <!-- 头像展示区    -->
-        <div class="face"></div>
+<!--        <div class="face">-->
+            <img :src="avatarUrl+$store.getters.profile.avatar" alt="" class="face">
+<!--        </div>-->
 
         <text-area class="txtarea"
                    @input="handleInput($event)"
@@ -54,6 +56,7 @@
         },
         data(){
             return {
+                avatarUrl: this.GLOBAL.staticUrl,
                 currentVal:'',
                 btnDisabled:true
             }
@@ -101,9 +104,9 @@
         border-radius: 50%;
         position: relative;
         display: inline-block;
-        background-image: url("../assets/images/jay.png");
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
+        /*background-image: url("../assets/images/jay.png");*/
+        /*background-size: cover;*/
+        /*background-position: center center;*/
+        /*background-repeat: no-repeat;*/
     }
 </style>
