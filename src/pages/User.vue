@@ -4,7 +4,7 @@
            <div class="user-card bs">
                <div class="background"></div>
 <!--               <div class="user-avatar">-->
-               <img :src="avatarUrl+$store.getters.profile.avatar" alt="" class="user-avatar">
+               <img :src="avatarUrl+this.userProfile.avatar" alt="" class="user-avatar">
 <!--               </div>-->
                <div class="user-info">
                    <div class="user-name">
@@ -74,10 +74,10 @@
                 selectItems:['动态','发布','Ta关注的','关注Ta的'],
                 selectItemsMe:['动态','发布','我关注的','关注我的'],
                 userProfile:{
-                    nickname:'没有名字',
+                    nickname:'',
                     avatar:'',
                     gender:'',
-                    headLine:'',
+                    selfIntro:'',
                     followers: 0,
                     following: 0,
                 },
